@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { User } from './user/user.entity';
     }),
 
     UserModule,   
-    AuthModule,   
+    AuthModule, MailModule,   
   ],
   controllers: [AppController],
   providers: [AppService],
