@@ -38,6 +38,9 @@ else {
         }
     }
     
+    async find(email: string) {
+        return this.userRepository.find({ where: { email } });
+      }
 
     }
     
