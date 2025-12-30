@@ -26,7 +26,14 @@ export class MailService {
   }
 
   
-  async sendOtp(email: string, otp: string) {
+  private storeOTP = new Map<string, number>();
+  async sendOtp(email: string) {
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    this.storeOTP.set(email, otp);
+    setTimeout(() => this.storeOTP.delete(email), 5 * 60 * 1000);
+
+    
+
    
     await this.transporter.sendMail({
       from: `"OTP Service" <${process.env.MAIL_USER}>`,
@@ -223,6 +230,28 @@ export class MailService {
 `,
     });
   }
+  async verifyOtp(email: string, otp: number) {
+    const storedOtp = this.storeOTP.get(email);
+    if (storedOtp !== otp) {
+      return {
+        status: false,
+        message: 'Invalid OTP!',
+      };
+    }
+    if (!storedOtp) {
+      return {
+        status: false,
+        message: 'OTP not found',
+      };
+    }
+    this.storeOTP.delete(email);
+   
+    return {
+      status: true,
+      message: 'OTP verified successfully',
+    };
+  }
+
 
     }
 
