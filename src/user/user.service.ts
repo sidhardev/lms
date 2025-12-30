@@ -13,7 +13,14 @@ const scrypt = promisify(_scrypt);
 export class UserService {
     constructor(@InjectRepository(User) private readonly userRepository: Repository<User>){}
     async create(createUserDto: CreateUserDto) {
-
+        const existingUser = await this.userRepository.findOne({ where: { email: createUserDto.email } });
+        if (existingUser) {
+          return {
+            status: false,
+            message: 'User already exists',
+          };
+        }
+else {
         const user = this.userRepository.create(createUserDto);
         const salt = randomBytes(8).toString('hex');
         const hash = (await scrypt(createUserDto.password, salt, 32)) as Buffer;
@@ -29,6 +36,7 @@ export class UserService {
         },
       };
         }
+    }
     
 
     }
