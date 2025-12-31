@@ -26,7 +26,8 @@ export class AuthService {
             message: 'Invalid password',
           };
         }
-        const payload = { sub: user.id, email: user.email };
+        const payload = {sub: user.id, 
+  email: user.email, otpVerified: true };
         const token = await this.jwtService.signAsync(payload);
         return {
           status: true,
@@ -38,4 +39,7 @@ export class AuthService {
 
     }
     
+    resetPassword() {
+        
+    }
 }

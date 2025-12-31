@@ -3,7 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import * as dotenv from 'dotenv';
-
+import { JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 dotenv.config();
 
 
@@ -11,7 +12,7 @@ dotenv.config();
 export class MailService {
   private transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
 
-  constructor() {
+  constructor(private configService: ConfigService, private jwtService: JwtService) {
     this.transporter = nodemailer.createTransport(
       new SMTPTransport({
         host: process.env.MAIL_HOST,
@@ -245,10 +246,12 @@ export class MailService {
       };
     }
     this.storeOTP.delete(email);
-   
+   const payload = {email: email };
+        const token = await this.jwtService.signAsync(payload);
     return {
       status: true,
       message: 'OTP verified successfully',
+      token,
     };
   }
 

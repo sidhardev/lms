@@ -13,5 +13,5 @@ export class AuthController {
         const user = await this.authService.signin(body.email, body.password);
         return user;
     }
-
+    
 }

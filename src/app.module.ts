@@ -26,7 +26,7 @@ import { MailModule } from './mail/mail.module';
 
     JwtModule.register({
       global: true,
-      secret: 'keysecret',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
 

@@ -37,6 +37,7 @@ export class MailController {
         const result = await this.mailService.verifyOtp(email, otp);
         return result;
     }
+    
 
 
 }
