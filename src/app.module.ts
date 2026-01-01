@@ -10,6 +10,10 @@ import { User } from './user/user.entity';
 import { MailModule } from './mail/mail.module';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { CouponsModule } from './coupons/coupons.module';
+import { Coupon } from './coupons/coupon.entity';
+import { AdminController } from './coupons/admin/admin-coupon.controller';
+import { AdminModule } from './coupons/admin/admin-coupon.module';
 
 @Module({
   imports: [
@@ -22,7 +26,7 @@ import { JwtService } from '@nestjs/jwt';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User],
+      entities: [User, Coupon],
       synchronize: true,
     }),
 
@@ -37,9 +41,9 @@ import { JwtService } from '@nestjs/jwt';
     }),
 
     UserModule,   
-    AuthModule, MailModule,   
+    AuthModule, MailModule, CouponsModule, AdminModule,   
   ],
-  controllers: [AppController],
+  controllers: [AppController, AdminController,],
   providers: [AppService],
 })
 export class AppModule {}
