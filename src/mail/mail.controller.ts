@@ -8,7 +8,7 @@ export class MailController {
 
     constructor(private readonly mailService: MailService) {}
 
-    @Post('/send-otp')
+  //  @Post('/send-otp')
     async sendOtp(@Body() body: SendMailDto) {
         const { email } = body;
         if (!email) {
@@ -24,7 +24,7 @@ export class MailController {
             message: 'OTP sent successfully',
         };
     }
-    @Post('/verify-otp')
+   // @Post('/verify-otp')
     async verifyOtp(@Body() body: VerifyOtpDto) {
         const { email, otp } = body;
         if (!email || !otp) {

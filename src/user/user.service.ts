@@ -22,7 +22,7 @@ export class UserService {
           };
         }
 else {
-        const user = this.userRepository.create(createUserDto);
+        const user = this.userRepository.create(createUserDto );
         const salt = randomBytes(8).toString('hex');
         const hash = (await scrypt(createUserDto.password, salt, 32)) as Buffer;
         user.password = salt + '.' + hash.toString('hex');  
@@ -30,7 +30,7 @@ else {
         this.userRepository.save(user);
         return {
         status: true,
-        message: 'SignUp successful, Verify your email to continue',
+        message: 'SignUp successful',
         user: {
           id: user.id,
           email: user.email,
@@ -52,6 +52,20 @@ else {
     
     async find(email: string) {
         return this.userRepository.find({ where: { email } });
+      }
+
+      findByEmail(email: string) {
+        return this.userRepository.findOne({ where: { email } });
+      }
+
+      updatePassword(email: string, hashedPassword: string) {
+        return this.userRepository.update(email, { password: hashedPassword });
+      }
+      updateUser(user: User) {
+  return this.userRepository.save(user);
+}
+      findByToken(options: any) {
+        return this.userRepository.findOne(options);
       }
 
     }

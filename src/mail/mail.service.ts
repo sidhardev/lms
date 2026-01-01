@@ -28,6 +28,8 @@ export class MailService {
 
   
   private storeOTP = new Map<string, number>();
+  private verifiedEmails = new Set<string>(); // Add this line
+
   async sendOtp(email: string) {
     const otp = Math.floor(100000 + Math.random() * 900000);
     this.storeOTP.set(email, otp);
@@ -233,21 +235,25 @@ export class MailService {
   }
   async verifyOtp(email: string, otp: number) {
     const storedOtp = this.storeOTP.get(email);
-    if (storedOtp !== otp) {
-      return {
-        status: false,
-        message: 'Invalid OTP!',
-      };
-    }
+    
     if (!storedOtp) {
       return {
         status: false,
         message: 'OTP not found',
       };
     }
-    this.storeOTP.delete(email);
-   const payload = {email: email };
-        const token = await this.jwtService.signAsync(payload);
+    
+    if (storedOtp !== otp) {
+      return {
+        status: false,
+        message: 'Invalid OTP!',
+      };
+    }
+    
+    const payload = { email, otpVerified: true };
+    const token = await this.jwtService.signAsync(payload);
+    this.verifiedEmails.add(email); 
+    
     return {
       status: true,
       message: 'OTP verified successfully',
@@ -255,9 +261,24 @@ export class MailService {
     };
   }
 
+  sendResetPasswordEmail(email: string, token: string) {
+    const resetLink = `http://localhost:3000/auth/reset-password?token=${token}&email=${email}`;
+    return this.transporter.sendMail({
+      from: `"Password Reset" <${process.env.MAIL_USER}>`,
+      to: email,
+      subject: 'Password Reset Request',
+      html: `<p>You requested a password reset. Click the link below to reset your password:</p>
+             <a href="${resetLink}">Reset Password</a>
+             <p>This link will expire in 15 minutes.</p>`,
+    });
 
     }
 
+    // Add this new method
+    isOtpVerified(email: string): boolean {
+      return this.verifiedEmails.has(email);
+    }
+}
 
 
 

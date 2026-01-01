@@ -1,25 +1,19 @@
-import { Entity } from "typeorm";
-import { PrimaryGeneratedColumn, Column,  } from "typeorm";
-import { Exclude } from "class-transformer";
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  firstname: string;
-  
-  @Column()
-  lastname: string;
-  
   @Column({ unique: true })
   email: string;
-  
+
   @Column()
-  @Exclude()
   password: string;
 
-  @Column({default: false})
-  isVerified: boolean;
+  @Column({ type: 'varchar', length: 64, nullable: true })
+  resetPasswordToken: string | null;
+
+  @Column({ type: 'timestamp', nullable: true })
+  resetPasswordExpires: Date | null;
 }

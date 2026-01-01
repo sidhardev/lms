@@ -56,7 +56,9 @@ async verifyOtp(@Body() body: VerifyOtpDto) {
 @UseGuards(JwtAuthGuard)
 @Post('/signup')
 async createUser(@Body() createUserDto: CreateUserDto, @Req() req: any) {
-if (!req.user.otpVerified) {
+  const otpVerified = await req.user.otpVerified;
+  console.log('OTP Verified:', otpVerified);
+if (!otpVerified) {
     throw new UnauthorizedException('OTP not verified');
   }
   const user = await this.userService.create(createUserDto);

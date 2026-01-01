@@ -8,6 +8,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 import { MailModule } from './mail/mail.module';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -24,10 +26,14 @@ import { MailModule } from './mail/mail.module';
       synchronize: true,
     }),
 
-    JwtModule.register({
-      global: true,
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET') || 'keysecret',
+        signOptions: {
+          expiresIn: '1d',
+        },
+      }),
     }),
 
     UserModule,   
