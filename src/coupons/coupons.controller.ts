@@ -4,9 +4,9 @@ import { CouponsService } from './coupons.service';
 
 @Controller('coupons')
 export class CouponsController {
-    constructor(private couponService: CouponsService) {}
-    @Post('apply')
-    applyCoupon(@Body() applyCouponDto: ApplyCouponDto) {
-        return this.couponService.applyOrderDiscount(applyCouponDto);
-}
+  constructor(private couponService: CouponsService) {}
+  @Post('apply')
+  applyCoupon(@Body() applyCouponDto: ApplyCouponDto) {
+    return this.couponService.applyOrderDiscount(applyCouponDto);
+  }
 }

@@ -12,8 +12,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { CouponsModule } from './coupons/coupons.module';
 import { Coupon } from './coupons/coupon.entity';
-import { AdminController } from './coupons/admin/admin-coupon.controller';
-import { AdminModule } from './coupons/admin/admin-coupon.module';
+import { AdminController } from './coupons/admin/admin-coupons.controller';
+import { AdminModule } from './coupons/admin/admin-coupons.module';
 
 @Module({
   imports: [
@@ -40,10 +40,13 @@ import { AdminModule } from './coupons/admin/admin-coupon.module';
       }),
     }),
 
-    UserModule,   
-    AuthModule, MailModule, CouponsModule, AdminModule,   
+    UserModule,
+    AuthModule,
+    MailModule,
+    CouponsModule,
+    AdminModule,
   ],
-  controllers: [AppController, AdminController,],
+  controllers: [AppController, AdminController],
   providers: [AppService],
 })
 export class AppModule {}

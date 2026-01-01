@@ -1,28 +1,27 @@
-import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
 @Entity()
 export class Coupon {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    code: string;
-    
-    @Column()
-    type: 'ORDER';
+  @Column()
+  code: string;
 
-    @Column()
-    discountType: 'PERCENT' | 'FLAT';
+  @Column()
+  type: 'ORDER';
 
-    @Column('decimal')
-    discountValue: number;
+  @Column()
+  discountType: 'PERCENT' | 'FLAT';
 
-    @Column()
-    minOrderValue: number;
+  @Column('decimal')
+  discountValue: number;
 
-    @Column('decimal', {nullable: true})
-    maxDiscountValue: number;
+  @Column()
+  minOrderValue: number;
 
-    
+  @Column('decimal', { nullable: true })
+  maxDiscountValue: number;
+
   @Column({ default: false })
   isAutoApply: boolean;
 
@@ -34,5 +33,4 @@ export class Coupon {
 
   @Column()
   endAt: Date;
-
 }

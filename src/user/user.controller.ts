@@ -13,59 +13,53 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { access } from 'fs';
 import { UnauthorizedException } from '@nestjs/common';
 
-
 @Controller('user')
 export class UserController {
+  constructor(
+    private readonly userService: UserService,
+    private readonly mailService: MailService,
+  ) {}
 
-    constructor(private readonly userService: UserService, private readonly mailService: MailService) {}
-
-@Post('/send-otp')
-async sendOtp(@Body() body: SendMailDto) {
-const user = await this.userService.sendOtp(body.email);
-return user;
-}
-@Post('/verify-otp')
-async verifyOtp(@Body() body: VerifyOtpDto) {
-  const { email, otp } = body;
-  if (!email || !otp) {
-      return {
-          status: false,
-          message: 'Email and OTP are required',
-      };
+  @Post('/send-otp')
+  async sendOtp(@Body() body: SendMailDto) {
+    const user = await this.userService.sendOtp(body.email);
+    return user;
   }
+  @Post('/verify-otp')
+  async verifyOtp(@Body() body: VerifyOtpDto) {
+    const { email, otp } = body;
+    if (!email || !otp) {
+      return {
+        status: false,
+        message: 'Email and OTP are required',
+      };
+    }
 
-  const result = await this.userService.verifyOtp(email, otp);
-  if (!result.status) {
+    const result = await this.userService.verifyOtp(email, otp);
+    if (!result.status) {
+      return {
+        status: false,
+        message: 'Invalid OTP!',
+      };
+    }
+
     return {
-      status: false,
-      message: 'Invalid OTP!',
+      status: true,
+      message: 'OTP verified successfully',
+      access_token: result.token,
     };
   }
 
-  return {
-    status: true,
-    message: 'OTP verified successfully',
-    access_token: result.token,
-  };
-}
-
-
-
-
-@ApiBearerAuth('access-token')
-@UseGuards(JwtAuthGuard)
-@Post('/signup')
-async createUser(@Body() createUserDto: CreateUserDto, @Req() req: any) {
-  const otpVerified = await req.user.otpVerified;
-  console.log('OTP Verified:', otpVerified);
-if (!otpVerified) {
-    throw new UnauthorizedException('OTP not verified');
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAuthGuard)
+  @Post('/signup')
+  async createUser(@Body() createUserDto: CreateUserDto, @Req() req: any) {
+    const otpVerified = await req.user.otpVerified;
+    console.log('OTP Verified:', otpVerified);
+    if (!otpVerified) {
+      throw new UnauthorizedException('OTP not verified');
+    }
+    const user = await this.userService.create(createUserDto);
+    return user;
   }
-  const user = await this.userService.create(createUserDto);
-   return user;   
-
-
-}
-
-
 }

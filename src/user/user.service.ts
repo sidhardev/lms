@@ -9,26 +9,29 @@ import { MailService } from 'src/mail/mail.service';
 
 const scrypt = promisify(_scrypt);
 
-
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private readonly userRepository: Repository<User>, private readonly mailService: MailService){}
-    async create(createUserDto: CreateUserDto) {
-        const existingUser = await this.userRepository.findOne({ where: { email: createUserDto.email } });
-        if (existingUser) {
-          return {
-            status: false,
-            message: 'User already exists',
-          };
-        }
-else {
-        const user = this.userRepository.create(createUserDto );
-        const salt = randomBytes(8).toString('hex');
-        const hash = (await scrypt(createUserDto.password, salt, 32)) as Buffer;
-        user.password = salt + '.' + hash.toString('hex');  
+  constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly mailService: MailService,
+  ) {}
+  async create(createUserDto: CreateUserDto) {
+    const existingUser = await this.userRepository.findOne({
+      where: { email: createUserDto.email },
+    });
+    if (existingUser) {
+      return {
+        status: false,
+        message: 'User already exists',
+      };
+    } else {
+      const user = this.userRepository.create(createUserDto);
+      const salt = randomBytes(8).toString('hex');
+      const hash = (await scrypt(createUserDto.password, salt, 32)) as Buffer;
+      user.password = salt + '.' + hash.toString('hex');
 
-        this.userRepository.save(user);
-        return {
+      this.userRepository.save(user);
+      return {
         status: true,
         message: 'SignUp successful',
         user: {
@@ -36,37 +39,35 @@ else {
           email: user.email,
         },
       };
-        }
     }
-    async sendOtp(email: string) {
-                const user = await this.mailService.sendOtp(email);
-                return {
-                    status: true,
-                    message: 'OTP sent successfully',
-                };
-    }
-    async verifyOtp(email: string, otp: number) {
-        const user = await this.mailService.verifyOtp(email, otp);
-        return user;
-    }
-    
-    async find(email: string) {
-        return this.userRepository.find({ where: { email } });
-      }
+  }
+  async sendOtp(email: string) {
+    const user = await this.mailService.sendOtp(email);
+    return {
+      status: true,
+      message: 'OTP sent successfully',
+    };
+  }
+  async verifyOtp(email: string, otp: number) {
+    const user = await this.mailService.verifyOtp(email, otp);
+    return user;
+  }
 
-      findByEmail(email: string) {
-        return this.userRepository.findOne({ where: { email } });
-      }
+  async find(email: string) {
+    return this.userRepository.find({ where: { email } });
+  }
 
-      updatePassword(email: string, hashedPassword: string) {
-        return this.userRepository.update(email, { password: hashedPassword });
-      }
-      updateUser(user: User) {
-  return this.userRepository.save(user);
+  findByEmail(email: string) {
+    return this.userRepository.findOne({ where: { email } });
+  }
+
+  updatePassword(email: string, hashedPassword: string) {
+    return this.userRepository.update(email, { password: hashedPassword });
+  }
+  updateUser(user: User) {
+    return this.userRepository.save(user);
+  }
+  findByToken(options: any) {
+    return this.userRepository.findOne(options);
+  }
 }
-      findByToken(options: any) {
-        return this.userRepository.findOne(options);
-      }
-
-    }
-    
