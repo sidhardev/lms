@@ -12,13 +12,13 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { CouponsModule } from './coupons/coupons.module';
 import { Coupon } from './coupons/coupon.entity';
-import { AdminController } from './coupons/admin/admin-coupons.controller';
+import { AdminCouponsController } from './coupons/admin/admin-coupons.controller';
 import { AdminModule } from './coupons/admin/admin-coupons.module';
+import { CouponRedemption } from './coupons/redemptions/coupon-redemption.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -26,10 +26,9 @@ import { AdminModule } from './coupons/admin/admin-coupons.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Coupon],
+      entities: [User, Coupon, CouponRedemption],
       synchronize: true,
     }),
-
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
@@ -39,14 +38,13 @@ import { AdminModule } from './coupons/admin/admin-coupons.module';
         },
       }),
     }),
-
     UserModule,
     AuthModule,
     MailModule,
     CouponsModule,
     AdminModule,
   ],
-  controllers: [AppController, AdminController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

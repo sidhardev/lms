@@ -36,4 +36,5 @@ export class UpdateCouponDto {
     example: false,
   })
   isActive?: boolean;
+  
 }

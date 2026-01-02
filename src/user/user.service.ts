@@ -29,8 +29,9 @@ export class UserService {
       const salt = randomBytes(8).toString('hex');
       const hash = (await scrypt(createUserDto.password, salt, 32)) as Buffer;
       user.password = salt + '.' + hash.toString('hex');
+      user.role = 'USER'; // Explicitly set role
 
-      this.userRepository.save(user);
+      await this.userRepository.save(user); // ADD AWAIT HERE!
       return {
         status: true,
         message: 'SignUp successful',

@@ -9,26 +9,30 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { UpdateCouponDto } from '../dtos/update-coupon.dto';
-
+import { CreateCouponDto } from '../dtos/create-coupon.dto';
+import { Req } from '@nestjs/common';
 @Injectable()
 export class AdminCouponsService {
 
     constructor(@InjectRepository(Coupon) private readonly couponRepository: Repository<Coupon>) {}
 
-    async createCoupon(createCouponDto: ApplyCouponDto) {
-        const existingCoupon = await this.couponRepository.findOne({ where: { code: createCouponDto.couponCode } });
+    async createCoupon(createCouponDto: CreateCouponDto, @Req() req: any) {
+        const existingCoupon = await this.couponRepository.findOne({ where: { code: createCouponDto.code } });
         if (existingCoupon) {
             throw new BadRequestException('Coupon code already exists.');
         }
         const coupon = this.couponRepository.create({
-            code: createCouponDto.couponCode,
-            discountType: 'FLAT',
-            discountValue: 0,
+            code: createCouponDto.code,
+            discountType: createCouponDto.discountType,
+            discountValue: createCouponDto.discountValue,
             isActive: true,
-            type: 'ORDER',
-            startAt: new Date(),
-            endAt: new Date(new Date().setMonth(new Date().getMonth() + 1)),
-            minOrderValue: 0,
+            isAutoApply: createCouponDto.isAutoApply,
+            type:  createCouponDto.type,
+            startAt: createCouponDto.startAt || new Date(),
+            endAt: createCouponDto.endAt,
+            minOrderValue: createCouponDto.minOrderValue,
+            maxDiscountValue: createCouponDto.maxDiscount,
+            createdBy: req.user.id
         });
         await this.couponRepository.save(coupon);
         return coupon;

@@ -5,6 +5,12 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  firstname: string;
+
+  @Column()
+  lastname: string;
+
   @Column({ unique: true })
   email: string;
 
@@ -16,4 +22,7 @@ export class User {
 
   @Column({ type: 'timestamp', nullable: true })
   resetPasswordExpires: Date | null;
+
+  @Column({ default: 'USER' })
+  role: 'USER' | 'ADMIN';
 }

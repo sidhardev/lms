@@ -1,9 +1,11 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseGuards } from '@nestjs/common';
 import { Post, Body, Get, Query } from '@nestjs/common';
 import { UserSigninDto } from './dtos/user-signin.dto';
 import { AuthService } from './auth.service';
 import { ResetPasswordDto } from './dtos/reset-passsword.dto';
 import { ForgetPasswordDto } from './dtos/forget-password.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -14,13 +16,11 @@ export class AuthController {
     const user = await this.authService.signin(body.email, body.password);
     return user;
   }
-
   @Post('/forget-password')
   async forgetPassword(@Body() body: ForgetPasswordDto) {
     const result = await this.authService.forgetPassword(body.email);
     return result;
   }
-
   @Get('reset-password')
   verifyResetToken(@Query('token') token: string) {
     return this.authService.verifyResetToken(token);

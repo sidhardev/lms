@@ -54,8 +54,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Post('/signup')
   async createUser(@Body() createUserDto: CreateUserDto, @Req() req: any) {
-    const otpVerified = await req.user.otpVerified;
-    console.log('OTP Verified:', otpVerified);
+    const otpVerified = req.user?.otpVerified;
     if (!otpVerified) {
       throw new UnauthorizedException('OTP not verified');
     }

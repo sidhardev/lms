@@ -33,4 +33,13 @@ export class Coupon {
 
   @Column()
   endAt: Date;
+
+  @Column({ nullable: true })
+  createdBy: number;
+
+  @Column({ nullable: true })
+  usageLimit: number;
+  
+  @Column({ nullable: true })
+   perUserLimit: number;
 }
