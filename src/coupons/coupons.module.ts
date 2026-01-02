@@ -12,7 +12,7 @@ import { CouponAnalyticsModule } from './analytics/coupon-analytics.module';
 import { CouponAnalyticsService } from './analytics/coupon-analytics.service';
 import { Wallet } from 'src/rewards/wallet.entity';
 import { RewardsModule } from 'src/rewards/rewards.module';
-import { RewardsService } from 'src/rewards/rewards.service';
+import { WalletService } from 'src/rewards/wallet.service';
 import { RewardsController } from 'src/rewards/rewards.controller';
 
 
@@ -26,7 +26,7 @@ import { RewardsController } from 'src/rewards/rewards.controller';
     AdminCouponsService,
     CouponRedemptionService,
     CouponAnalyticsService,
-    RewardsService,
+    WalletService,
 
   ],
   controllers: [

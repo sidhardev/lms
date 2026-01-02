@@ -15,7 +15,7 @@ import { Coupon } from './coupons/coupon.entity';
 import { AdminCouponsController } from './coupons/admin/admin-coupons.controller';
 import { AdminModule } from './coupons/admin/admin-coupons.module';
 import { CouponRedemption } from './coupons/redemptions/coupon-redemption.entity';
-import { RewardsService } from './rewards/rewards.service';
+import { WalletService } from './rewards/wallet.service';
 import { RewardsModule } from './rewards/rewards.module';
 import { Wallet } from './rewards/wallet.entity';
 

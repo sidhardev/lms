@@ -8,7 +8,7 @@ import { Wallet } from 'src/rewards/wallet.entity';
 
 
 @Injectable()
-export class RewardsService {
+export class WalletService {
 
     constructor(@InjectRepository(Wallet) private readonly walletRepository: Repository<Wallet>) {}
 
@@ -50,6 +50,28 @@ if (existingWallet) {
 
     return this.walletRepository.save(wallet);
 }
+ async debitPoints(
+    userId: number,
+    points: number,
+  ): Promise<Wallet> {
+    if (points <= 0) {
+      throw new BadRequestException(
+        'Points to debit must be positive',
+      );
+    }
+
+    const wallet = await this.getWalletByUserId(userId);
+
+    if (wallet.availablePoints < points) {
+      throw new BadRequestException(
+        'Insufficient reward balance',
+      );
+    }
+
+    wallet.availablePoints -= points;
+
+    return this.walletRepository.save(wallet);
+  }
 
 
 

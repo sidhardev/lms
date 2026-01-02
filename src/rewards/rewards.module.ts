@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Wallet } from 'src/rewards/wallet.entity';
 import { RewardsController } from './rewards.controller';
-import { RewardsService } from './rewards.service';
+import { WalletService } from './wallet.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Wallet])],
   controllers: [RewardsController],
-  providers: [RewardsService],
-  exports: [],
+  providers: [WalletService],
+  exports: [WalletService],
 })
 export class RewardsModule {}
