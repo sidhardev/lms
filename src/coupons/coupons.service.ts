@@ -5,15 +5,16 @@ import { Coupon } from './coupon.entity';
 import { ApplyCouponDto } from './dtos/apply-coupon.dto';
 import { CouponRedemptionService } from './redemptions/coupon-redemption.service';
 import { ConfirmCouponDto } from './dtos/confirm-copon.dto';
-
-
+import { CouponRedemption } from './redemptions/coupon-redemption.entity';
 
 @Injectable()
 export class CouponsService {
   constructor(
     @InjectRepository(Coupon)
     private readonly couponRepository: Repository<Coupon>,
-    private readonly couponRedemptionService: CouponRedemptionService,  
+    @InjectRepository(CouponRedemption)
+    private readonly couponRedemptionRepository: Repository<CouponRedemption>,
+    private readonly couponRedemptionService: CouponRedemptionService,
   ) {}
 
   async applyCoupon(ApplyCouponDto: ApplyCouponDto, userId: number) {
@@ -30,20 +31,19 @@ export class CouponsService {
       throw new BadRequestException('Coupon expired');
     }
 
-
     let discount = 0;
     if (cartTotal < coupon.minOrderValue) {
       throw new BadRequestException(`Min order value ₹${coupon.minOrderValue}`);
     }
 
-    if(coupon.perUserLimit !== null) {
-
-      const userUsage = await this.couponRedemptionService.getTotalUsage(coupon.id, userId);
+    if (coupon.perUserLimit !== null) {
+      const userUsage = await this.couponRedemptionService.getTotalUsage(
+        coupon.id,
+        userId,
+      );
       if (userUsage >= coupon.perUserLimit) {
         throw new BadRequestException('Per user coupon usage limit exceeded.');
       }
-
-
     }
     if (coupon.discountType === 'FLAT') {
       discount = coupon.discountValue;
@@ -72,12 +72,18 @@ export class CouponsService {
       throw new BadRequestException('Invalid or inactive coupon.');
     }
 
-    const alreadyRedeemed = await this.couponRedemptionService.getTotalUsage(couponId, userId)
-    if (alreadyRedeemed > 0) {
+    const alreadyRedeemed = await this.couponRedemptionRepository.findOne({
+      where: {
+        coupon: { id: couponId },
+        orderId,
+      },
+    });
+
+    if (alreadyRedeemed) {
       throw new BadRequestException('Coupon already redeemed for this order.');
     }
 
-    if(!orderId) {
+    if (!orderId) {
       throw new BadRequestException('Order ID is required to confirm coupon.');
     }
 
@@ -91,10 +97,6 @@ export class CouponsService {
       status: true,
       message: 'Coupon confirmed and redemption recorded.',
       redemption,
-      
-    }
-
-
-
+    };
   }
 }

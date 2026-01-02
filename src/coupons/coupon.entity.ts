@@ -39,7 +39,7 @@ export class Coupon {
 
   @Column({ nullable: true })
   usageLimit: number;
-  
+
   @Column({ nullable: true })
-   perUserLimit: number;
+  perUserLimit: number;
 }

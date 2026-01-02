@@ -1,4 +1,9 @@
-import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+} from '@nestjs/common';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
@@ -16,8 +21,12 @@ export class AdminGuard implements CanActivate {
     }
 
     if (user.role !== 'ADMIN') {
-      console.log(`DEBUG - AdminGuard - Role mismatch! Expected ADMIN, got ${user.role}`);
-      throw new ForbiddenException(`Access denied. You are ${user.role}, only ADMIN can access this`);
+      console.log(
+        `DEBUG - AdminGuard - Role mismatch! Expected ADMIN, got ${user.role}`,
+      );
+      throw new ForbiddenException(
+        `Access denied. You are ${user.role}, only ADMIN can access this`,
+      );
     }
 
     console.log('DEBUG - AdminGuard - Admin verified! Allowing access');

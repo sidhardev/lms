@@ -54,7 +54,7 @@ export class CreateCouponDto {
   })
   @IsOptional()
   @IsNumber()
-  maxDiscount?: number;
+  maxDiscountValue?: number;
 
   @ApiProperty({
     example: true,
@@ -79,12 +79,12 @@ export class CreateCouponDto {
 
   @ApiProperty({
     example: 5,
-    required: false,  
+    required: false,
     description: 'Maximum number of times a user can use the coupon',
   })
   @IsOptional()
   @IsNumber()
-  perUserLimit?: number;
+  perUserLimit: number;
 
   @ApiProperty({
     example: 100,
@@ -93,5 +93,5 @@ export class CreateCouponDto {
   })
   @IsOptional()
   @IsNumber()
-  usageLimit?: number;
+  usageLimit: number;
 }

@@ -8,12 +8,12 @@ import {
   Body,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { AdminCouponsService } from './admin-coupons.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ApplyCouponDto } from '../dtos/apply-coupon.dto';
 import { UpdateCouponDto } from '../dtos/update-coupon.dto';
-import {CreateCouponDto} from '../dtos/create-coupon.dto';
+import { CreateCouponDto } from '../dtos/create-coupon.dto';
 import { AdminGuard } from 'src/auth/guards/admin-guard';
 import { CouponAnalyticsService } from '../analytics/coupon-analytics.service';
 import { Req } from '@nestjs/common';
@@ -36,6 +36,14 @@ export class AdminCouponsController {
   @Get()
   findAll() {
     return this.adminCouponsService.findAll();
+  }
+
+  @ApiBody({
+    type: UpdateCouponDto,
+  })
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateCouponDto: UpdateCouponDto) {
+    return this.adminCouponsService.update(+id, updateCouponDto);
   }
 
   @Get(':id/analytics')

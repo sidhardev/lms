@@ -15,6 +15,10 @@ import { Coupon } from './coupons/coupon.entity';
 import { AdminCouponsController } from './coupons/admin/admin-coupons.controller';
 import { AdminModule } from './coupons/admin/admin-coupons.module';
 import { CouponRedemption } from './coupons/redemptions/coupon-redemption.entity';
+import { RewardsService } from './rewards/rewards.service';
+import { RewardsModule } from './rewards/rewards.module';
+import { Wallet } from './rewards/wallet.entity';
+
 
 @Module({
   imports: [
@@ -26,7 +30,7 @@ import { CouponRedemption } from './coupons/redemptions/coupon-redemption.entity
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Coupon, CouponRedemption],
+      entities: [User, Coupon, CouponRedemption, Wallet],
       synchronize: true,
     }),
     JwtModule.registerAsync({
@@ -43,6 +47,7 @@ import { CouponRedemption } from './coupons/redemptions/coupon-redemption.entity
     MailModule,
     CouponsModule,
     AdminModule,
+    RewardsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

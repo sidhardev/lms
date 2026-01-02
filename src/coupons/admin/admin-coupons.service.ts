@@ -13,59 +13,66 @@ import { CreateCouponDto } from '../dtos/create-coupon.dto';
 import { Req } from '@nestjs/common';
 @Injectable()
 export class AdminCouponsService {
+  constructor(
+    @InjectRepository(Coupon)
+    private readonly couponRepository: Repository<Coupon>,
+  ) {}
 
-    constructor(@InjectRepository(Coupon) private readonly couponRepository: Repository<Coupon>) {}
-
-    async createCoupon(createCouponDto: CreateCouponDto, @Req() req: any) {
-        const existingCoupon = await this.couponRepository.findOne({ where: { code: createCouponDto.code } });
-        if (existingCoupon) {
-            throw new BadRequestException('Coupon code already exists.');
-        }
-        const coupon = this.couponRepository.create({
-            code: createCouponDto.code,
-            discountType: createCouponDto.discountType,
-            discountValue: createCouponDto.discountValue,
-            isActive: true,
-            isAutoApply: createCouponDto.isAutoApply,
-            type:  createCouponDto.type,
-            startAt: createCouponDto.startAt || new Date(),
-            endAt: createCouponDto.endAt,
-            minOrderValue: createCouponDto.minOrderValue,
-            maxDiscountValue: createCouponDto.maxDiscount,
-            createdBy: req.user.id
-        });
-        await this.couponRepository.save(coupon);
-        return coupon;
+  async createCoupon(createCouponDto: CreateCouponDto, @Req() req: any) {
+    const existingCoupon = await this.couponRepository.findOne({
+      where: { code: createCouponDto.code },
+    });
+    if (existingCoupon) {
+      throw new BadRequestException('Coupon code already exists.');
     }
+    const coupon = this.couponRepository.create({
+      code: createCouponDto.code,
+      discountType: createCouponDto.discountType,
+      discountValue: createCouponDto.discountValue,
+      isActive: true,
+      isAutoApply: createCouponDto.isAutoApply,
+      type: createCouponDto.type,
+      startAt: createCouponDto.startAt || new Date(),
+      endAt: createCouponDto.endAt,
+      minOrderValue: createCouponDto.minOrderValue,
+      maxDiscountValue: createCouponDto.maxDiscountValue,
+      createdBy: req.user.id,
+      perUserLimit: createCouponDto.perUserLimit,
+      usageLimit: createCouponDto.usageLimit,
+    });
+    await this.couponRepository.save(coupon);
+    return coupon;
+  }
 
-    async updateCoupon(id: number, updateCouponDto: UpdateCouponDto) {
-        const coupon = await this.couponRepository.findOne({ where: { id } });
-        if (!coupon) {
-            throw new NotFoundException('Coupon not found.');
-        }
-        Object.assign(coupon, updateCouponDto);
-        await this.couponRepository.save(coupon);
-        return coupon;
+  async updateCoupon(id: number, updateCouponDto: UpdateCouponDto) {
+    const coupon = await this.couponRepository.findOne({ where: { id } });
+    if (!coupon) {
+      throw new NotFoundException('Coupon not found.');
     }
+    Object.assign(coupon, updateCouponDto);
+    await this.couponRepository.save(coupon);
+    return coupon;
+  }
 
-
-    findAll() {
+  findAll() {
     return this.couponRepository.find();
-    }
+  }
 
-
-    findOne(id: number) {
+  findOne(id: number) {
     return this.couponRepository.findOne({ where: { id } });
-    }
+  }
 
-    async remove(id: number) {
-        const coupon = await this.couponRepository.findOne({ where: { id } });
-        if (!coupon) {
-            throw new NotFoundException('Coupon not found.');
-        }
-        await this.couponRepository.softRemove(coupon);
-        return { message: 'Coupon removed successfully.' };
+  async remove(id: number) {
+    const coupon = await this.couponRepository.findOne({ where: { id } });
+    if (!coupon) {
+      throw new NotFoundException('Coupon not found.');
     }
-    
+    await this.couponRepository.softRemove(coupon);
+    return { message: 'Coupon removed successfully.' };
+  }
 
+  async update(id: number, updateCouponDto: UpdateCouponDto) {
+    this.couponRepository.update(id, updateCouponDto);
+    return { message: 'Coupon updated successfully.' };
+  }
 }
