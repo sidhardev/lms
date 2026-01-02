@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AnalyticsController } from './analytics.controller';
+import { AnalyticsController } from './coupon-analytics.controller';
 
 describe('AnalyticsController', () => {
   let controller: AnalyticsController;

@@ -15,6 +15,7 @@ import { ApplyCouponDto } from '../dtos/apply-coupon.dto';
 import { UpdateCouponDto } from '../dtos/update-coupon.dto';
 import {CreateCouponDto} from '../dtos/create-coupon.dto';
 import { AdminGuard } from 'src/auth/guards/admin-guard';
+import { CouponAnalyticsService } from '../analytics/coupon-analytics.service';
 import { Req } from '@nestjs/common';
 
 @ApiTags('Admin Coupons')
@@ -24,6 +25,7 @@ import { Req } from '@nestjs/common';
 export class AdminCouponsController {
   constructor(
     private readonly adminCouponsService: AdminCouponsService,
+    private readonly couponAnalyticsService: CouponAnalyticsService,
   ) {}
 
   @Post()
@@ -34,5 +36,10 @@ export class AdminCouponsController {
   @Get()
   findAll() {
     return this.adminCouponsService.findAll();
+  }
+
+  @Get(':id/analytics')
+  async getCouponAnalytics(@Param('id') id: number) {
+    return this.couponAnalyticsService.getCouponAnalytics(id);
   }
 }

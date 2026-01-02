@@ -4,6 +4,7 @@ import { CouponsService } from './coupons.service';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ConfirmCouponDto } from './dtos/confirm-copon.dto';
 
 
 @ApiBearerAuth('access-token')
@@ -22,7 +23,7 @@ export class CouponsController {
 
 
   @Post('confirm')
-  confirmCoupon(@Body() confirmCouponDto: any, @Req() req: any) {
+  confirmCoupon(@Body() confirmCouponDto: ConfirmCouponDto, @Req() req: any) {
     return this.couponService.confirmCoupon(
       confirmCouponDto,
       req.user.id,

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Coupon } from './coupon.entity';
 import { ApplyCouponDto } from './dtos/apply-coupon.dto';
 import { CouponRedemptionService } from './redemptions/coupon-redemption.service';
+import { ConfirmCouponDto } from './dtos/confirm-copon.dto';
 
 
 
@@ -60,7 +61,7 @@ export class CouponsService {
       finalAmount: cartTotal - discount,
     };
   }
-  async confirmCoupon(confirmCouponDto: any, userId: number) {
+  async confirmCoupon(confirmCouponDto: ConfirmCouponDto, userId: number) {
     const { couponId, orderId, discountAmont } = confirmCouponDto;
 
     const coupon = await this.couponRepository.findOne({
@@ -89,6 +90,7 @@ export class CouponsService {
     return {
       status: true,
       message: 'Coupon confirmed and redemption recorded.',
+      redemption,
       
     }
 
