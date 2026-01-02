@@ -30,6 +30,26 @@ export class CouponRedemptionService {
     }
 
 
+    async getTotalDiscount(couponId: number, userId: number): Promise<number> {
+        const result = await this.couponRedemptionRepository
+            .createQueryBuilder('redemption')
+            .select('SUM(redemption.discountAmount)', 'total')
+            .where('redemption.couponId = :couponId', { couponId })
+            .andWhere('redemption.userId = :userId', { userId })
+            .getRawOne();
+        return Number(result.total) || 0;
+    }
+
+    async getUniqueUserCount(couponId: number): Promise<number> {
+        const result = await this.couponRedemptionRepository
+            .createQueryBuilder('redemption')
+            .select('COUNT(DISTINCT redemption.userId)', 'count')
+            .where('redemption.couponId = :couponId', { couponId })
+            .getRawOne();
+        return Number(result.count) || 0;
+    }
+
+
 
 
 }

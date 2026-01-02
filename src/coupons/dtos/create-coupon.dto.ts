@@ -76,4 +76,22 @@ export class CreateCouponDto {
   })
   @IsDateString()
   endAt: Date;
+
+  @ApiProperty({
+    example: 5,
+    required: false,  
+    description: 'Maximum number of times a user can use the coupon',
+  })
+  @IsOptional()
+  @IsNumber()
+  perUserLimit?: number;
+
+  @ApiProperty({
+    example: 100,
+    required: false,
+    description: 'Total usage limit for the coupon',
+  })
+  @IsOptional()
+  @IsNumber()
+  usageLimit?: number;
 }
