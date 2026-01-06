@@ -14,11 +14,13 @@ import { Wallet } from 'src/rewards/wallet.entity';
 import { RewardsModule } from 'src/rewards/rewards.module';
 import { WalletService } from 'src/rewards/wallet.service';
 import { RewardsController } from 'src/rewards/rewards.controller';
+import { PointTransactionService } from 'src/rewards/point-transaction.service';
+import { PointTransaction } from 'src/rewards/point-transaction.entity';
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Coupon, CouponRedemption, Wallet]),
+    TypeOrmModule.forFeature([Coupon, CouponRedemption, Wallet, PointTransaction]),
     CouponAnalyticsModule,
   ],
   providers: [
@@ -26,15 +28,15 @@ import { RewardsController } from 'src/rewards/rewards.controller';
     AdminCouponsService,
     CouponRedemptionService,
     CouponAnalyticsService,
-    WalletService,
-
+    WalletService, PointTransactionService
   ],
   controllers: [
     CouponsController,
     AdminCouponsController,
     CouponAnalyticsController,
-    RewardsController
+    RewardsController,
+
   ],
-  exports: [CouponsService],
+  exports: [CouponsService, ],
 })
 export class CouponsModule {}

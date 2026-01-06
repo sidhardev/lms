@@ -18,7 +18,8 @@ import { CouponRedemption } from './coupons/redemptions/coupon-redemption.entity
 import { WalletService } from './rewards/wallet.service';
 import { RewardsModule } from './rewards/rewards.module';
 import { Wallet } from './rewards/wallet.entity';
-
+import { OrdersController } from './orders/orders.controller';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -48,8 +49,9 @@ import { Wallet } from './rewards/wallet.entity';
     CouponsModule,
     AdminModule,
     RewardsModule,
+    OrdersModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, OrdersController],
   providers: [AppService],
 })
 export class AppModule {}
