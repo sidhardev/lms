@@ -32,8 +32,6 @@ export class AdminCouponsService {
       isActive: true,
       isAutoApply: createCouponDto.isAutoApply,
       type: createCouponDto.type,
-      startAt: createCouponDto.startAt || new Date(),
-      endAt: createCouponDto.endAt,
       minOrderValue: createCouponDto.minOrderValue,
       maxDiscountValue: createCouponDto.maxDiscountValue,
       createdBy: req.user.id,
