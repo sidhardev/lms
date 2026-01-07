@@ -10,33 +10,27 @@ import { CouponRedemption } from './redemptions/coupon-redemption.entity';
 import { CouponAnalyticsController } from './analytics/coupon-analytics.controller';
 import { CouponAnalyticsModule } from './analytics/coupon-analytics.module';
 import { CouponAnalyticsService } from './analytics/coupon-analytics.service';
-import { Wallet } from 'src/rewards/wallet.entity';
 import { RewardsModule } from 'src/rewards/rewards.module';
-import { WalletService } from 'src/rewards/wallet.service';
-import { RewardsController } from 'src/rewards/rewards.controller';
-import { PointTransactionService } from 'src/rewards/point-transaction.service';
-import { PointTransaction } from 'src/rewards/point-transaction.entity';
-
+import { OrdersModule } from 'src/orders/orders.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Coupon, CouponRedemption, Wallet, PointTransaction]),
+    TypeOrmModule.forFeature([Coupon, CouponRedemption]),
     CouponAnalyticsModule,
+    RewardsModule,
+    OrdersModule,
   ],
   providers: [
     CouponsService,
     AdminCouponsService,
     CouponRedemptionService,
     CouponAnalyticsService,
-    WalletService, PointTransactionService
   ],
   controllers: [
     CouponsController,
     AdminCouponsController,
     CouponAnalyticsController,
-    RewardsController,
-
   ],
-  exports: [CouponsService, ],
+  exports: [CouponsService],
 })
 export class CouponsModule {}

@@ -5,11 +5,13 @@ import { WalletService } from './wallet.service';
 import { PointTransactionService } from './point-transaction.service';
 import { PointTransactionType, PointTransactionSource } from './point-transaction.entity';
 import { AdminGuard } from 'src/auth/guards/admin-guard';
+import { ApplyRewardDto } from './dtos/apply-reward.dto';
+import { ConfirmRewardDto } from './dtos/confirm-reward.dto';
 
 
 @Controller('rewards')
 @ApiBearerAuth('access-token')
-@UseGuards(JwtAuthGuard, AdminGuard)
+@UseGuards(JwtAuthGuard)
 export class RewardsController {
     constructor(
     private readonly walletService: WalletService,
@@ -19,24 +21,31 @@ export class RewardsController {
 
   @Get('wallet')
   async getWallet(@Req() req) {
-    const { userId } = req.user;
+    const { userId } = req.user.id;
     return this.walletService.getWalletByUserId(userId);
   }
 
 
-  @Post('redeem')
-async redeemPoints(@Req() req, @Body() body) {
-  const { points } = body;
-  const { userId } = req.user;
+  @Post('confirm')
+async confirmReward(
+  @Req() req,
+  @Body() dto: ConfirmRewardDto,
+) {
+  return this.pointTransactionService.confirmRewardRedemption({
+    userId: req.user.id,
+    orderId: dto.orderId,
+    redeemPoints: dto.redeemPoints,
+  });
+}
 
-  return this.pointTransactionService.redeemPoints({
-    userId,
-    points,
-    source: PointTransactionSource.GIFT,
-    referenceId: body.referenceId,
-    metadata: {
-        redeemedVia: 'REWARD_BASED_DISCOUNT'
-    },
+
+
+@Post('apply')
+async applyReward(@Req() req, @Body() dto: ApplyRewardDto) {
+  return this.pointTransactionService.previewRewardDiscount({
+    userId: req.user.userId,
+    orderAmount: dto.orderAmount,
+    redeemPoints: dto.redeemPoints,
   });
 }
 

@@ -19,9 +19,7 @@ export class Wallet {
   @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user: User;
-
-  @Column()
-  userId: number;
+ 
 
   @Column({ type: 'int', default: 0 })
   totalPoints: number;

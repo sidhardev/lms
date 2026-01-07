@@ -16,14 +16,14 @@ export class WalletService {
 
   async createWalletForUser(userId: number): Promise<Wallet> {
     const existingWallet = await this.walletRepository.findOne({
-      where: { userId },
+      where: { user: {id: userId} },
     });
     if (existingWallet) {
       return existingWallet;
     }
 
     const wallet = this.walletRepository.create({
-      userId,
+      user: { id: userId } as any,
       totalPoints: 0,
       availablePoints: 0,
     });
@@ -31,15 +31,16 @@ export class WalletService {
   }
 
   async getWalletByUserId(userId: number): Promise<Wallet> {
-    const wallet = await this.walletRepository.findOne({ where: { userId } });
+    const wallet = await this.walletRepository.findOne({ where: { user: {id: userId} } });
     if (!wallet) {
+      this.createWalletForUser(userId);
       throw new NotFoundException('Wallet not found for the user.');
     }
     return wallet;
   }
 
   async creditPoints(userId: number, points: number): Promise<Wallet> {
-    const wallet = await this.walletRepository.findOne({ where: { userId } });
+    const wallet = await this.walletRepository.findOne({ where: { user: {id: userId} } });
 
     if (!wallet) {
       throw new NotFoundException('Wallet not found for the user.');
