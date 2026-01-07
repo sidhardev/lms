@@ -24,8 +24,8 @@ export class CreateCampaignDto {
 
    @ApiProperty({
     enum: CampaignType,
-    example: CampaignType.ORDER_DISCOUNT,
-    description: 'Type of campaign (e.g. ORDER, SIGNUP, REFERRAL)',
+    example: CampaignType.DISCOUNT_COUPON,
+    description: 'Type of campaign (e.g. DISCOUNT_COUPON, LOYALTY_PROGRAM)',
   })
   @IsEnum(CampaignType)
   type: CampaignType;

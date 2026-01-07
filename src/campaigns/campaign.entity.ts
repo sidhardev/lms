@@ -9,9 +9,8 @@ import {
 } from 'typeorm';
 
 export enum CampaignType {
-  ORDER_DISCOUNT = 'ORDER_DISCOUNT',
-  REWARD = 'REWARD',
-  FREE_SHIPPING = 'FREE_SHIPPING',
+  LOYALTYPROGRAM = 'LOYALTY_PROGRAM',
+  DISCOUNT_COUPON = "DISCOUNT_COUPON"
 }
 
 export enum CampaignStatus {
@@ -46,6 +45,18 @@ export class campaign {
     enum: CampaignType,
   })
   type: CampaignType;
+
+  @Column({
+    type: 'boolean',
+  nullable: true,})
+  @IsOptional()
+  useItAsCoupon: boolean; 
+
+
+
+
+
+
 
   @Column({ type: 'timestamp' })
   startAt: Date;

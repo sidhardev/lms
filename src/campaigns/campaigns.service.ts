@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus } from './campaign.entity';
-import { Repository } from 'typeorm';
+import { campaign, CampaignStatus, CampaignType } from './campaign.entity';
+import { LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 
 @Injectable()
@@ -19,8 +19,9 @@ export class CampaignsService {
     const campaign = this.CampaignRepository.create({
       name: CreateCampaignDto.name,
       description: CreateCampaignDto.description,
+      type: CreateCampaignDto.type,
       startAt: CreateCampaignDto.startAt,
-      endAt: CreateCampaignDto.startAt,
+      endAt: CreateCampaignDto.endAt,
       status: CampaignStatus.DRAFT,
       metadata: CreateCampaignDto.metadata,
     });
@@ -37,13 +38,24 @@ export class CampaignsService {
     });
   }
 
-  async UpdateStatus(id: number, status: CampaignStatus) {
+  async UpdateStatus(id: number) {
     const campaign = await this.findOne(id);
+    console.log(id)
     if (!campaign) {
       throw new NotFoundException('Campaign Not found!');
     }
 
-    campaign.status = status;
+    campaign.status = CampaignStatus.ACTIVE;
     return this.CampaignRepository.save(campaign);
   }
+  async findActive() {
+    const now = new Date();
+    return this.CampaignRepository.find({
+
+      where: {status: CampaignStatus.ACTIVE,
+        
+      }
+    });
+  }
 }
+ 

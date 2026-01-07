@@ -19,6 +19,8 @@ import { CampaignsController } from './campaigns/campaigns.controller';
 import { CampaignsService } from './campaigns/campaigns.service';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { campaign } from './campaigns/campaign.entity';
+import { RedemptionController } from './redemption/redemption.controller';
+import { RedemptionModule } from './redemption/redemption.module';
 
 @Module({
   imports: [
@@ -48,8 +50,9 @@ import { campaign } from './campaigns/campaign.entity';
     CouponsModule,
     AdminModule,
     CampaignsModule,
+    RedemptionModule,
   ],
-  controllers: [AppController, CampaignsController],
+  controllers: [AppController, CampaignsController, RedemptionController],
   providers: [AppService,],
 })
 export class AppModule {}
