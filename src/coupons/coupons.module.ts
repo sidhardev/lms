@@ -10,15 +10,11 @@ import { CouponRedemption } from './redemptions/coupon-redemption.entity';
 import { CouponAnalyticsController } from './analytics/coupon-analytics.controller';
 import { CouponAnalyticsModule } from './analytics/coupon-analytics.module';
 import { CouponAnalyticsService } from './analytics/coupon-analytics.service';
-import { RewardsModule } from 'src/rewards/rewards.module';
-import { OrdersModule } from 'src/orders/orders.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Coupon, CouponRedemption]),
     CouponAnalyticsModule,
-    RewardsModule,
-    OrdersModule,
   ],
   providers: [
     CouponsService,

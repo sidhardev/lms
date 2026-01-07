@@ -15,16 +15,10 @@ import { Coupon } from './coupons/coupon.entity';
 import { AdminCouponsController } from './coupons/admin/admin-coupons.controller';
 import { AdminModule } from './coupons/admin/admin-coupons.module';
 import { CouponRedemption } from './coupons/redemptions/coupon-redemption.entity';
-import { WalletService } from './rewards/wallet.service';
-import { RewardsModule } from './rewards/rewards.module';
-import { Wallet } from './rewards/wallet.entity';
-import { OrdersController } from './orders/orders.controller';
-import { OrdersModule } from './orders/orders.module';
-import { Order } from './orders/order.entity';
-import { PointTransaction } from './rewards/point-transaction.entity';
 import { CampaignsController } from './campaigns/campaigns.controller';
 import { CampaignsService } from './campaigns/campaigns.service';
 import { CampaignsModule } from './campaigns/campaigns.module';
+import { campaign } from './campaigns/campaign.entity';
 
 @Module({
   imports: [
@@ -36,7 +30,7 @@ import { CampaignsModule } from './campaigns/campaigns.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Coupon, CouponRedemption, Wallet, Order, PointTransaction],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     JwtModule.registerAsync({
@@ -53,11 +47,9 @@ import { CampaignsModule } from './campaigns/campaigns.module';
     MailModule,
     CouponsModule,
     AdminModule,
-    RewardsModule,
-    OrdersModule,
     CampaignsModule,
   ],
-  controllers: [AppController, OrdersController, CampaignsController],
-  providers: [AppService, CampaignsService],
+  controllers: [AppController, CampaignsController],
+  providers: [AppService,],
 })
 export class AppModule {}

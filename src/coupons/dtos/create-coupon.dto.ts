@@ -63,8 +63,6 @@ export class CreateCouponDto {
   @IsBoolean()
   isAutoApply: boolean;
 
-
-
   @ApiProperty({
     example: 5,
     required: false,
