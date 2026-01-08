@@ -11,15 +11,5 @@ import { ConfirmCouponDto } from './dtos/confirm-copon.dto';
 @Controller('coupons')
 export class CouponsController {
   constructor(private couponService: CouponsService) {}
-  @Post('apply')
-  applyCoupon(@Body() applyCouponDto: ApplyCouponDto, @Req() req: any) {
-    return this.couponService.applyCoupon(applyCouponDto, req.user.id);
-  }
-
-  @ApiBearerAuth('access-token')
-  @UseGuards(JwtAuthGuard)
-  @Post('confirm')
-  confirmCoupon(@Body() confirmCouponDto: ConfirmCouponDto, @Req() req: any) {
-    return this.couponService.confirmCoupon(confirmCouponDto, req.user.id);
-  }
+  
 }

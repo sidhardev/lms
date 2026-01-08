@@ -1,0 +1,5 @@
+export enum DiscountType {
+  REWARD = 'REWARD',
+  FREE_SHIPPING = 'FREE_SHIPPING',
+  ORDER_DISCOUNT = 'ORDER_DISCOUNT',
+}

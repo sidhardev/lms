@@ -25,19 +25,16 @@ export class AdminCouponsService {
     if (existingCoupon) {
       throw new BadRequestException('Coupon code already exists.');
     }
-    const coupon = this.couponRepository.create({
-      code: createCouponDto.code,
-      discountType: createCouponDto.discountType,
-      discountValue: createCouponDto.discountValue,
-      isActive: true,
-      isAutoApply: createCouponDto.isAutoApply,
-      type: createCouponDto.type,
-      minOrderValue: createCouponDto.minOrderValue,
-      maxDiscountValue: createCouponDto.maxDiscountValue,
-      createdBy: req.user.id,
-      perUserLimit: createCouponDto.perUserLimit,
-      usageLimit: createCouponDto.usageLimit,
-    });
+      const coupon = this.couponRepository.create({
+  code: createCouponDto.code,
+  ruleType: createCouponDto.ruleType,
+  rules: createCouponDto.rules,
+  startAt: createCouponDto.startAt,
+  endAt: createCouponDto.endAt,
+  isActive: true,
+  createdBy: req.user.id,
+});
+
     await this.couponRepository.save(coupon);
     return coupon;
   }

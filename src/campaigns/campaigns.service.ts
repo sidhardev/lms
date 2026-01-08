@@ -4,9 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus, CampaignType } from './campaign.entity';
+import { campaign, CampaignStatus, CampaignType, DiscountType } from './campaign.entity';
 import { LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
+import { plainToInstance } from 'class-transformer';
+
+import { validateSync } from 'class-validator';
 
 @Injectable()
 export class CampaignsService {
@@ -57,5 +60,13 @@ export class CampaignsService {
       }
     });
   }
+
+
+
+
+
+
+
+
 }
  

@@ -7,7 +7,10 @@ import {
   IsBoolean,
   IsDateString,
   IsOptional,
+  IsObject,
 } from 'class-validator';
+import { CouponRuleType } from '../coupon.entity';
+import { Column } from 'typeorm';
 
 export class CreateCouponDto {
   @ApiProperty({
@@ -19,65 +22,39 @@ export class CreateCouponDto {
 
   @ApiProperty({
     example: 'ORDER',
-    enum: ['ORDER'],
-    description: 'Coupon type (currently only ORDER level supported)',
+    enum: [CouponRuleType],
+    description: 'Coupon type ',
   })
-  @IsEnum(['ORDER'])
-  type: 'ORDER';
+  @IsEnum(CouponRuleType)
+  ruleType: CouponRuleType;
 
   @ApiProperty({
-    example: 'PERCENT',
-    enum: ['FLAT', 'PERCENT'],
-    description: 'Discount calculation type',
+    description: 'Raw rule configuration exactly as defined in Figma',
+    example: {
+      keepSameForAll: false,
+      categories: [
+        {
+          categoryName: 'jeans',
+          percentage: 20,
+          minOrderValue: 500,
+          maxDiscount: 100,
+        },
+      ],
+    },
   })
-  @IsEnum(['FLAT', 'PERCENT'])
-  discountType: 'FLAT' | 'PERCENT';
+  @IsObject()
+  rules: Record<string, any>;
+@ApiProperty({
+    example: '2026-01-01T23:59:59Z',
+    description: 'Coupon Start date (ISO format)',
+  })
+  @IsDateString()
+  startAt: Date;
 
   @ApiProperty({
-    example: 20,
-    description: 'Discount value (percentage or flat amount)',
+    example: '2026-01-20T23:59:59Z',
+    description: 'Coupon end date (ISO format)',
   })
-  @IsNumber()
-  discountValue: number;
-
-  @ApiProperty({
-    example: 500,
-    description: 'Minimum order value required to apply coupon',
-  })
-  @IsNumber()
-  minOrderValue: number;
-
-  @ApiProperty({
-    example: 200,
-    required: false,
-    description: 'Maximum discount amount (used mainly for PERCENT type)',
-  })
-  @IsOptional()
-  @IsNumber()
-  maxDiscountValue?: number;
-
-  @ApiProperty({
-    example: true,
-    description: 'Whether coupon should auto-apply on eligible orders',
-  })
-  @IsBoolean()
-  isAutoApply: boolean;
-
-  @ApiProperty({
-    example: 5,
-    required: false,
-    description: 'Maximum number of times a user can use the coupon',
-  })
-  @IsOptional()
-  @IsNumber()
-  perUserLimit: number;
-
-  @ApiProperty({
-    example: 100,
-    required: false,
-    description: 'Total usage limit for the coupon',
-  })
-  @IsOptional()
-  @IsNumber()
-  usageLimit: number;
+  @IsDateString()
+  endAt: Date;
 }
