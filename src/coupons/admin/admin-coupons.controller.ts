@@ -41,10 +41,7 @@ export class AdminCouponsController {
   @ApiBody({
     type: UpdateCouponDto,
   })
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCouponDto: UpdateCouponDto) {
-    return this.adminCouponsService.update(+id, updateCouponDto);
-  }
+
 
   @Get(':id/analytics')
   async getCouponAnalytics(@Param('id') id: number) {

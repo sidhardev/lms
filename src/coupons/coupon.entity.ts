@@ -2,16 +2,12 @@ import { campaign } from 'src/campaigns/campaign.entity';
 import { PrimaryGeneratedColumn, Column, Entity, OneToOne, JoinColumn } from 'typeorm';
 import { MaxLength, MinLength } from 'class-validator';
 import { CouponType } from './admin/coupon-type.enum';
-export enum CouponRuleType {
-  WHOLE_CART = 'WHOLE_CART',
-CART_TOTAL = "CART_TOTAL",
-BULK = "BULK",
-CATEGORY = "CATEGORY",
-PRODUCT = "PRODUCT",
-BRAND = "BRAND",
+import { ApiExtraModels } from '@nestjs/swagger';
+import { CouponRuleType } from './admin/coupon-rule-type.enum';
 
 
-}
+
+
 @Entity()
 export class Coupon {
   @PrimaryGeneratedColumn()

@@ -32,7 +32,7 @@ export class AdminCouponsService {
   rules: createCouponDto.rules,
   startAt: createCouponDto.startAt,
   endAt: createCouponDto.endAt,
-  isActive: true,
+  isActive: createCouponDto.isActive,
   createdBy: req.user.id,
 });
 
@@ -67,8 +67,5 @@ export class AdminCouponsService {
     return { message: 'Coupon removed successfully.' };
   }
 
-  async update(id: number, updateCouponDto: UpdateCouponDto) {
-    this.couponRepository.update(id, updateCouponDto);
-    return { message: 'Coupon updated successfully.' };
-  }
+  
 }

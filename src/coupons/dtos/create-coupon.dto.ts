@@ -1,5 +1,5 @@
 // dto/create-coupon.dto.ts
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiExtraModels, ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import {
   IsString,
   IsEnum,
@@ -9,10 +9,23 @@ import {
   IsOptional,
   IsObject,
 } from 'class-validator';
-import { CouponRuleType } from '../coupon.entity';
 import { Column } from 'typeorm';
 import { CouponType } from '../admin/coupon-type.enum';
-
+import { wholeCartDto, WholeCartValidation } from 'src/campaigns/rules/dtos/whole-cart.dto';
+import { CartCustomTotalDto } from 'src/campaigns/rules/dtos/cart-total-custom.dto';
+import { BulkPurchaseDto } from 'src/campaigns/rules/dtos/bulk-purchase.dto';
+import { CategoryDiscountDto } from 'src/campaigns/rules/dtos/category-discount.dto';
+import { ProductDiscountDto } from 'src/campaigns/rules/dtos/product-discount.dto';
+import { BrandDiscountDto } from 'src/campaigns/rules/dtos/brand-discount.dto';
+import { CouponRuleType } from '../admin/coupon-rule-type.enum';
+@ApiExtraModels(
+  wholeCartDto,
+  CartCustomTotalDto,
+  BulkPurchaseDto,
+  CategoryDiscountDto,
+  ProductDiscountDto,
+  BrandDiscountDto,
+)
 
 
 export class CreateCouponDto {
@@ -35,29 +48,48 @@ couponType: CouponType;
   code: string;
 
   @ApiProperty({
-    example: 'PRODUCT',
-    enum: [CouponRuleType],
-    description: 'Coupon type ',
+    example: true
   })
-  @IsEnum(CouponRuleType)
-  ruleType: CouponRuleType;
+  isActive: boolean;
 
   @ApiProperty({
-    description: 'Raw rule configuration exactly as defined in Figma',
-    example: {
-      keepSameForAll: false,
-      categories: [
-        {
-          categoryName: 'jeans',
-          percentage: 20,
-          minOrderValue: 500,
-          maxDiscount: 100,
-        },
-      ],
+    
+    enum: CouponRuleType,
+    default: CouponRuleType.WHOLE_CART
+  })
+  ruleType: CouponRuleType;
+
+ @ApiProperty({
+    oneOf: [
+      { $ref: getSchemaPath(wholeCartDto) },
+      { $ref: getSchemaPath(CartCustomTotalDto) },
+      { $ref: getSchemaPath(BulkPurchaseDto) },
+      { $ref: getSchemaPath(CategoryDiscountDto) },
+      { $ref: getSchemaPath(ProductDiscountDto) },
+      { $ref: getSchemaPath(BrandDiscountDto) },
+    ],
+    discriminator: {
+      propertyName: 'ruleType',
+      mapping: {
+        WHOLE_CART: getSchemaPath(wholeCartDto),
+        CART_TOTAL: getSchemaPath(CartCustomTotalDto),
+        BULK: getSchemaPath(BulkPurchaseDto),
+        CATEGORY: getSchemaPath(CategoryDiscountDto),
+        PRODUCT: getSchemaPath(ProductDiscountDto),
+        BRAND: getSchemaPath(BrandDiscountDto),
+      },
     },
   })
-  @IsObject()
-  rules: Record<string, any>;
+  rules:
+    | wholeCartDto
+    | CartCustomTotalDto
+    | BulkPurchaseDto
+    | CategoryDiscountDto
+    | ProductDiscountDto
+    | BrandDiscountDto;
+
+
+
 @ApiProperty({
     example: '2026-01-01T23:59:59Z',
     description: 'Coupon Start date (ISO format)',

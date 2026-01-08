@@ -1,0 +1,10 @@
+export enum CouponRuleType {
+  WHOLE_CART = 'WHOLE_CART',
+CART_TOTAL = "CART_TOTAL",
+BULK = "BULK",
+CATEGORY = "CATEGORY",
+PRODUCT = "PRODUCT",
+BRAND = "BRAND",
+
+
+}
