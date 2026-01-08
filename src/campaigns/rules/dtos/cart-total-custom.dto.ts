@@ -1,47 +1,114 @@
-import { IsEnum, isEnum, IsNumber, IsOptional, Min } from "class-validator";
-import { DiscountMode, RuleType } from "../rules.enum";
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  Min,
+  Validate,
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { DiscountMode, RuleType } from '../rules.enum';
+
+@ValidatorConstraint({ name: 'cartTotalValidation', async: false })
+export class CartTotalValidation
+  implements ValidatorConstraintInterface
+{
+  validate(_: any, args: ValidationArguments): boolean {
+    const obj = args.object as CartCustomTotalDto;
+
+    const hasPercent =
+      obj.MinPercent !== undefined || obj.MaxPercent !== undefined;
+
+    const hasAmount =
+      obj.minAmount !== undefined || obj.maxAmount !== undefined;
+
+     if (hasPercent && hasAmount) return false;
+
+     if (!hasPercent && !hasAmount) return false;
+
+    return true;
+  }
+
+  defaultMessage(): string {
+    return 'Provide either PERCENT based values or FLAT amount values, not both.';
+  }
+}
 
 export class CartCustomTotalDto {
-    @IsEnum(RuleType)
-    ruleType: RuleType.CART_TOTAL_CUSTOM
+  @ApiProperty({
+    enum: RuleType,
+    example: RuleType.CART_TOTAL_CUSTOM,
+    description: 'Rule type for cart total custom discount',
+  })
+  @IsEnum(RuleType)
+  ruleType: RuleType.CART_TOTAL_CUSTOM;
 
-    @IsEnum(DiscountMode)
-    mode: DiscountMode;
+  @ApiProperty({
+    enum: DiscountMode,
+    example: DiscountMode.PERCENT,
+    description: 'Discount mode',
+  })
+  @IsEnum(DiscountMode)
+  mode: DiscountMode;
 
-    @IsNumber()
-    @Min(1)
-    minOrderValue: number;
+  @ApiProperty({
+    example: 500,
+    description: 'Minimum order value to apply the rule',
+  })
+  @IsNumber()
+  @Min(1)
+  minOrderValue: number;
 
-    @IsNumber()
-    @Min(1)
-    @IsOptional()       
-    MinPercent: number;
+ 
+  @ApiPropertyOptional({
+    example: 5,
+    description: 'Minimum discount percentage',
+  })
+  @IsNumber()
+  @Min(1)
+  @IsOptional()
+  MinPercent?: number;
 
-    @IsNumber()
-    @IsOptional()
-    @Min(1)
-    MaxPercent: number;
+  @ApiPropertyOptional({
+    example: 30,
+    description: 'Maximum discount percentage',
+  })
+  @IsNumber()
+  @Min(1)
+  @IsOptional()
+  MaxPercent?: number;
 
-    @IsNumber()
-    @Min(1)
-    @IsOptional()
-    MaxDiscount: number;
+  @ApiPropertyOptional({
+    example: 200,
+    description: 'Maximum discount amount allowed for percentage mode',
+  })
+  @IsNumber()
+  @Min(1)
+  @IsOptional()
+  MaxDiscount?: number;
 
-    @IsNumber()
-    @Min(1)
-    @IsOptional()
-    minAmount: number;
+ 
+  @ApiPropertyOptional({
+    example: 50,
+    description: 'Minimum flat discount amount',
+  })
+  @IsNumber()
+  @Min(1)
+  @IsOptional()
+  minAmount?: number;
 
-    @IsNumber()
-    @Min(1)
-    @IsOptional()
-    maxAmount: number;
+  @ApiPropertyOptional({
+    example: 500,
+    description: 'Maximum flat discount amount',
+  })
+  @IsNumber()
+  @Min(1)
+  @IsOptional()
+  maxAmount?: number;
 
-
-
-
-
-
-
-
+ 
+  @Validate(CartTotalValidation)
+  private readonly _cartValidation!: any;
 }
