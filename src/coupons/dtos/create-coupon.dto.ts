@@ -11,8 +11,22 @@ import {
 } from 'class-validator';
 import { CouponRuleType } from '../coupon.entity';
 import { Column } from 'typeorm';
+import { CouponType } from '../admin/coupon-type.enum';
+
+
 
 export class CreateCouponDto {
+
+@ApiProperty({
+  example: 'ORDER'
+})
+@IsEnum(CouponType)
+couponType: CouponType;
+
+
+
+
+
   @ApiProperty({
     example: 'NEWYEAR50',
     description: 'Unique coupon code',
@@ -21,7 +35,7 @@ export class CreateCouponDto {
   code: string;
 
   @ApiProperty({
-    example: 'ORDER',
+    example: 'PRODUCT',
     enum: [CouponRuleType],
     description: 'Coupon type ',
   })

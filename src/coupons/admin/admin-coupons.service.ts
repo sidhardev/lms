@@ -27,6 +27,7 @@ export class AdminCouponsService {
     }
       const coupon = this.couponRepository.create({
   code: createCouponDto.code,
+  couponType: createCouponDto.couponType, 
   ruleType: createCouponDto.ruleType,
   rules: createCouponDto.rules,
   startAt: createCouponDto.startAt,

@@ -1,5 +1,7 @@
 import { campaign } from 'src/campaigns/campaign.entity';
 import { PrimaryGeneratedColumn, Column, Entity, OneToOne, JoinColumn } from 'typeorm';
+import { MaxLength, MinLength } from 'class-validator';
+import { CouponType } from './admin/coupon-type.enum';
 export enum CouponRuleType {
   WHOLE_CART = 'WHOLE_CART',
 CART_TOTAL = "CART_TOTAL",
@@ -15,15 +17,20 @@ export class Coupon {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({unique: true})
+  @MinLength(4)
+  @MaxLength(6)
   code: string;
+
+  @Column({nullable: true})
+  couponType: CouponType;
 
 
 
    @OneToOne(() => campaign, (campaign) => campaign.coupon, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn() // 👈 owning side (important)
+  @JoinColumn() 
   campaign: campaign;
 
 
