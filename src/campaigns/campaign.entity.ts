@@ -3,6 +3,8 @@ import { timestamp } from 'rxjs';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 import { Coupon } from 'src/coupons/coupon.entity';
+import { EligibleLocationDto } from 'src/shipping_campaign/eligible_locations.dto';
+import { ShippingMethod } from 'src/shipping_campaign/shipping_method.enum';
 import {
   PrimaryGeneratedColumn,
   Column,
@@ -67,7 +69,7 @@ export class campaign {
 
   @Column({
     type: 'boolean',
-  nullable: true,})
+  nullable: true, default: false})
   @IsOptional()
   useItAsCoupon: boolean; 
 
@@ -121,4 +123,21 @@ rules: Record<string, any>;
  
   @Column({ nullable: true })
   createdBy: number;
+
+
+@Column({default: 'No method because it is order type campaign'})
+shippingMethod: ShippingMethod;
+
+
+
+@Column({default: 'No minimum order value because it is order type campaign'})
+minOrderValue: number;
+@Column({default: 'No maximum discount value because it is order type campaign'})
+maxDiscount: number;
+
+@Column({default: 'NO COUNTRIES'})
+eligible_locations: EligibleLocationDto;
+
+
+
 }

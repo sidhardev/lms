@@ -29,7 +29,9 @@ export class RulesValidation implements ValidatorConstraintInterface {
     const obj = args.object as CreateCampaignDto;
     const rulesData = obj.rules;
     const ruleType = rulesData?.ruleType;
-
+    if (obj.discountType === DiscountType.FREE_SHIPPING) {
+      return true;  
+    }
     if (!rulesData) return false;
     if (!ruleType) return false;
 
