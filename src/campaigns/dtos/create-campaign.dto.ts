@@ -17,11 +17,11 @@ import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
 import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
-import { CategoryDiscountDto } from '../rules/dtos/product-discount.dto';
-import { ProductDiscountDto } from '../rules/dtos/category-discount.dto';
+import { CategoryDiscountDto } from '../rules/dtos/category-discount.dto';
 import { wholeCartDto } from '../rules/dtos/whole-cart.dto';
 import { plainToClass } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
+import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 
  @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
@@ -62,12 +62,32 @@ export class RulesValidation implements ValidatorConstraintInterface {
 
      const errors = await validate(rulesInstance as object);
 
+    // Store validation errors for error message
+    if (errors.length > 0) {
+      (args as any).validationErrors = errors;
+    }
+
     return errors.length === 0;
   }
 
   defaultMessage(args: ValidationArguments): string {
     const rulesData = (args.object as CreateCampaignDto).rules;
-    return `Rules validation failed for ruleType: ${rulesData?.ruleType}. Please ensure all required fields are provided with correct types.`;
+    const ruleType = rulesData?.ruleType;
+    const validationErrors = (args as any).validationErrors;
+
+    if (!validationErrors || validationErrors.length === 0) {
+      return `Rules validation failed for ruleType: ${ruleType}. Please ensure all required fields are provided with correct types.`;
+    }
+
+    // Build detailed error message from validation errors
+    const fieldErrors = validationErrors
+      .map((error: any) => {
+        const constraints = error.constraints ? Object.values(error.constraints) : [];
+        return `${error.property}: ${constraints.join(', ')}`;
+      })
+      .join('; ');
+
+    return `Rules validation failed for ${ruleType}. Details: ${fieldErrors}`;
   }
 }
 
@@ -144,12 +164,7 @@ useItAsCoupon: boolean
   })
   isActive: boolean;
 
-  @ApiProperty({
-    
-    enum: CouponRuleType,
-    default: CouponRuleType.WHOLE_CART
-  })
-  ruleType: CouponRuleType;
+   
 
  @ApiProperty({
     oneOf: [

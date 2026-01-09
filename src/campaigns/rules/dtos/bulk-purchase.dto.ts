@@ -32,8 +32,20 @@ export class BulkPurchaseValidation
     return true;
   }
 
-  defaultMessage(): string {
-    return 'Provide either discountAmount or discountPercent, not both.';
+  defaultMessage(args: ValidationArguments): string {
+    const obj = args.object as BulkPurchaseDto;
+    const hasAmount = obj.discountAmount !== undefined;
+    const hasPercent = obj.discountPercent !== undefined;
+
+    if (hasAmount && hasPercent) {
+      return 'Bulk Purchase: You must provide either discountAmount OR discountPercent, not both. Remove one of them.';
+    }
+
+    if (!hasAmount && !hasPercent) {
+      return 'Bulk Purchase: You must provide either discountAmount or discountPercent. At least one is required.';
+    }
+
+    return 'Bulk Purchase validation failed.';
   }
 }
 

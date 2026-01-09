@@ -31,8 +31,7 @@ export class CampaignsService {
       couponType: CreateCampaignDto.couponType,
       discountType: CreateCampaignDto.discountType,
       isActive: CreateCampaignDto.isActive,
-      ruleType: CreateCampaignDto.ruleType,
-      rules: CreateCampaignDto.rules,
+       rules: CreateCampaignDto.rules,
 
     });
     return this.CampaignRepository.save(campaign);

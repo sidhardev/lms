@@ -31,8 +31,20 @@ export class CartTotalValidation
     return true;
   }
 
-  defaultMessage(): string {
-    return 'Provide either PERCENT based values or FLAT amount values, not both.';
+  defaultMessage(args: ValidationArguments): string {
+    const obj = args.object as CartCustomTotalDto;
+    const hasPercent = obj.MinPercent !== undefined || obj.MaxPercent !== undefined;
+    const hasAmount = obj.minAmount !== undefined || obj.maxAmount !== undefined;
+
+    if (hasPercent && hasAmount) {
+      return 'Cart Total: You must provide either PERCENT based values (MinPercent, MaxPercent) OR AMOUNT based values (minAmount, maxAmount), not both.';
+    }
+
+    if (!hasPercent && !hasAmount) {
+      return 'Cart Total: You must provide either PERCENT based values (MinPercent, MaxPercent) or AMOUNT based values (minAmount, maxAmount).';
+    }
+
+    return 'Cart Total validation failed.';
   }
 }
 

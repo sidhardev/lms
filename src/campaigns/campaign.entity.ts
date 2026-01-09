@@ -116,12 +116,7 @@ export class campaign {
 
 
 
- @Column({
-  type: 'enum',
-  enum: CouponRuleType,
-  nullable: true
-})
-ruleType: CouponRuleType;
+ 
 
 @Column({ type: 'jsonb', nullable: true })
 rules: Record<string, any>;
