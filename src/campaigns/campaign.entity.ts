@@ -1,5 +1,7 @@
-import { IsOptional } from 'class-validator';
+import { IsOptional, MaxLength, MinLength } from 'class-validator';
 import { timestamp } from 'rxjs';
+import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
+import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 import { Coupon } from 'src/coupons/coupon.entity';
 import {
   PrimaryGeneratedColumn,
@@ -96,4 +98,40 @@ export class campaign {
 
   @UpdateDateColumn()
   updatedAt: Date;
+  @Column({nullable: true})
+  @MinLength(4)
+  @MaxLength(6)
+  code: string;
+
+  @Column({nullable: true})
+  couponType: CouponType;
+
+
+
+   @OneToOne(() => campaign, (campaign) => campaign.coupon, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn() 
+  campaign: campaign;
+
+
+
+ @Column({
+  type: 'enum',
+  enum: CouponRuleType,
+  nullable: true
+})
+ruleType: CouponRuleType;
+
+@Column({ type: 'jsonb', nullable: true })
+rules: Record<string, any>;
+
+
+
+
+  @Column({ default: true })
+  isActive: boolean;
+ 
+  @Column({ nullable: true })
+  createdBy: number;
 }

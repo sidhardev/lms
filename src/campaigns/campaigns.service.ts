@@ -23,10 +23,17 @@ export class CampaignsService {
       name: CreateCampaignDto.name,
       description: CreateCampaignDto.description,
       type: CreateCampaignDto.type,
+      useItAsCoupon: CreateCampaignDto.useItAsCoupon,
       startAt: CreateCampaignDto.startAt,
       endAt: CreateCampaignDto.endAt,
       status: CampaignStatus.DRAFT,
       metadata: CreateCampaignDto.metadata,
+      couponType: CreateCampaignDto.couponType,
+      discountType: CreateCampaignDto.discountType,
+      isActive: CreateCampaignDto.isActive,
+      ruleType: CreateCampaignDto.ruleType,
+      rules: CreateCampaignDto.rules,
+
     });
     return this.CampaignRepository.save(campaign);
   }

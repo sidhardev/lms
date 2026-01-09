@@ -4,9 +4,72 @@ import {
   IsEnum,
   IsOptional,
   IsDateString,
+  Validate,
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  validate,
 } from 'class-validator';
-import { CampaignType } from '../campaign.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { CampaignType, DiscountType } from '../campaign.entity';
+import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
+import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
+import { CouponType } from 'src/coupons/admin/coupon-type.enum';
+import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
+import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
+import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
+import { CategoryDiscountDto } from '../rules/dtos/product-discount.dto';
+import { ProductDiscountDto } from '../rules/dtos/category-discount.dto';
+import { wholeCartDto } from '../rules/dtos/whole-cart.dto';
+import { plainToClass } from 'class-transformer';
+import { RuleType } from '../rules/rules.enum';
+
+ @ValidatorConstraint({ name: 'rulesValidation', async: true })
+export class RulesValidation implements ValidatorConstraintInterface {
+  async validate(_: any, args: ValidationArguments): Promise<boolean> {
+    const obj = args.object as CreateCampaignDto;
+    const rulesData = obj.rules;
+    const ruleType = rulesData?.ruleType;
+
+    if (!rulesData) return false;
+    if (!ruleType) return false;
+
+    let dtoClass: any;
+
+     switch (ruleType) {
+      case RuleType.WHOLE_CART:
+        dtoClass = wholeCartDto;
+        break;
+      case RuleType.CART_TOTAL_CUSTOM:
+        dtoClass = CartCustomTotalDto;
+        break;
+      case RuleType.BULK_PURCHASE:
+        dtoClass = BulkPurchaseDto;
+        break;
+      case RuleType.CATEGORY:
+        dtoClass = CategoryDiscountDto;
+        break;
+      case RuleType.PRODUCT:
+        dtoClass = ProductDiscountDto;
+        break;
+      case RuleType.BRAND:
+        dtoClass = BrandDiscountDto;
+        break;
+      default:
+        return false;
+    }
+
+     const rulesInstance = plainToClass(dtoClass, rulesData);
+
+     const errors = await validate(rulesInstance as object);
+
+    return errors.length === 0;
+  }
+
+  defaultMessage(args: ValidationArguments): string {
+    const rulesData = (args.object as CreateCampaignDto).rules;
+    return `Rules validation failed for ruleType: ${rulesData?.ruleType}. Please ensure all required fields are provided with correct types.`;
+  }
+}
 
 export class CreateCampaignDto {
   @IsString()
@@ -29,6 +92,11 @@ export class CreateCampaignDto {
   })
   @IsEnum(CampaignType)
   type: CampaignType;
+
+  @ApiProperty({
+    example: DiscountType.ORDER_DISCOUNT,
+  })
+  discountType: DiscountType
 
   
 
@@ -53,4 +121,69 @@ export class CreateCampaignDto {
   })
   @IsOptional()
   metadata: Record<string, any>;
+
+
+ 
+
+@ApiProperty({
+  example: 'ORDER'
+})
+@IsEnum(CouponType)
+couponType: CouponType;
+
+@ApiProperty({
+  example: true
+})
+useItAsCoupon: boolean
+
+
+
+
+  @ApiProperty({
+    example: true
+  })
+  isActive: boolean;
+
+  @ApiProperty({
+    
+    enum: CouponRuleType,
+    default: CouponRuleType.WHOLE_CART
+  })
+  ruleType: CouponRuleType;
+
+ @ApiProperty({
+    oneOf: [
+      { $ref: getSchemaPath(wholeCartDto) },
+      { $ref: getSchemaPath(CartCustomTotalDto) },
+      { $ref: getSchemaPath(BulkPurchaseDto) },
+      { $ref: getSchemaPath(CategoryDiscountDto) },
+      { $ref: getSchemaPath(ProductDiscountDto) },
+      { $ref: getSchemaPath(BrandDiscountDto) },
+    ],
+    discriminator: {
+      propertyName: 'ruleType',
+      mapping: {
+        WHOLE_CART: getSchemaPath(wholeCartDto),
+        CART_TOTAL: getSchemaPath(CartCustomTotalDto),
+        BULK: getSchemaPath(BulkPurchaseDto),
+        CATEGORY: getSchemaPath(CategoryDiscountDto),
+        PRODUCT: getSchemaPath(ProductDiscountDto),
+        BRAND: getSchemaPath(BrandDiscountDto),
+      },
+    },
+  })
+  @Validate(RulesValidation)
+  rules:
+    | wholeCartDto
+    | CartCustomTotalDto
+    | BulkPurchaseDto
+    | CategoryDiscountDto
+    | ProductDiscountDto
+    | BrandDiscountDto;
+
+
+
+ 
+ 
+
 }

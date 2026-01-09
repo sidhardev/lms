@@ -8,18 +8,31 @@ export class WholeCartValidation implements ValidatorConstraintInterface {
 
     validate(value: any, validationArguments?: ValidationArguments): Promise<boolean> | boolean {
         const obj = validationArguments?.object as wholeCartDto;
-        const hasPercent = obj.discoutPercent;
-        const hasDiscount = obj.discountAmount;
+        const hasPercent = obj.discoutPercent !== undefined && obj.discoutPercent !== null;
+        const hasAmount = obj.discountAmount !== undefined && obj.discountAmount !== null;
+        const discountMode = obj.discountMode;
 
-        if(hasDiscount && hasPercent) return false;
-        if (!hasDiscount && hasPercent) return false;
+        // If PERCENT mode is selected, only discoutPercent should be provided
+        if (discountMode === DiscountMode.PERCENT) {
+            return hasPercent && !hasAmount;
+        }
 
-        return true;
+        // If AMOUNT mode is selected, only discountAmount should be provided
+        if (discountMode === DiscountMode.AMOUNT) {
+            return hasAmount && !hasPercent;
+        }
 
-        
+        return false;
     }
     defaultMessage(validationArguments?: ValidationArguments): string {
-        return "You can Enter Only Discount Amount Or Discount Percent at a time! "
+        const obj = validationArguments?.object as wholeCartDto;
+        if (obj.discountMode === DiscountMode.PERCENT) {
+            return "For PERCENT discount mode, provide only discoutPercent, not discountAmount!";
+        }
+        if (obj.discountMode === DiscountMode.AMOUNT) {
+            return "For AMOUNT discount mode, provide only discountAmount, not discoutPercent!";
+        }
+        return "Provide either discountAmount or discoutPercent based on the selected discountMode!";
     }
 
 }
@@ -32,8 +45,13 @@ export class WholeCartValidation implements ValidatorConstraintInterface {
 export class wholeCartDto {
 
    
+    @ApiProperty({
+        enum: RuleType,
+        example: RuleType.WHOLE_CART,
+        description: 'Rule type for whole cart discount',
+    })
     @IsEnum(RuleType)
-    ruleType: RuleType.WHOLE_CART
+    ruleType: RuleType.WHOLE_CART;
 
 
     @ApiProperty(

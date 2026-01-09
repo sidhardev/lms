@@ -1,7 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsBoolean, IsNumber } from "class-validator";
+import { IsBoolean, IsEnum, IsNotEmpty } from "class-validator";
+import { RuleType } from "../rules.enum";
 
-export class CategoryDiscountDto {
+export class ProductDiscountDto {
+
+@ApiProperty({
+    enum: RuleType,
+    example: RuleType.PRODUCT,
+    description: 'Rule type for product discount',
+  })
+  @IsEnum(RuleType)
+  ruleType: RuleType.PRODUCT;
 
 @IsBoolean()
 @ApiProperty({
@@ -9,23 +18,18 @@ export class CategoryDiscountDto {
 })
 keepSameForAll: boolean;
 
+
 @ApiProperty({
     example: [
         {
-          categoryName: 'jeans',
+          segmentName: 'MOST_PURCHASED',
           percentage: 20,
           minOrderValue: 500,
           maxDiscount: 100,
         },
       ],
 })
-categories: Record<string, any>;
-
-
-
-
-
-
-
+@IsNotEmpty()
+segments: Record<string, any>;
 
 }

@@ -38,6 +38,13 @@ export class CartTotalValidation
 
 export class CartCustomTotalDto {
    
+  @ApiProperty({
+    enum: RuleType,
+    example: RuleType.CART_TOTAL_CUSTOM,
+    description: 'Rule type for cart total discount',
+  })
+  @IsEnum(RuleType)
+  ruleType: RuleType.CART_TOTAL_CUSTOM;
 
   @ApiProperty({
     enum: DiscountMode,

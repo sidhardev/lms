@@ -9,8 +9,8 @@ import { CampaignStatus } from './campaign.entity';
 
 @Controller('campaigns')
 @ApiTags('Admin Campaigns')
-@UseGuards(JwtAuthGuard, AdminGuard)
-@ApiBearerAuth('access-token')
+// @UseGuards(JwtAuthGuard, AdminGuard)
+// @ApiBearerAuth('access-token')
 export class CampaignsController {
   constructor(private readonly campaignService: CampaignsService) {}
   @Post('/create')

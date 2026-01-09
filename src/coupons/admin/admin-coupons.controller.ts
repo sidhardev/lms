@@ -28,12 +28,12 @@ export class AdminCouponsController {
     private readonly couponAnalyticsService: CouponAnalyticsService,
   ) {}
 
-  @Post()
+  // @Post()
   create(@Body() createCouponDto: CreateCouponDto, @Req() req: any) {
     return this.adminCouponsService.createCoupon(createCouponDto, req);
   }
 
-  @Get()
+  // @Get()
   findAll() {
     return this.adminCouponsService.findAll();
   }
@@ -43,7 +43,7 @@ export class AdminCouponsController {
   })
 
 
-  @Get(':id/analytics')
+  // @Get(':id/analytics')
   async getCouponAnalytics(@Param('id') id: number) {
     return this.couponAnalyticsService.getCouponAnalytics(id);
   }
