@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsDateString,
   IsEnum,
   IsJSON,
@@ -13,7 +14,7 @@ import { ShippingMethod } from './shipping_method.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { EligibleLocationDto } from './eligible_locations.dto';
 import { Type } from 'class-transformer';
-import { DiscountType } from 'src/campaigns/campaign.entity';
+import { DiscountType, redemptionType, ruccringCycle, ruccringValidDays, userEligiblity } from 'src/campaigns/campaign.entity';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 
 export class CreateFreeShippingDto {
@@ -90,4 +91,91 @@ export class CreateFreeShippingDto {
   @ValidateNested({ each: true })
   @Type(() => EligibleLocationDto)
   eligible_locations: EligibleLocationDto[];
+
+    @ApiProperty({
+    example: 100,
+    description: 'Maximum number of times the campaign can be used',
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  maxUses?: number;
+
+  @ApiProperty({
+    example: false,
+    description: 'If true, campaign can be used unlimited times',
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  unlimitedUses?: boolean;
+
+  @ApiProperty({
+    enum: redemptionType,
+    example: redemptionType.INSTANTLY,
+    description: 'Defines how the campaign can be redeemed',
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(redemptionType
+  )
+  redemptionType?: redemptionType;
+
+  @ApiProperty({
+    enum: userEligiblity,
+    example: userEligiblity.NEW_USER,
+    description: 'Which users are eligible for this campaign',
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(userEligiblity)
+  userEligiblity?: userEligiblity;
+
+  @ApiProperty({
+    example: true,
+    description: 'Whether the campaign has recurring validity',
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  ruccringValidity?: boolean;
+
+  @ApiProperty({
+    enum: ruccringCycle,
+    example: ruccringCycle.EVERY_WEEK,
+    description: 'Recurring cycle type (daily, weekly, monthly, etc.)',
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(ruccringCycle)
+  ruccringCycle?: ruccringCycle;
+
+  @ApiProperty({
+    enum: ruccringValidDays,
+    example: ruccringValidDays.MON,
+    description: 'Valid days for recurring campaigns',
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(ruccringValidDays)
+  ruccringValidDays?: ruccringValidDays;
+
+  @ApiProperty({
+    example: '09:00:00',
+    description: 'Recurring start time (HH:mm:ss)',
+    required: false,
+  })
+  @IsOptional()
+  @IsDateString()
+  ruccringStartTime?: string;
+
+  @ApiProperty({
+    example: '21:00:00',
+    description: 'Recurring end time (HH:mm:ss)',
+    required: false,
+  })
+  @IsOptional()
+  @IsDateString()
+  ruccringEndTime?: string;
 }

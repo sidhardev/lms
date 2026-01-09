@@ -31,6 +31,15 @@ export class CampaignsService {
       discountType: DiscountType.ORDER_DISCOUNT,
       isActive: CreateCampaignDto.isActive,
       rules: CreateCampaignDto.rules,
+      maxUses: CreateCampaignDto.maxUses,
+      unlimitedUses: CreateCampaignDto.unlimitedUses,
+      redemptionType: CreateCampaignDto.redemptionType,
+      userEligiblity: CreateCampaignDto.userEligiblity,
+      ruccringValidity: CreateCampaignDto.ruccringValidity,
+      ruccringCycle: CreateCampaignDto.ruccringCycle,
+      ruccringValidDays: CreateCampaignDto.ruccringValidDays,
+      ruccringStartTime: CreateCampaignDto.ruccringStartTime,
+      ruccringEndTime: CreateCampaignDto.ruccringEndTime
     });
     return this.CampaignRepository.save(campaign);
   }
