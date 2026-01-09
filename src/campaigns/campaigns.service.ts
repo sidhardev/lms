@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus, CampaignType, DiscountType } from './campaign.entity';
+import { campaign, CampaignStatus,  DiscountType } from './campaign.entity';
 import { LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { plainToInstance } from 'class-transformer';
@@ -22,8 +22,7 @@ export class CampaignsService {
     const campaign = this.CampaignRepository.create({
       name: CreateCampaignDto.name,
       description: CreateCampaignDto.description,
-      type: CreateCampaignDto.type,
-      useItAsCoupon: CreateCampaignDto.useItAsCoupon,
+       useItAsCoupon: CreateCampaignDto.useItAsCoupon,
       startAt: CreateCampaignDto.startAt,
       endAt: CreateCampaignDto.endAt,
       status: CampaignStatus.DRAFT,

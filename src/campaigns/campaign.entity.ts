@@ -13,13 +13,9 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-export enum CampaignType {
-  LOYALTYPROGRAM = 'LOYALTY_PROGRAM',
-  DISCOUNT_COUPON = "DISCOUNT_COUPON"
-}
+ 
 
 export enum DiscountType {
-  REWARD = 'REWARD',
   FREE_SHIPPING = 'FREE_SHIPPING',
   ORDER_DISCOUNT = 'ORDER_DISCOUNT',
 }
@@ -67,11 +63,7 @@ export class campaign {
   })
   coupon: Coupon
 
-  @Column({
-    type: 'enum',
-    enum: CampaignType,
-  })
-  type: CampaignType;
+  
 
   @Column({
     type: 'boolean',

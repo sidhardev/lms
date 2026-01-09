@@ -10,7 +10,7 @@ import {
   ValidatorConstraintInterface,
   validate,
 } from 'class-validator';
-import { CampaignType, DiscountType } from '../campaign.entity';
+import {  DiscountType } from '../campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
@@ -105,13 +105,6 @@ export class CreateCampaignDto {
   })
   description: string;
 
-   @ApiProperty({
-    enum: CampaignType,
-    example: CampaignType.DISCOUNT_COUPON,
-    description: 'Type of campaign (e.g. DISCOUNT_COUPON, LOYALTY_PROGRAM)',
-  })
-  @IsEnum(CampaignType)
-  type: CampaignType;
 
   @ApiProperty({
     example: DiscountType.ORDER_DISCOUNT,
