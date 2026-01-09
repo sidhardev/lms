@@ -78,6 +78,8 @@ export class campaign {
   useItAsCoupon: boolean; 
 
 
+
+
   @Column({ type: 'timestamp' })
   startAt: Date;
 
