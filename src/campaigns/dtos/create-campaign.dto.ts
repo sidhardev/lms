@@ -10,7 +10,7 @@ import {
   ValidatorConstraintInterface,
   validate,
 } from 'class-validator';
-import {  DiscountType } from '../campaign.entity';
+import { DiscountType } from '../campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
@@ -23,21 +23,21 @@ import { plainToClass } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
 import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 
- @ValidatorConstraint({ name: 'rulesValidation', async: true })
+@ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
   async validate(_: any, args: ValidationArguments): Promise<boolean> {
     const obj = args.object as CreateCampaignDto;
     const rulesData = obj.rules;
     const ruleType = rulesData?.ruleType;
     if (obj.discountType === DiscountType.FREE_SHIPPING) {
-      return true;  
+      return true;
     }
     if (!rulesData) return false;
     if (!ruleType) return false;
 
     let dtoClass: any;
 
-     switch (ruleType) {
+    switch (ruleType) {
       case RuleType.WHOLE_CART:
         dtoClass = wholeCartDto;
         break;
@@ -60,9 +60,9 @@ export class RulesValidation implements ValidatorConstraintInterface {
         return false;
     }
 
-     const rulesInstance = plainToClass(dtoClass, rulesData);
+    const rulesInstance = plainToClass(dtoClass, rulesData);
 
-     const errors = await validate(rulesInstance as object);
+    const errors = await validate(rulesInstance as object);
 
     // Store validation errors for error message
     if (errors.length > 0) {
@@ -84,7 +84,9 @@ export class RulesValidation implements ValidatorConstraintInterface {
     // Build detailed error message from validation errors
     const fieldErrors = validationErrors
       .map((error: any) => {
-        const constraints = error.constraints ? Object.values(error.constraints) : [];
+        const constraints = error.constraints
+          ? Object.values(error.constraints)
+          : [];
         return `${error.property}: ${constraints.join(', ')}`;
       })
       .join('; ');
@@ -107,15 +109,12 @@ export class CreateCampaignDto {
   })
   description: string;
 
-
   @ApiProperty({
     example: DiscountType.ORDER_DISCOUNT,
   })
-  discountType: DiscountType
+  discountType: DiscountType;
 
-  
-
-   @ApiProperty({
+  @ApiProperty({
     example: '2026-01-10T00:00:00.000Z',
     description: 'Campaign start date & time (ISO 8601 format)',
   })
@@ -131,37 +130,29 @@ export class CreateCampaignDto {
 
   @ApiProperty({
     example: {
-        message: 'Created on diwali etc etc'
-    }
+      message: 'Created on diwali etc etc',
+    },
   })
   @IsOptional()
   metadata: Record<string, any>;
 
-
- 
-
-@ApiProperty({
-  example: 'ORDER'
-})
-@IsEnum(CouponType)
-couponType: CouponType;
-
-@ApiProperty({
-  example: true
-})
-useItAsCoupon: boolean
-
-
-
+  @ApiProperty({
+    example: 'ORDER',
+  })
+  @IsEnum(CouponType)
+  couponType: CouponType;
 
   @ApiProperty({
-    example: true
+    example: true,
+  })
+  useItAsCoupon: boolean;
+
+  @ApiProperty({
+    example: true,
   })
   isActive: boolean;
 
-   
-
- @ApiProperty({
+  @ApiProperty({
     oneOf: [
       { $ref: getSchemaPath(wholeCartDto) },
       { $ref: getSchemaPath(CartCustomTotalDto) },
@@ -190,10 +181,4 @@ useItAsCoupon: boolean
     | CategoryDiscountDto
     | ProductDiscountDto
     | BrandDiscountDto;
-
-
-
- 
- 
-
 }

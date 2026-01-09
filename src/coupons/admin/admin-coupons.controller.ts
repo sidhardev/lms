@@ -42,7 +42,6 @@ export class AdminCouponsController {
     type: UpdateCouponDto,
   })
 
-
   // @Get(':id/analytics')
   async getCouponAnalytics(@Param('id') id: number) {
     return this.couponAnalyticsService.getCouponAnalytics(id);

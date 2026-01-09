@@ -8,11 +8,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-
 @Entity('redemption')
-
 export class Redemption {
-    
   @Column({
     nullable: true,
   })
@@ -20,45 +17,44 @@ export class Redemption {
   maxUses: number;
 
   @Column({
-    nullable: true
+    nullable: true,
   })
-@IsOptional()
-unlimitedUses: boolean;
+  @IsOptional()
+  unlimitedUses: boolean;
 
- @Column({
-    nullable: true
+  @Column({
+    nullable: true,
   })
-@IsOptional()
-redemptionType: string;
+  @IsOptional()
+  redemptionType: string;
 
- @Column({
-    nullable: true
+  @Column({
+    nullable: true,
   })
-@IsOptional()
-userEligblity: string;
+  @IsOptional()
+  userEligblity: string;
 
- @Column({
-    nullable: true
+  @Column({
+    nullable: true,
   })
-@IsOptional()
-userLimit: number;
+  @IsOptional()
+  userLimit: number;
 
- @Column({
-    nullable: true
+  @Column({
+    nullable: true,
   })
-@IsOptional()
-validDaysOfWeek: string;
+  @IsOptional()
+  validDaysOfWeek: string;
 
-
- @Column({
-    nullable: true
+  @Column({
+    nullable: true,
   })
-@IsOptional()
-recurringValidity: boolean;
+  @IsOptional()
+  recurringValidity: boolean;
 
- @Column({
-    nullable: true
+  @Column({
+    nullable: true,
   })
-@IsOptional()
-recurringValidityType: string;
+  @IsOptional()
+  recurringValidityType: string;
 }

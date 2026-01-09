@@ -11,7 +11,10 @@ import {
 } from 'class-validator';
 import { Column } from 'typeorm';
 import { CouponType } from '../admin/coupon-type.enum';
-import { wholeCartDto, WholeCartValidation } from 'src/campaigns/rules/dtos/whole-cart.dto';
+import {
+  wholeCartDto,
+  WholeCartValidation,
+} from 'src/campaigns/rules/dtos/whole-cart.dto';
 import { CartCustomTotalDto } from 'src/campaigns/rules/dtos/cart-total-custom.dto';
 import { BulkPurchaseDto } from 'src/campaigns/rules/dtos/bulk-purchase.dto';
 import { CategoryDiscountDto } from 'src/campaigns/rules/dtos/category-discount.dto';
@@ -26,19 +29,12 @@ import { CouponRuleType } from '../admin/coupon-rule-type.enum';
   ProductDiscountDto,
   BrandDiscountDto,
 )
-
-
 export class CreateCouponDto {
-
-@ApiProperty({
-  example: 'ORDER'
-})
-@IsEnum(CouponType)
-couponType: CouponType;
-
-
-
-
+  @ApiProperty({
+    example: 'ORDER',
+  })
+  @IsEnum(CouponType)
+  couponType: CouponType;
 
   @ApiProperty({
     example: 'NEWYEAR50',
@@ -48,18 +44,17 @@ couponType: CouponType;
   code: string;
 
   @ApiProperty({
-    example: true
+    example: true,
   })
   isActive: boolean;
 
   @ApiProperty({
-    
     enum: CouponRuleType,
-    default: CouponRuleType.WHOLE_CART
+    default: CouponRuleType.WHOLE_CART,
   })
   ruleType: CouponRuleType;
 
- @ApiProperty({
+  @ApiProperty({
     oneOf: [
       { $ref: getSchemaPath(wholeCartDto) },
       { $ref: getSchemaPath(CartCustomTotalDto) },
@@ -88,9 +83,7 @@ couponType: CouponType;
     | ProductDiscountDto
     | BrandDiscountDto;
 
-
-
-@ApiProperty({
+  @ApiProperty({
     example: '2026-01-01T23:59:59Z',
     description: 'Coupon Start date (ISO format)',
   })

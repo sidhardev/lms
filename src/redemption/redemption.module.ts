@@ -5,6 +5,6 @@ import { RedemptionService } from './redemption.service';
 
 @Module({
   providers: [RedemptionService],
-  controllers: [RedemptionController]
+  controllers: [RedemptionController],
 })
 export class RedemptionModule {}

@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus,  DiscountType } from './campaign.entity';
+import { campaign, CampaignStatus, DiscountType } from './campaign.entity';
 import { LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { plainToInstance } from 'class-transformer';
@@ -22,22 +22,23 @@ export class CampaignsService {
     const campaign = this.CampaignRepository.create({
       name: CreateCampaignDto.name,
       description: CreateCampaignDto.description,
-       useItAsCoupon: CreateCampaignDto.useItAsCoupon,
+      useItAsCoupon: CreateCampaignDto.useItAsCoupon,
       startAt: CreateCampaignDto.startAt,
       endAt: CreateCampaignDto.endAt,
       status: CampaignStatus.DRAFT,
       metadata: CreateCampaignDto.metadata,
       couponType: CreateCampaignDto.couponType,
-      discountType: CreateCampaignDto.discountType,
+      discountType: DiscountType.ORDER_DISCOUNT,
       isActive: CreateCampaignDto.isActive,
-       rules: CreateCampaignDto.rules,
-
+      rules: CreateCampaignDto.rules,
     });
     return this.CampaignRepository.save(campaign);
   }
 
   findAll() {
-    return this.CampaignRepository.find();
+    return this.CampaignRepository.find({
+      where: { discountType: DiscountType.ORDER_DISCOUNT },
+    });
   }
 
   findOne(id: number) {
@@ -48,7 +49,7 @@ export class CampaignsService {
 
   async UpdateStatus(id: number) {
     const campaign = await this.findOne(id);
-    console.log(id)
+    console.log(id);
     if (!campaign) {
       throw new NotFoundException('Campaign Not found!');
     }
@@ -59,19 +60,7 @@ export class CampaignsService {
   async findActive() {
     const now = new Date();
     return this.CampaignRepository.find({
-
-      where: {status: CampaignStatus.ACTIVE,
-        
-      }
+      where: { status: CampaignStatus.ACTIVE },
     });
   }
-
-
-
-
-
-
-
-
 }
- 

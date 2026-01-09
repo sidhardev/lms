@@ -1,0 +1,5 @@
+export enum ShippingMethod {
+  STANDARD_SHIPPING = 'STANDARD_SHIPPING',
+  EXPRESS_SHIPPING = 'EXPRESS_SHIPPING',
+  NONE = 'NONE',
+}

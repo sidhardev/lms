@@ -14,9 +14,7 @@ import { DiscountMode, RuleType } from '../rules.enum';
 /* -------------------- CUSTOM VALIDATOR -------------------- */
 
 @ValidatorConstraint({ name: 'bulkPurchaseValidation', async: false })
-export class BulkPurchaseValidation
-  implements ValidatorConstraintInterface
-{
+export class BulkPurchaseValidation implements ValidatorConstraintInterface {
   validate(_: any, args: ValidationArguments): boolean {
     const obj = args.object as BulkPurchaseDto;
 

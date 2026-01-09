@@ -11,5 +11,4 @@ import { ConfirmCouponDto } from './dtos/confirm-copon.dto';
 @Controller('coupons')
 export class CouponsController {
   constructor(private couponService: CouponsService) {}
-  
 }

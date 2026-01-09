@@ -53,6 +53,6 @@ import { RedemptionModule } from './redemption/redemption.module';
     RedemptionModule,
   ],
   controllers: [AppController, CampaignsController, RedemptionController],
-  providers: [AppService,],
+  providers: [AppService],
 })
 export class AppModule {}

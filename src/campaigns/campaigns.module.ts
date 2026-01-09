@@ -7,10 +7,9 @@ import { ShippingCampaignController } from '../shipping_campaign/shipping_campai
 import { ShippingCampaignModule } from '../shipping_campaign/shipping_campaign.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([campaign]), ShippingCampaignModule],
-    providers: [CampaignsService, ],
-    controllers: [CampaignsController, ShippingCampaignController],
-    exports: [CampaignsService]
-
+  imports: [TypeOrmModule.forFeature([campaign]), ShippingCampaignModule],
+  providers: [CampaignsService],
+  controllers: [CampaignsController, ShippingCampaignController],
+  exports: [CampaignsService],
 })
 export class CampaignsModule {}

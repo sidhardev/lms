@@ -12,9 +12,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { DiscountMode, RuleType } from '../rules.enum';
 
 @ValidatorConstraint({ name: 'cartTotalValidation', async: false })
-export class CartTotalValidation
-  implements ValidatorConstraintInterface
-{
+export class CartTotalValidation implements ValidatorConstraintInterface {
   validate(_: any, args: ValidationArguments): boolean {
     const obj = args.object as CartCustomTotalDto;
 
@@ -24,17 +22,19 @@ export class CartTotalValidation
     const hasAmount =
       obj.minAmount !== undefined || obj.maxAmount !== undefined;
 
-     if (hasPercent && hasAmount) return false;
+    if (hasPercent && hasAmount) return false;
 
-     if (!hasPercent && !hasAmount) return false;
+    if (!hasPercent && !hasAmount) return false;
 
     return true;
   }
 
   defaultMessage(args: ValidationArguments): string {
     const obj = args.object as CartCustomTotalDto;
-    const hasPercent = obj.MinPercent !== undefined || obj.MaxPercent !== undefined;
-    const hasAmount = obj.minAmount !== undefined || obj.maxAmount !== undefined;
+    const hasPercent =
+      obj.MinPercent !== undefined || obj.MaxPercent !== undefined;
+    const hasAmount =
+      obj.minAmount !== undefined || obj.maxAmount !== undefined;
 
     if (hasPercent && hasAmount) {
       return 'Cart Total: You must provide either PERCENT based values (MinPercent, MaxPercent) OR AMOUNT based values (minAmount, maxAmount), not both.';
@@ -49,7 +49,6 @@ export class CartTotalValidation
 }
 
 export class CartCustomTotalDto {
-   
   @ApiProperty({
     enum: RuleType,
     example: RuleType.CART_TOTAL_CUSTOM,
@@ -74,7 +73,6 @@ export class CartCustomTotalDto {
   @Min(1)
   minOrderValue: number;
 
- 
   @ApiPropertyOptional({
     example: 5,
     description: 'Minimum discount percentage',
@@ -102,7 +100,6 @@ export class CartCustomTotalDto {
   @IsOptional()
   MaxDiscount?: number;
 
- 
   @ApiPropertyOptional({
     example: 50,
     description: 'Minimum flat discount amount',
@@ -121,7 +118,6 @@ export class CartCustomTotalDto {
   @IsOptional()
   maxAmount?: number;
 
- 
   @Validate(CartTotalValidation)
   private readonly _cartValidation!: any;
 }

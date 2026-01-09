@@ -12,8 +12,6 @@ export class CouponsService {
     private readonly couponRepository: Repository<Coupon>,
   ) {}
 
-
-
   async findOne(id: number) {
     const coupon = await this.couponRepository.findOne({ where: { id } });
     if (!coupon) {

@@ -25,16 +25,16 @@ export class AdminCouponsService {
     if (existingCoupon) {
       throw new BadRequestException('Coupon code already exists.');
     }
-      const coupon = this.couponRepository.create({
-  code: createCouponDto.code,
-  couponType: createCouponDto.couponType, 
-  ruleType: createCouponDto.ruleType,
-  rules: createCouponDto.rules,
-  startAt: createCouponDto.startAt,
-  endAt: createCouponDto.endAt,
-  isActive: createCouponDto.isActive,
-  createdBy: req.user.id,
-});
+    const coupon = this.couponRepository.create({
+      code: createCouponDto.code,
+      couponType: createCouponDto.couponType,
+      ruleType: createCouponDto.ruleType,
+      rules: createCouponDto.rules,
+      startAt: createCouponDto.startAt,
+      endAt: createCouponDto.endAt,
+      isActive: createCouponDto.isActive,
+      createdBy: req.user.id,
+    });
 
     await this.couponRepository.save(coupon);
     return coupon;
@@ -66,6 +66,4 @@ export class AdminCouponsService {
     await this.couponRepository.softRemove(coupon);
     return { message: 'Coupon removed successfully.' };
   }
-
-  
 }

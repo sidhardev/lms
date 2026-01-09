@@ -15,16 +15,10 @@ import {
   JoinColumn,
 } from 'typeorm';
 
- 
-
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
   ORDER_DISCOUNT = 'ORDER_DISCOUNT',
 }
-
-
-
- 
 
 export enum CampaignStatus {
   DRAFT = 'DRAFT',
@@ -34,7 +28,6 @@ export enum CampaignStatus {
 }
 
 @Entity('campaigns')
-
 export class campaign {
   @PrimaryGeneratedColumn()
   id: number;
@@ -50,7 +43,7 @@ export class campaign {
     type: 'enum',
     enum: DiscountType,
   })
-  discountType: DiscountType
+  discountType: DiscountType;
 
   @Column({
     type: 'enum',
@@ -59,22 +52,18 @@ export class campaign {
   })
   status: CampaignStatus;
 
-
-   @OneToOne(() => Coupon, (coupon) => coupon.campaign, {
+  @OneToOne(() => Coupon, (coupon) => coupon.campaign, {
     cascade: true,
   })
-  coupon: Coupon
-
-  
+  coupon: Coupon;
 
   @Column({
     type: 'boolean',
-  nullable: true, default: false})
+    nullable: true,
+    default: false,
+  })
   @IsOptional()
-  useItAsCoupon: boolean; 
-
-
-
+  useItAsCoupon: boolean;
 
   @Column({ type: 'timestamp' })
   startAt: Date;
@@ -85,59 +74,42 @@ export class campaign {
   @Column({ type: 'jsonb', nullable: true })
   metadata: Record<string, any>;
 
-
-
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-  @Column({nullable: true})
+  @Column({ nullable: true })
   @MinLength(4)
   @MaxLength(6)
   code: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   couponType: CouponType;
 
-
-
-   @OneToOne(() => campaign, (campaign) => campaign.coupon, {
+  @OneToOne(() => campaign, (campaign) => campaign.coupon, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn() 
+  @JoinColumn()
   campaign: campaign;
 
-
-
- 
-
-@Column({ type: 'jsonb', nullable: true })
-rules: Record<string, any>;
-
-
-
+  @Column({ type: 'jsonb', nullable: true })
+  rules: Record<string, any>;
 
   @Column({ default: true })
   isActive: boolean;
- 
+
   @Column({ nullable: true })
   createdBy: number;
 
+  @Column({ default: ShippingMethod.NONE })
+  shippingMethod: ShippingMethod;
 
-@Column({default: 'No method because it is order type campaign'})
-shippingMethod: ShippingMethod;
+  @Column({ default: 0 })
+  minOrderValue: number;
+  @Column({ default: 0 })
+  maxDiscount: number;
 
-
-
-@Column({default: 'No minimum order value because it is order type campaign'})
-minOrderValue: number;
-@Column({default: 'No maximum discount value because it is order type campaign'})
-maxDiscount: number;
-
-@Column({default: 'NO COUNTRIES'})
-eligible_locations: EligibleLocationDto;
-
-
-
+  @Column({ default: { contries: 'no one' }, type: 'jsonb' })
+  eligible_locations: EligibleLocationDto[];
 }
