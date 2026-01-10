@@ -21,6 +21,8 @@ import { CampaignsModule } from './campaigns/campaigns.module';
 import { campaign } from './campaigns/campaign.entity';
 import { RedemptionController } from './redemption/redemption.controller';
 import { RedemptionModule } from './redemption/redemption.module';
+import { LoyaltyProgramController } from './loyalty-program/loyalty-program.controller';
+import { LoyaltyProgramModule } from './loyalty-program/loyalty-program.module';
 
 @Module({
   imports: [
@@ -51,8 +53,9 @@ import { RedemptionModule } from './redemption/redemption.module';
     AdminModule,
     CampaignsModule,
     RedemptionModule,
+    LoyaltyProgramModule,
   ],
-  controllers: [AppController, CampaignsController, RedemptionController],
+  controllers: [AppController, CampaignsController, RedemptionController, LoyaltyProgramController],
   providers: [AppService],
 })
 export class AppModule {}

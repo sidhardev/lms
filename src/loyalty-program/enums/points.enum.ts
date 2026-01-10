@@ -1,0 +1,11 @@
+export enum PointsMode {
+  FIXED = 'FIXED',
+  DYNAMIC = 'DYNAMIC',
+}
+
+export enum AccumulationRuleType {
+  POINTS_PER_RUPEE = 'POINTS_PER_RUPEE',
+  FIRST_PURCHASE = 'FIRST_PURCHASE',
+  DAILY_LOGIN_STREAK = 'DAILY_LOGIN_STREAK',
+  CATEGORY_BASED = 'CATEGORY_BASED',
+}
