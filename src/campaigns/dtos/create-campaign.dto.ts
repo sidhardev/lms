@@ -31,9 +31,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
     const obj = args.object as CreateCampaignDto;
     const rulesData = obj.rules;
     const ruleType = rulesData?.ruleType;
-    if (obj.discountType === DiscountType.FREE_SHIPPING) {
-      return true;
-    }
+     
     if (!rulesData) return false;
     if (!ruleType) return false;
 
@@ -83,8 +81,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
       return `Rules validation failed for ruleType: ${ruleType}. Please ensure all required fields are provided with correct types.`;
     }
 
-    // Build detailed error message from validation errors
-    const fieldErrors = validationErrors
+     const fieldErrors = validationErrors
       .map((error: any) => {
         const constraints = error.constraints
           ? Object.values(error.constraints)
@@ -260,7 +257,7 @@ export class CreateCampaignDto {
     required: false,
   })
   @IsOptional()
-  @IsDateString()
+  @IsString()
   ruccringStartTime?: string;
 
   @ApiProperty({
@@ -269,6 +266,6 @@ export class CreateCampaignDto {
     required: false,
   })
   @IsOptional()
-  @IsDateString()
+  @IsString()
   ruccringEndTime?: string;
 }

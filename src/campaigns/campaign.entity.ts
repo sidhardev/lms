@@ -14,7 +14,6 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Timestamp } from 'typeorm/browser';
 
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
@@ -79,10 +78,10 @@ export class campaign {
   })
   status: CampaignStatus;
 
-  @OneToOne(() => Coupon, (coupon) => coupon.campaign, {
-    cascade: true,
-  })
-  coupon: Coupon;
+  // @OneToOne(() => Coupon, (coupon) => coupon.campaign, {
+  //   cascade: true,
+  // })
+  // coupon: Coupon;
 
   @Column({
     type: 'boolean',
@@ -106,6 +105,8 @@ export class campaign {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+
   @Column({ nullable: true })
   @MinLength(4)
   @MaxLength(6)
@@ -114,11 +115,7 @@ export class campaign {
   @Column({ nullable: true })
   couponType: CouponType;
 
-  @OneToOne(() => campaign, (campaign) => campaign.coupon, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn()
-  campaign: campaign;
+ 
 
 
   @Column({nullable: true})
@@ -143,10 +140,10 @@ export class campaign {
   ruccringValidDays: ruccringValidDays;
 
   @Column({nullable: true})
-  ruccringStartTime: Timestamp;
+  ruccringStartTime: string;
 
   @Column({nullable: true})
-  ruccringEndTime: Timestamp;
+  ruccringEndTime: string;
 
   @Column({ type: 'jsonb', nullable: true })
   rules: Record<string, any>;

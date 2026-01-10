@@ -167,7 +167,7 @@ export class CreateFreeShippingDto {
     required: false,
   })
   @IsOptional()
-  @IsDateString()
+  @IsString()
   ruccringStartTime?: string;
 
   @ApiProperty({
@@ -176,6 +176,6 @@ export class CreateFreeShippingDto {
     required: false,
   })
   @IsOptional()
-  @IsDateString()
+  @IsString()
   ruccringEndTime?: string;
 }

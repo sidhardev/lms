@@ -24,11 +24,7 @@ export class Coupon {
   @Column({ nullable: true })
   couponType: CouponType;
 
-  @OneToOne(() => campaign, (campaign) => campaign.coupon, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn()
-  campaign: campaign;
+  
 
   @Column({
     type: 'enum',

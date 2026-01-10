@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { campaign, CampaignStatus } from 'src/campaigns/campaign.entity';
 import { Repository } from 'typeorm';
@@ -28,6 +28,15 @@ export class ShippingCampaignService {
       minOrderValue: CreateFreeShippingDto.minOrderValue,
       maxDiscount: CreateFreeShippingDto.maxDiscount,
       eligible_locations: CreateFreeShippingDto.eligible_locations,
+      maxUses: CreateFreeShippingDto.maxUses,
+      unlimitedUses: CreateFreeShippingDto.unlimitedUses,
+      redemptionType: CreateFreeShippingDto.redemptionType,
+      userEligiblity: CreateFreeShippingDto.userEligiblity,
+      ruccringValidity: CreateFreeShippingDto.ruccringValidity,
+      ruccringCycle: CreateFreeShippingDto.ruccringCycle,
+      ruccringValidDays: CreateFreeShippingDto.ruccringValidDays,
+      ruccringStartTime: CreateFreeShippingDto.ruccringStartTime,
+      ruccringEndTime: CreateFreeShippingDto.ruccringEndTime
     });
     return this.CampaignRepository.save(campaign);
   }
@@ -37,4 +46,20 @@ export class ShippingCampaignService {
       where: { couponType: CouponType.FREE_SHIPPING },
     });
   }
+
+
+async findOne(id:number) {
+  return await this.CampaignRepository.findOne({
+    where: {id}
+  })
+}
+
+
+  async UpdateStatus(id: number) {
+    const campaign = await this.findOne(id);
+    console.log(id);
+    if (!campaign) {
+      throw new NotFoundException('Campaign Not found!');
+    }
+}
 }
