@@ -14,7 +14,7 @@ import { ShippingMethod } from './shipping_method.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { EligibleLocationDto } from './eligible_locations.dto';
 import { Type } from 'class-transformer';
-import { DiscountType, redemptionType, ruccringCycle, ruccringValidDays, userEligiblity } from 'src/campaigns/campaign.entity';
+import { DiscountType, redemptionType, recurringCycle, recurringValidDays, userEligiblity } from 'src/campaigns/campaign.entity';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 
 export class CreateFreeShippingDto {
@@ -139,27 +139,27 @@ export class CreateFreeShippingDto {
   })
   @IsOptional()
   @IsBoolean()
-  ruccringValidity?: boolean;
+  recurringValidity?: boolean;
 
   @ApiProperty({
-    enum: ruccringCycle,
-    example: ruccringCycle.EVERY_WEEK,
+    enum: recurringCycle,
+    example: recurringCycle.EVERY_WEEK,
     description: 'Recurring cycle type (daily, weekly, monthly, etc.)',
     required: false,
   })
   @IsOptional()
-  @IsEnum(ruccringCycle)
-  ruccringCycle?: ruccringCycle;
+  @IsEnum(recurringCycle)
+  recurringCycle?: recurringCycle;
 
   @ApiProperty({
-    enum: ruccringValidDays,
-    example: ruccringValidDays.MON,
+    enum: recurringValidDays,
+    example: recurringValidDays.MON,
     description: 'Valid days for recurring campaigns',
     required: false,
   })
   @IsOptional()
-  @IsEnum(ruccringValidDays)
-  ruccringValidDays?: ruccringValidDays;
+  @IsEnum(recurringValidDays, {each: true})
+  recurringValidDays?: recurringValidDays[];
 
   @ApiProperty({
     example: '09:00:00',
@@ -168,7 +168,7 @@ export class CreateFreeShippingDto {
   })
   @IsOptional()
   @IsString()
-  ruccringStartTime?: string;
+  recurringStartTime?: string;
 
   @ApiProperty({
     example: '21:00:00',
@@ -177,5 +177,5 @@ export class CreateFreeShippingDto {
   })
   @IsOptional()
   @IsString()
-  ruccringEndTime?: string;
+  recurringEndTime?: string;
 }

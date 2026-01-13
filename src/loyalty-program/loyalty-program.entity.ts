@@ -1,6 +1,7 @@
 import { IsObject, IsOptional } from "class-validator";
-import { ruccringValidDays } from "src/campaigns/campaign.entity";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { recurringValidDays } from "src/campaigns/campaign.entity";
+import { CampaignNotification } from "src/notifications/notification.entity";
+import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('loyalty-program')
 export class LoyaltyProgram {
@@ -22,6 +23,14 @@ export class LoyaltyProgram {
   @Column({ type: 'timestamp' })
   endAt: Date;
 
+
+    @OneToOne(
+      () => CampaignNotification,
+      (notification) => notification.loyaltyProgram,
+      { cascade: true, eager: true }
+    )
+    notification: CampaignNotification;
+
     @CreateDateColumn()
   createdAt: Date;
 
@@ -29,7 +38,7 @@ export class LoyaltyProgram {
   updatedAt: Date;
 
    @Column({nullable: true})
-  validDays: ruccringValidDays;
+  validDays: recurringValidDays;
 
     @Column({nullable: true})
   validityStartTime: string;

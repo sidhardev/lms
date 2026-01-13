@@ -3,7 +3,7 @@ import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { CreateLoyaltyProgramDto } from './create-loyalty-program.dto';
 import { AccumulationRuleType, PointsMode } from '../enums/points.enum';
-import { ruccringValidDays } from 'src/campaigns/campaign.entity';
+import { recurringValidDays } from 'src/campaigns/campaign.entity';
 
 describe('CreateLoyaltyProgramDto', () => {
   const validBaseDto = {
@@ -168,7 +168,7 @@ describe('CreateLoyaltyProgramDto', () => {
     const dto = plainToClass(CreateLoyaltyProgramDto, {
       ...validBaseDto,
       description: 'A great program',
-      validDays: ruccringValidDays.ALL,
+      validDays: recurringValidDays.ALL,
       validityStartTime: '09:00',
       validityEndTime: '17:00',
     });

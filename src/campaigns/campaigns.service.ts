@@ -35,11 +35,11 @@ export class CampaignsService {
       unlimitedUses: CreateCampaignDto.unlimitedUses,
       redemptionType: CreateCampaignDto.redemptionType,
       userEligiblity: CreateCampaignDto.userEligiblity,
-      ruccringValidity: CreateCampaignDto.ruccringValidity,
-      ruccringCycle: CreateCampaignDto.ruccringCycle,
-      ruccringValidDays: CreateCampaignDto.ruccringValidDays,
-      ruccringStartTime: CreateCampaignDto.ruccringStartTime,
-      ruccringEndTime: CreateCampaignDto.ruccringEndTime,
+      recurringValidity: CreateCampaignDto.recurringValidity,
+      recurringCycle: CreateCampaignDto.recurringCycle,
+      recurringValidDays: CreateCampaignDto.recurringValidDays,
+      recurringStartTime: CreateCampaignDto.recurringStartTime,
+      recurringEndTime: CreateCampaignDto.recurringEndTime,
       notification: CreateCampaignDto.notification ? {...CreateCampaignDto.notification} : undefined,
     });
     return this.CampaignRepository.save(campaign);
@@ -48,6 +48,9 @@ export class CampaignsService {
   findAll() {
     return this.CampaignRepository.find({
       where: { discountType: DiscountType.ORDER_DISCOUNT },
+      relations: {
+        notification: true
+      }
     });
   }
 

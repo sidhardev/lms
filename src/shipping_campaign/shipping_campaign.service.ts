@@ -32,11 +32,11 @@ export class ShippingCampaignService {
       unlimitedUses: CreateFreeShippingDto.unlimitedUses,
       redemptionType: CreateFreeShippingDto.redemptionType,
       userEligiblity: CreateFreeShippingDto.userEligiblity,
-      ruccringValidity: CreateFreeShippingDto.ruccringValidity,
-      ruccringCycle: CreateFreeShippingDto.ruccringCycle,
-      ruccringValidDays: CreateFreeShippingDto.ruccringValidDays,
-      ruccringStartTime: CreateFreeShippingDto.ruccringStartTime,
-      ruccringEndTime: CreateFreeShippingDto.ruccringEndTime
+      recurringValidity: CreateFreeShippingDto.recurringValidity,
+      recurringCycle: CreateFreeShippingDto.recurringCycle,
+      recurringValidDays: CreateFreeShippingDto.recurringValidDays,
+      recurringStartTime: CreateFreeShippingDto.recurringStartTime,
+      recurringEndTime: CreateFreeShippingDto.recurringEndTime
     });
     return this.CampaignRepository.save(campaign);
   }

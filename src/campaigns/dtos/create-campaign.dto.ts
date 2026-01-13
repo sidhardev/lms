@@ -13,7 +13,7 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { DiscountType, redemptionType, ruccringCycle, ruccringValidDays, userEligiblity } from '../campaign.entity';
+import { DiscountType, redemptionType, recurringCycle, recurringValidDays, userEligiblity } from '../campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
@@ -231,27 +231,26 @@ export class CreateCampaignDto {
   })
   @IsOptional()
   @IsBoolean()
-  ruccringValidity?: boolean;
+  recurringValidity?: boolean;
 
   @ApiProperty({
-    enum: ruccringCycle,
-    example: ruccringCycle.EVERY_WEEK,
+    enum: recurringCycle,
+    example: recurringCycle.EVERY_WEEK,
     description: 'Recurring cycle type (daily, weekly, monthly, etc.)',
     required: false,
   })
   @IsOptional()
-  @IsEnum(ruccringCycle)
-  ruccringCycle?: ruccringCycle;
+  @IsEnum(recurringCycle)
+  recurringCycle?: recurringCycle;
 
   @ApiProperty({
-    enum: ruccringValidDays,
-    example: ruccringValidDays.MON,
-    description: 'Valid days for recurring campaigns',
-    required: false,
-  })
-  @IsOptional()
-  @IsEnum(ruccringValidDays)
-  ruccringValidDays?: ruccringValidDays;
+  example: [recurringValidDays.MON, recurringValidDays.WED],
+  description: 'Valid days for recurring campaigns',
+  required: false,
+})
+@IsOptional()
+@IsEnum(recurringValidDays, { each: true })  
+recurringValidDays?: recurringValidDays[];
 
   @ApiProperty({
     example: '09:00:00',
@@ -260,7 +259,7 @@ export class CreateCampaignDto {
   })
   @IsOptional()
   @IsString()
-  ruccringStartTime?: string;
+  recurringStartTime?: string;
 
   @ApiProperty({
     example: '21:00:00',
@@ -269,7 +268,7 @@ export class CreateCampaignDto {
   })
   @IsOptional()
   @IsString()
-  ruccringEndTime?: string;
+  recurringEndTime?: string;
 
 
 

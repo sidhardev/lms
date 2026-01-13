@@ -6,10 +6,13 @@ import {
   IsOptional,
   IsString,
   Validate,
+  ValidateNested,
 } from 'class-validator';
-import { ruccringValidDays } from 'src/campaigns/campaign.entity';
+import { recurringValidDays } from 'src/campaigns/campaign.entity';
 import { IsLoyaltyProgramRule } from '../validators/loyalty-program-rules.validator';
 import { AccumulationRuleType, PointsMode } from '../enums/points.enum';
+import { Type } from 'class-transformer';
+import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 
 export class CreateLoyaltyProgramDto {
   @ApiProperty({
@@ -42,13 +45,13 @@ export class CreateLoyaltyProgramDto {
   endAt: Date;
 
   @ApiPropertyOptional({
-    enum: ruccringValidDays,
-    example: ruccringValidDays.ALL,
+    enum: recurringValidDays,
+    example: recurringValidDays.MON,
     description: 'Days on which loyalty program is valid',
   })
   @IsOptional()
-  @IsEnum(ruccringValidDays)
-  validDays?: ruccringValidDays;
+  @IsEnum(recurringValidDays)
+  validDays?: recurringValidDays;
 
   @ApiPropertyOptional({
     example: '09:00',
@@ -107,4 +110,13 @@ export class CreateLoyaltyProgramDto {
   @IsOptional()
   @Validate(IsLoyaltyProgramRule)
   rules?: Record<string, any>;
+
+    
+ @ApiProperty({
+    type: CreateCampaignNotificationDto,
+    description: 'Single notification configuration for this campaign',
+  })
+  @ValidateNested()
+  @Type(() => CreateCampaignNotificationDto)
+  notification: CreateCampaignNotificationDto;
 }

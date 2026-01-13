@@ -22,6 +22,7 @@ export class LoyaltyProgramService {
       validityStartTime: dto.validityStartTime,
       validityEndTime: dto.validityEndTime,
       rules: dto.rules,
+    notification: dto.notification ? {...dto.notification} : undefined,
     });
 
     return await this.loyaltyRepository.save(loyaltyProgram);
