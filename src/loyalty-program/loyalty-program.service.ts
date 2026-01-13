@@ -28,6 +28,14 @@ export class LoyaltyProgramService {
     return await this.loyaltyRepository.save(loyaltyProgram);
   }
 
+  async findAll() {
+    return await this.loyaltyRepository.find({
+        relations: {
+            notification: true,
+        }
+    });
+  }
+
 
 
 }

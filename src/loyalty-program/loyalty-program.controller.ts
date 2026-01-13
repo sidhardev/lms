@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateLoyaltyProgramDto } from './dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from './loyalty-program.service';
 import { ApiCreatedResponse } from '@nestjs/swagger';
@@ -19,4 +19,12 @@ constructor(private loyaltyProgramService: LoyaltyProgramService) {}
     
 
 }
+
+
+@Get('/get')
+get() {
+    return this.loyaltyProgramService.findAll();   
+}
+
+
 }
