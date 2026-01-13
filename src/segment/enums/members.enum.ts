@@ -1,0 +1,8 @@
+export enum membersCriteria {
+    BIRTHDAY = 'BIRTHDAY',
+    ANNIVERSARY = 'ANNIVERSARY',
+    LOYALTY_ENROLLED_DATE = 'LOYALTY_ENROLLED_DATE',
+    LOYALTY_TIER = 'LOYALTY_TIER',
+    TAGS = 'TAGS',
+
+}
