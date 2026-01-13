@@ -26,8 +26,6 @@ import { LoyaltyProgramModule } from './loyalty-program/loyalty-program.module';
 import { NotificationsController } from './notifications/notifications.controller';
 import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
-import { SegmentController } from './segment/segment.controller';
-import { SegmentService } from './segment/segment.service';
 import { SegmentModule } from './segment/segment.module';
 
 @Module({
@@ -63,7 +61,7 @@ import { SegmentModule } from './segment/segment.module';
     NotificationsModule,
     SegmentModule,
   ],
-  controllers: [AppController, CampaignsController, RedemptionController, LoyaltyProgramController, NotificationsController, SegmentController],
-  providers: [AppService, NotificationsService, SegmentService],
+  controllers: [AppController, CampaignsController, RedemptionController, LoyaltyProgramController, NotificationsController],
+  providers: [AppService, NotificationsService],
 })
 export class AppModule {}
