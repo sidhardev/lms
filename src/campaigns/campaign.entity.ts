@@ -50,7 +50,8 @@ export enum ruccringValidDays {
   WED = "WED",
   THR = "THR",
   FRI = "FRI",
-  SAT = "SAT"
+  SAT = "SAT",
+  ALL = 'ALL'
 }
 
 @Entity('campaigns')
