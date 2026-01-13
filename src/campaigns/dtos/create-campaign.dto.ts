@@ -11,6 +11,7 @@ import {
   validate,
   IsBoolean,
   Min,
+  ValidateNested,
 } from 'class-validator';
 import { DiscountType, redemptionType, ruccringCycle, ruccringValidDays, userEligiblity } from '../campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
@@ -21,9 +22,10 @@ import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
 import { CategoryDiscountDto } from '../rules/dtos/category-discount.dto';
 import { wholeCartDto } from '../rules/dtos/whole-cart.dto';
-import { plainToClass } from 'class-transformer';
+import { plainToClass, Type } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
 import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
+import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
@@ -268,4 +270,15 @@ export class CreateCampaignDto {
   @IsOptional()
   @IsString()
   ruccringEndTime?: string;
+
+
+
+  
+ @ApiProperty({
+    type: CreateCampaignNotificationDto,
+    description: 'Single notification configuration for this campaign',
+  })
+  @ValidateNested()
+  @Type(() => CreateCampaignNotificationDto)
+  notification: CreateCampaignNotificationDto;
 }

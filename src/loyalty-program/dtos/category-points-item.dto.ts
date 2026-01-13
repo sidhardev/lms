@@ -5,7 +5,7 @@ import { IsNumber, IsString, Min } from 'class-validator';
 export class CategoryPointsItemDto {
   @ApiProperty({ example: 'jeans' })
   @IsString()
-  categoryId: string;
+  categoryName: string;
 
   @ApiProperty({ example: 50 })
   @IsNumber()

@@ -23,6 +23,9 @@ import { RedemptionController } from './redemption/redemption.controller';
 import { RedemptionModule } from './redemption/redemption.module';
 import { LoyaltyProgramController } from './loyalty-program/loyalty-program.controller';
 import { LoyaltyProgramModule } from './loyalty-program/loyalty-program.module';
+import { NotificationsController } from './notifications/notifications.controller';
+import { NotificationsService } from './notifications/notifications.service';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -54,8 +57,9 @@ import { LoyaltyProgramModule } from './loyalty-program/loyalty-program.module';
     CampaignsModule,
     RedemptionModule,
     LoyaltyProgramModule,
+    NotificationsModule,
   ],
-  controllers: [AppController, CampaignsController, RedemptionController, LoyaltyProgramController],
-  providers: [AppService],
+  controllers: [AppController, CampaignsController, RedemptionController, LoyaltyProgramController, NotificationsController],
+  providers: [AppService, NotificationsService],
 })
 export class AppModule {}

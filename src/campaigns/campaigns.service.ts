@@ -39,7 +39,8 @@ export class CampaignsService {
       ruccringCycle: CreateCampaignDto.ruccringCycle,
       ruccringValidDays: CreateCampaignDto.ruccringValidDays,
       ruccringStartTime: CreateCampaignDto.ruccringStartTime,
-      ruccringEndTime: CreateCampaignDto.ruccringEndTime
+      ruccringEndTime: CreateCampaignDto.ruccringEndTime,
+      notification: CreateCampaignDto.notification ? {...CreateCampaignDto.notification} : undefined,
     });
     return this.CampaignRepository.save(campaign);
   }

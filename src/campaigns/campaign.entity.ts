@@ -3,6 +3,7 @@ import { timestamp } from 'rxjs';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 import { Coupon } from 'src/coupons/coupon.entity';
+import { CampaignNotification } from 'src/notifications/notification.entity';
 import { EligibleLocationDto } from 'src/shipping_campaign/eligible_locations.dto';
 import { ShippingMethod } from 'src/shipping_campaign/shipping_method.enum';
 import {
@@ -112,6 +113,13 @@ export class campaign {
   @MinLength(4)
   @MaxLength(6)
   code: string;
+
+  @OneToOne(
+    () => CampaignNotification,
+    (notification) => notification.campaign,
+    { cascade: true, eager: true }
+  )
+  notification: CampaignNotification;
 
   @Column({ nullable: true })
   couponType: CouponType;

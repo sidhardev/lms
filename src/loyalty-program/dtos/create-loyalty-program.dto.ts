@@ -95,7 +95,7 @@ export class CreateLoyaltyProgramDto {
           ruleType: AccumulationRuleType.CATEGORY_BASED,
           categories: [
             {
-              categoryId: 'jeans',
+              categoryName: 'jeans',
               pointsEarned: 50,
             },
           ],
