@@ -6,6 +6,6 @@ import { LoyaltyProgram } from './loyalty-program.entity';
 @Module({
   providers: [LoyaltyProgramService],
   imports: [TypeOrmModule.forFeature([LoyaltyProgram])],
-  exports: [LoyaltyProgramService]
+  exports: [LoyaltyProgramService],
 })
 export class LoyaltyProgramModule {}

@@ -1,4 +1,3 @@
- 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsBoolean,
@@ -24,7 +23,8 @@ export class PointsPerRupeeDto {
 
   @ApiPropertyOptional({
     example: 50,
-    description: 'Order amount required to earn points. Required for DYNAMIC mode',
+    description:
+      'Order amount required to earn points. Required for DYNAMIC mode',
   })
   @ValidateIf((o) => o.mode === PointsMode.DYNAMIC)
   @IsDefined()

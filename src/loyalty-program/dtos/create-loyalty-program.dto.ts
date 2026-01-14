@@ -111,8 +111,7 @@ export class CreateLoyaltyProgramDto {
   @Validate(IsLoyaltyProgramRule)
   rules?: Record<string, any>;
 
-    
- @ApiProperty({
+  @ApiProperty({
     type: CreateCampaignNotificationDto,
     description: 'Single notification configuration for this campaign',
   })

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ShippingCampaignService } from './shipping_campaign.service';
 import { CreateFreeShippingDto } from './free_shipping.dto';
 
@@ -16,9 +24,8 @@ export class ShippingCampaignController {
     return this.shippingService.findAll();
   }
 
- @Patch(':id/status')
-   updateStatus(@Param('id', ParseIntPipe) id: number) {
-     return this.shippingService.UpdateStatus(id);
-   }
+  @Patch(':id/status')
+  updateStatus(@Param('id', ParseIntPipe) id: number) {
+    return this.shippingService.UpdateStatus(id);
   }
-
+}

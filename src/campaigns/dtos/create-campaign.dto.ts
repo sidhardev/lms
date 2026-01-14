@@ -13,7 +13,13 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { DiscountType, redemptionType, recurringCycle, recurringValidDays, userEligiblity } from '../campaign.entity';
+import {
+  DiscountType,
+  redemptionType,
+  recurringCycle,
+  recurringValidDays,
+  userEligiblity,
+} from '../campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
@@ -33,7 +39,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
     const obj = args.object as CreateCampaignDto;
     const rulesData = obj.rules;
     const ruleType = rulesData?.ruleType;
-     
+
     if (!rulesData) return false;
     if (!ruleType) return false;
 
@@ -83,7 +89,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
       return `Rules validation failed for ruleType: ${ruleType}. Please ensure all required fields are provided with correct types.`;
     }
 
-     const fieldErrors = validationErrors
+    const fieldErrors = validationErrors
       .map((error: any) => {
         const constraints = error.constraints
           ? Object.values(error.constraints)
@@ -183,8 +189,7 @@ export class CreateCampaignDto {
     | ProductDiscountDto
     | BrandDiscountDto;
 
-
-     @ApiProperty({
+  @ApiProperty({
     example: 100,
     description: 'Maximum number of times the campaign can be used',
     required: false,
@@ -210,8 +215,7 @@ export class CreateCampaignDto {
     required: false,
   })
   @IsOptional()
-  @IsEnum(redemptionType
-  )
+  @IsEnum(redemptionType)
   redemptionType?: redemptionType;
 
   @ApiProperty({
@@ -244,13 +248,13 @@ export class CreateCampaignDto {
   recurringCycle?: recurringCycle;
 
   @ApiProperty({
-  example: [recurringValidDays.MON, recurringValidDays.WED],
-  description: 'Valid days for recurring campaigns',
-  required: false,
-})
-@IsOptional()
-@IsEnum(recurringValidDays, { each: true })  
-recurringValidDays?: recurringValidDays[];
+    example: [recurringValidDays.MON, recurringValidDays.WED],
+    description: 'Valid days for recurring campaigns',
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(recurringValidDays, { each: true })
+  recurringValidDays?: recurringValidDays[];
 
   @ApiProperty({
     example: '09:00:00',
@@ -270,10 +274,7 @@ recurringValidDays?: recurringValidDays[];
   @IsString()
   recurringEndTime?: string;
 
-
-
-  
- @ApiProperty({
+  @ApiProperty({
     type: CreateCampaignNotificationDto,
     description: 'Single notification configuration for this campaign',
   })

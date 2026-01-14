@@ -1,34 +1,33 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { segmentType } from "./enums/segementType.enum";
-import { CreateSegmentDto } from "./dtos/create-segment.dto";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { segmentType } from './enums/segementType.enum';
+import { CreateSegmentDto } from './dtos/create-segment.dto';
 
 @Entity()
-
 export class Segment {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column()
+  name: string;
 
-    @Column()
-    name: string;
+  @Column()
+  description: string;
 
-    @Column()
-    description: string;
+  @Column()
+  segmentType: segmentType;
 
-    @Column()
-    segmentType: segmentType;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @CreateDateColumn()
-    createdAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date;
-
-    // @Column({type: 'jsonb', nullable: true})
-    // criteria: ;
-
-
-    
-
-    
+  // @Column({type: 'jsonb', nullable: true})
+  // criteria: ;
 }

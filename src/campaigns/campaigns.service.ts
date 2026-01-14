@@ -40,7 +40,9 @@ export class CampaignsService {
       recurringValidDays: CreateCampaignDto.recurringValidDays,
       recurringStartTime: CreateCampaignDto.recurringStartTime,
       recurringEndTime: CreateCampaignDto.recurringEndTime,
-      notification: CreateCampaignDto.notification ? {...CreateCampaignDto.notification} : undefined,
+      notification: CreateCampaignDto.notification
+        ? { ...CreateCampaignDto.notification }
+        : undefined,
     });
     return this.CampaignRepository.save(campaign);
   }
@@ -49,8 +51,8 @@ export class CampaignsService {
     return this.CampaignRepository.find({
       where: { discountType: DiscountType.ORDER_DISCOUNT },
       relations: {
-        notification: true
-      }
+        notification: true,
+      },
     });
   }
 

@@ -36,7 +36,9 @@ export class IsLoyaltyProgramRule implements ValidatorConstraintInterface {
         }
       } else if (rule.mode === PointsMode.DYNAMIC) {
         const requiredKeys = ['orderSpend', 'applyAfterDiscount'];
-        const missingKeys = requiredKeys.filter((key) => rule[key] === undefined);
+        const missingKeys = requiredKeys.filter(
+          (key) => rule[key] === undefined,
+        );
         if (missingKeys.length > 0) {
           this.message = `For POINTS_PER_RUPEE with DYNAMIC mode, the following properties are required: ${missingKeys.join(
             ', ',
@@ -65,15 +67,15 @@ export class IsLoyaltyProgramRule implements ValidatorConstraintInterface {
         return false;
     }
 
-      const errors = await validate(dto);
-      if (errors.length > 0) {
-        this.message = errors
-          .map((error) => Object.values(error.constraints ?? {}))
-          .join(', ');
-        return false;
-      }
-      return true;
+    const errors = await validate(dto);
+    if (errors.length > 0) {
+      this.message = errors
+        .map((error) => Object.values(error.constraints ?? {}))
+        .join(', ');
+      return false;
     }
+    return true;
+  }
 
   defaultMessage(args: ValidationArguments) {
     return (

@@ -1,6 +1,13 @@
-import { campaign } from "src/campaigns/campaign.entity";
-import { LoyaltyProgram } from "src/loyalty-program/loyalty-program.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { campaign } from 'src/campaigns/campaign.entity';
+import { LoyaltyProgram } from 'src/loyalty-program/loyalty-program.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 export enum NotificationChannel {
   SMS = 'SMS',
@@ -14,18 +21,22 @@ export class CampaignNotification {
   @PrimaryGeneratedColumn()
   id: number;
 
-   @OneToOne(() => campaign, (campaign) => campaign.notification, {
+  @OneToOne(() => campaign, (campaign) => campaign.notification, {
     onDelete: 'CASCADE',
-    nullable: true
+    nullable: true,
   })
-@JoinColumn() 
+  @JoinColumn()
   campaign?: campaign;
 
-  @OneToOne(() => LoyaltyProgram, (loyaltyProgram) => loyaltyProgram.notification, {
-    onDelete: 'CASCADE',
-    nullable: true
-  })
-@JoinColumn() 
+  @OneToOne(
+    () => LoyaltyProgram,
+    (loyaltyProgram) => loyaltyProgram.notification,
+    {
+      onDelete: 'CASCADE',
+      nullable: true,
+    },
+  )
+  @JoinColumn()
   loyaltyProgram?: LoyaltyProgram;
 
   @Column({ type: 'enum', enum: NotificationChannel })

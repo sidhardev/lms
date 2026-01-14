@@ -75,7 +75,7 @@ describe('CreateLoyaltyProgramDto Validation', () => {
     expect(errors.length).toBeGreaterThan(0);
     const rulesError = errors.find((e) => e.property === 'rules');
     expect(rulesError.constraints.isLoyaltyProgramRule).toContain(
-      "Invalid properties: orderSpend",
+      'Invalid properties: orderSpend',
     );
   });
 });

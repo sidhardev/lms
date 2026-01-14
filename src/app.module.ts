@@ -61,7 +61,13 @@ import { SegmentModule } from './segment/segment.module';
     NotificationsModule,
     SegmentModule,
   ],
-  controllers: [AppController, CampaignsController, RedemptionController, LoyaltyProgramController, NotificationsController],
+  controllers: [
+    AppController,
+    CampaignsController,
+    RedemptionController,
+    LoyaltyProgramController,
+    NotificationsController,
+  ],
   providers: [AppService, NotificationsService],
 })
 export class AppModule {}

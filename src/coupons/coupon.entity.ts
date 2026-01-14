@@ -24,8 +24,6 @@ export class Coupon {
   @Column({ nullable: true })
   couponType: CouponType;
 
-  
-
   @Column({
     type: 'enum',
     enum: CouponRuleType,

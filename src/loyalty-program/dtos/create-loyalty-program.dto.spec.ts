@@ -1,4 +1,3 @@
-
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { CreateLoyaltyProgramDto } from './create-loyalty-program.dto';
@@ -42,7 +41,9 @@ describe('CreateLoyaltyProgramDto', () => {
 
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
-    expect(JSON.stringify(errors)).toContain('Invalid loyalty program rule structure');
+    expect(JSON.stringify(errors)).toContain(
+      'Invalid loyalty program rule structure',
+    );
   });
 
   it('should validate a correct FIRST_PURCHASE rule', async () => {
@@ -69,7 +70,9 @@ describe('CreateLoyaltyProgramDto', () => {
 
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
-    expect(JSON.stringify(errors)).toContain('Invalid loyalty program rule structure');
+    expect(JSON.stringify(errors)).toContain(
+      'Invalid loyalty program rule structure',
+    );
   });
 
   it('should validate a correct DAILY_LOGIN_STREAK rule', async () => {
@@ -98,7 +101,9 @@ describe('CreateLoyaltyProgramDto', () => {
 
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
-    expect(JSON.stringify(errors)).toContain('Invalid loyalty program rule structure');
+    expect(JSON.stringify(errors)).toContain(
+      'Invalid loyalty program rule structure',
+    );
   });
 
   it('should validate a correct CATEGORY_BASED rule', async () => {
@@ -139,7 +144,9 @@ describe('CreateLoyaltyProgramDto', () => {
 
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
-    expect(JSON.stringify(errors)).toContain('Invalid loyalty program rule structure');
+    expect(JSON.stringify(errors)).toContain(
+      'Invalid loyalty program rule structure',
+    );
   });
 
   it('should fail validation for an unknown ruleType', async () => {
@@ -152,7 +159,9 @@ describe('CreateLoyaltyProgramDto', () => {
 
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
-    expect(JSON.stringify(errors)).toContain('Invalid loyalty program rule structure');
+    expect(JSON.stringify(errors)).toContain(
+      'Invalid loyalty program rule structure',
+    );
   });
 
   it('should pass validation when rules are not provided', async () => {

@@ -6,13 +6,12 @@ import { CreateLoyaltyProgramDto } from './dtos/create-loyalty-program.dto';
 
 @Injectable()
 export class LoyaltyProgramService {
+  constructor(
+    @InjectRepository(LoyaltyProgram)
+    private readonly loyaltyRepository: Repository<LoyaltyProgram>,
+  ) {}
 
-    constructor(@InjectRepository(LoyaltyProgram) private readonly loyaltyRepository: Repository<LoyaltyProgram>) {}
-
-
-    async create(
-    dto: CreateLoyaltyProgramDto,
-  ): Promise<LoyaltyProgram> {
+  async create(dto: CreateLoyaltyProgramDto): Promise<LoyaltyProgram> {
     const loyaltyProgram = this.loyaltyRepository.create({
       name: dto.name,
       description: dto.description,
@@ -22,7 +21,7 @@ export class LoyaltyProgramService {
       validityStartTime: dto.validityStartTime,
       validityEndTime: dto.validityEndTime,
       rules: dto.rules,
-    notification: dto.notification ? {...dto.notification} : undefined,
+      notification: dto.notification ? { ...dto.notification } : undefined,
     });
 
     return await this.loyaltyRepository.save(loyaltyProgram);
@@ -30,12 +29,9 @@ export class LoyaltyProgramService {
 
   async findAll() {
     return await this.loyaltyRepository.find({
-        relations: {
-            notification: true,
-        }
+      relations: {
+        notification: true,
+      },
     });
   }
-
-
-
 }

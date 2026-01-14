@@ -6,25 +6,20 @@ import { LoyaltyProgram } from './loyalty-program.entity';
 
 @Controller('loyalty-program')
 export class LoyaltyProgramController {
-constructor(private loyaltyProgramService: LoyaltyProgramService) {}
-    @Post('/create')
-     @ApiCreatedResponse({
+  constructor(private loyaltyProgramService: LoyaltyProgramService) {}
+  @Post('/create')
+  @ApiCreatedResponse({
     description: 'Loyalty program created successfully',
-    type: LoyaltyProgram    ,
+    type: LoyaltyProgram,
   })
-    async create(
+  async create(
     @Body() createLoyaltyProgramDto: CreateLoyaltyProgramDto,
   ): Promise<LoyaltyProgram> {
     return this.loyaltyProgramService.create(createLoyaltyProgramDto);
-    
+  }
 
-}
-
-
-@Get('/get')
-get() {
-    return this.loyaltyProgramService.findAll();   
-}
-
-
+  @Get('/get')
+  get() {
+    return this.loyaltyProgramService.findAll();
+  }
 }

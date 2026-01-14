@@ -14,7 +14,13 @@ import { ShippingMethod } from './shipping_method.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { EligibleLocationDto } from './eligible_locations.dto';
 import { Type } from 'class-transformer';
-import { DiscountType, redemptionType, recurringCycle, recurringValidDays, userEligiblity } from 'src/campaigns/campaign.entity';
+import {
+  DiscountType,
+  redemptionType,
+  recurringCycle,
+  recurringValidDays,
+  userEligiblity,
+} from 'src/campaigns/campaign.entity';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 
 export class CreateFreeShippingDto {
@@ -92,7 +98,7 @@ export class CreateFreeShippingDto {
   @Type(() => EligibleLocationDto)
   eligible_locations: EligibleLocationDto[];
 
-    @ApiProperty({
+  @ApiProperty({
     example: 100,
     description: 'Maximum number of times the campaign can be used',
     required: false,
@@ -118,8 +124,7 @@ export class CreateFreeShippingDto {
     required: false,
   })
   @IsOptional()
-  @IsEnum(redemptionType
-  )
+  @IsEnum(redemptionType)
   redemptionType?: redemptionType;
 
   @ApiProperty({
@@ -158,7 +163,7 @@ export class CreateFreeShippingDto {
     required: false,
   })
   @IsOptional()
-  @IsEnum(recurringValidDays, {each: true})
+  @IsEnum(recurringValidDays, { each: true })
   recurringValidDays?: recurringValidDays[];
 
   @ApiProperty({

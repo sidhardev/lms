@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CampaignNotification } from './notification.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([CampaignNotification])],
-
+  imports: [TypeOrmModule.forFeature([CampaignNotification])],
 })
 export class NotificationsModule {}

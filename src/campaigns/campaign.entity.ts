@@ -1,150 +1,146 @@
-  import { IsOptional, MaxLength, MinLength } from 'class-validator';
-  import { timestamp } from 'rxjs';
-  import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
-  import { CouponType } from 'src/coupons/admin/coupon-type.enum';
-  import { Coupon } from 'src/coupons/coupon.entity';
-  import { CampaignNotification } from 'src/notifications/notification.entity';
-  import { EligibleLocationDto } from 'src/shipping_campaign/eligible_locations.dto';
-  import { ShippingMethod } from 'src/shipping_campaign/shipping_method.enum';
-  import {
-    PrimaryGeneratedColumn,
-    Column,
-    Entity,
-    CreateDateColumn,
-    UpdateDateColumn,
-    OneToOne,
-    JoinColumn,
-  } from 'typeorm';
+import { IsOptional, MaxLength, MinLength } from 'class-validator';
+import { timestamp } from 'rxjs';
+import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
+import { CouponType } from 'src/coupons/admin/coupon-type.enum';
+import { Coupon } from 'src/coupons/coupon.entity';
+import { CampaignNotification } from 'src/notifications/notification.entity';
+import { EligibleLocationDto } from 'src/shipping_campaign/eligible_locations.dto';
+import { ShippingMethod } from 'src/shipping_campaign/shipping_method.enum';
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 
-  export enum DiscountType {
-    FREE_SHIPPING = 'FREE_SHIPPING',
-    ORDER_DISCOUNT = 'ORDER_DISCOUNT',
-  }
+export enum DiscountType {
+  FREE_SHIPPING = 'FREE_SHIPPING',
+  ORDER_DISCOUNT = 'ORDER_DISCOUNT',
+}
 
-  export enum redemptionType {
-    INSTANTLY = 'INSTANTLY',
-    NEXT_ORDER = 'NEXT_ORDER'
-  }
+export enum redemptionType {
+  INSTANTLY = 'INSTANTLY',
+  NEXT_ORDER = 'NEXT_ORDER',
+}
 
-  export enum userEligiblity {
-    NEW_USER = 'NEW_USER',
-    OLD_USER = 'OLD_USER',
-    LIMIT_USER = 'LIMIT_USER',
-    SEGMENT_USER = 'SEGMENT_USER'
-  }
+export enum userEligiblity {
+  NEW_USER = 'NEW_USER',
+  OLD_USER = 'OLD_USER',
+  LIMIT_USER = 'LIMIT_USER',
+  SEGMENT_USER = 'SEGMENT_USER',
+}
 
-  export enum CampaignStatus {
-    DRAFT = 'DRAFT',
-    ACTIVE = 'ACTIVE',
-    PAUSED = 'PAUSED',
-    EXPIRED = 'EXPIRED',
-  }
-  export enum recurringCycle {
-    EVERY_MONTH = 'EVERY_MONTH',
-    EVERY_WEEK = 'EVERY_WEEK'
-  }
+export enum CampaignStatus {
+  DRAFT = 'DRAFT',
+  ACTIVE = 'ACTIVE',
+  PAUSED = 'PAUSED',
+  EXPIRED = 'EXPIRED',
+}
+export enum recurringCycle {
+  EVERY_MONTH = 'EVERY_MONTH',
+  EVERY_WEEK = 'EVERY_WEEK',
+}
 
-  export enum recurringValidDays {
-    SUN = "SUN",
-    MON = "MON",
-    TUE = "TUE",
-    WED = "WED",
-    THR = "THR",
-    FRI = "FRI",
-    SAT = "SAT",
-   }
+export enum recurringValidDays {
+  SUN = 'SUN',
+  MON = 'MON',
+  TUE = 'TUE',
+  WED = 'WED',
+  THR = 'THR',
+  FRI = 'FRI',
+  SAT = 'SAT',
+}
 
-  @Entity('campaigns')
-  export class campaign {
-    @PrimaryGeneratedColumn()
-    id: number;
+@Entity('campaigns')
+export class campaign {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    @IsOptional()
-    description: string;
+  @Column()
+  @IsOptional()
+  description: string;
 
-    @Column({
-      type: 'enum',
-      enum: DiscountType,
-    })
-    discountType: DiscountType;
+  @Column({
+    type: 'enum',
+    enum: DiscountType,
+  })
+  discountType: DiscountType;
 
-    @Column({
-      type: 'enum',
-      enum: CampaignStatus,
-      default: CampaignStatus.DRAFT,
-    })
-    status: CampaignStatus;
+  @Column({
+    type: 'enum',
+    enum: CampaignStatus,
+    default: CampaignStatus.DRAFT,
+  })
+  status: CampaignStatus;
 
-    // @OneToOne(() => Coupon, (coupon) => coupon.campaign, {
-    //   cascade: true,
-    // })
-    // coupon: Coupon;
+  // @OneToOne(() => Coupon, (coupon) => coupon.campaign, {
+  //   cascade: true,
+  // })
+  // coupon: Coupon;
 
-    @Column({
-      type: 'boolean',
-      nullable: true,
-      default: false,
-    })
-    @IsOptional()
-    useItAsCoupon: boolean;
+  @Column({
+    type: 'boolean',
+    nullable: true,
+    default: false,
+  })
+  @IsOptional()
+  useItAsCoupon: boolean;
 
-    @Column({ type: 'timestamp' })
-    startAt: Date;
+  @Column({ type: 'timestamp' })
+  startAt: Date;
 
-    @Column({ type: 'timestamp' })
-    endAt: Date;
+  @Column({ type: 'timestamp' })
+  endAt: Date;
 
-    @Column({ type: 'jsonb', nullable: true })
-    metadata: Record<string, any>;
+  @Column({ type: 'jsonb', nullable: true })
+  metadata: Record<string, any>;
 
-    @CreateDateColumn()
-    createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
+  @Column({ nullable: true })
+  @MinLength(4)
+  @MaxLength(6)
+  code: string;
 
-    @Column({ nullable: true })
-    @MinLength(4)
-    @MaxLength(6)
-    code: string;
+  @OneToOne(
+    () => CampaignNotification,
+    (notification) => notification.campaign,
+    { cascade: true, eager: true },
+  )
+  notification: CampaignNotification;
 
-    @OneToOne(
-      () => CampaignNotification,
-      (notification) => notification.campaign,
-      { cascade: true, eager: true }
-    )
-    notification: CampaignNotification;
+  @Column({ nullable: true })
+  couponType: CouponType;
 
-    @Column({ nullable: true })
-    couponType: CouponType;
+  @Column({ nullable: true })
+  maxUses: number;
 
-  
+  @Column({ nullable: true })
+  unlimitedUses: boolean;
 
+  @Column({ nullable: true })
+  redemptionType: redemptionType;
 
-    @Column({nullable: true})
-    maxUses: number;
+  @Column({ nullable: true })
+  userEligiblity: userEligiblity;
 
-    @Column({nullable: true})
-    unlimitedUses: boolean;
+  @Column({ nullable: true })
+  recurringValidity: boolean;
 
-    @Column({nullable: true})
-    redemptionType: redemptionType;
+  @Column({ nullable: true })
+  recurringCycle: recurringCycle;
 
-    @Column({nullable: true})
-    userEligiblity: userEligiblity; 
-
-    @Column({nullable: true})
-    recurringValidity: boolean;
-
-    @Column({nullable: true})
-    recurringCycle: recurringCycle;
-
-    @Column({
+  @Column({
     type: 'enum',
     enum: recurringValidDays,
     array: true,
@@ -152,29 +148,29 @@
   })
   recurringValidDays?: recurringValidDays[];
 
-    @Column({nullable: true})
-    recurringStartTime: string;
+  @Column({ nullable: true })
+  recurringStartTime: string;
 
-    @Column({nullable: true})
-    recurringEndTime: string;
+  @Column({ nullable: true })
+  recurringEndTime: string;
 
-    @Column({ type: 'jsonb', nullable: true })
-    rules: Record<string, any>;
+  @Column({ type: 'jsonb', nullable: true })
+  rules: Record<string, any>;
 
-    @Column({ default: true })
-    isActive: boolean;
+  @Column({ default: true })
+  isActive: boolean;
 
-    @Column({ nullable: true })
-    createdBy: number;
+  @Column({ nullable: true })
+  createdBy: number;
 
-    @Column({ default: ShippingMethod.NONE })
-    shippingMethod: ShippingMethod;
+  @Column({ default: ShippingMethod.NONE })
+  shippingMethod: ShippingMethod;
 
-    @Column({ default: 0 })
-    minOrderValue: number;
-    @Column({ default: 0 })
-    maxDiscount: number;
+  @Column({ default: 0 })
+  minOrderValue: number;
+  @Column({ default: 0 })
+  maxDiscount: number;
 
-    @Column({ default: { contries: 'no one' }, type: 'jsonb' })
-    eligible_locations: EligibleLocationDto[];
-  }
+  @Column({ default: { contries: 'no one' }, type: 'jsonb' })
+  eligible_locations: EligibleLocationDto[];
+}

@@ -4,13 +4,10 @@ import { SegmentService } from './segment.service';
 
 @Controller('segment')
 export class SegmentController {
+  constructor(private readonly segmentService: SegmentService) {}
 
-    constructor(private readonly segmentService: SegmentService) {}
-
-    @Post()
-    create(@Body() createSegmentDto: CreateSegmentDto) {
-        return this.segmentService.create(createSegmentDto);
-    }
-
-
+  @Post()
+  create(@Body() createSegmentDto: CreateSegmentDto) {
+    return this.segmentService.create(createSegmentDto);
+  }
 }

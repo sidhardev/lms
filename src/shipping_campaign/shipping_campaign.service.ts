@@ -36,7 +36,7 @@ export class ShippingCampaignService {
       recurringCycle: CreateFreeShippingDto.recurringCycle,
       recurringValidDays: CreateFreeShippingDto.recurringValidDays,
       recurringStartTime: CreateFreeShippingDto.recurringStartTime,
-      recurringEndTime: CreateFreeShippingDto.recurringEndTime
+      recurringEndTime: CreateFreeShippingDto.recurringEndTime,
     });
     return this.CampaignRepository.save(campaign);
   }
@@ -47,13 +47,11 @@ export class ShippingCampaignService {
     });
   }
 
-
-async findOne(id:number) {
-  return await this.CampaignRepository.findOne({
-    where: {id}
-  })
-}
-
+  async findOne(id: number) {
+    return await this.CampaignRepository.findOne({
+      where: { id },
+    });
+  }
 
   async UpdateStatus(id: number) {
     const campaign = await this.findOne(id);
@@ -61,5 +59,5 @@ async findOne(id:number) {
     if (!campaign) {
       throw new NotFoundException('Campaign Not found!');
     }
-}
+  }
 }
