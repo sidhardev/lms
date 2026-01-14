@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { segmentType } from "./enums/segementType.enum";
+import { CreateSegmentDto } from "./dtos/create-segment.dto";
 
 @Entity()
 
@@ -23,8 +24,8 @@ export class Segment {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Column({type: 'jsonb', nullable: true})
-    criteria: Record<string, any>;
+    // @Column({type: 'jsonb', nullable: true})
+    // criteria: ;
 
 
     
