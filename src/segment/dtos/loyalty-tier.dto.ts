@@ -2,11 +2,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { membersCriteria } from "../enums/members.enum";
 import { IsEnum } from "class-validator";
 import { ComparisonOperator } from "../enums/comparison.enum";
-import { Segmentopearotors } from "../enums/segment-opretaors.enum";
 
-export class BirthdayMembersCriteria {
+export class LoyaltyTierOrTagsDto {
     @ApiProperty({
-        example: membersCriteria.BIRTHDAY
+        example: membersCriteria.LOYALTY_TIER
     })
     @IsEnum(membersCriteria)
     event: membersCriteria;
@@ -17,24 +16,11 @@ export class BirthdayMembersCriteria {
     @IsEnum(ComparisonOperator)
     comparison: ComparisonOperator;
 
-    @ApiProperty({
-        example: Segmentopearotors.BETWEEN
-    })
-    @IsEnum(Segmentopearotors)
-    operator: Segmentopearotors;
 
     @ApiProperty({
-        example: new Date()
-
+        example: "Gold"
     })
-    startDate: Date;
-
-    @ApiProperty({
-        example: new Date()
-
-
-    })
-    endDate: Date;  
+    value: string;
 
 
 }
