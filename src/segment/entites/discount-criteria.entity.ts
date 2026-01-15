@@ -2,6 +2,8 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "ty
 import { UserSegment } from "./user_segment.entity";
 import { ComparisonOperator } from "../enums/segment-opretaors.enum";
 import { conditions } from "../enums/comparison.enum";
+import { DiscountType } from "src/campaigns/campaign.entity";
+import { DiscountRule } from "../enums/discount-criteria.enum";
 
 @Entity('disocunt_criteria')
 
@@ -15,7 +17,8 @@ export class discountCriteria {
   @JoinColumn()
     userSegment: UserSegment;
 
-    rules: string;
+    @Column()
+    rules: DiscountRule;
 
     @Column({nullable: true})
     comparisionOpreator: ComparisonOperator;

@@ -11,7 +11,9 @@ export class SegmentService {
   ) {}
 
   create(@Body() createSegmentDto: CreateSegmentDto) {
-    const segment = this.segmentRepository.create(createSegmentDto);
+    const segment = this.segmentRepository.create({
+      
+    });
     return this.segmentRepository.save(segment);
   }
 }

@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ProductSegment } from "./product_segment.entity";
+import { ProductInteractionRule } from "../enums/product-interaction.enum";
 
 @Entity()
 
@@ -14,7 +15,7 @@ export class ProductInteraction  {
         ProductSegment: ProductSegment;
 
     @Column()
-    pattern: string;
+    rule: ProductInteractionRule;
 
     @Column()
     days: number;

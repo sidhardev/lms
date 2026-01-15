@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "ty
 import { UserSegment } from "./user_segment.entity";
 import { ComparisonOperator } from "../enums/segment-opretaors.enum";
 import { conditions } from "../enums/comparison.enum";
+import { membersCriteria } from "../enums/members.enum";
 
 @Entity('members_criteria')
 
@@ -16,7 +17,7 @@ export class MembersCriteria {
     userSegment: UserSegment;
 
   @Column()
-  rules: string;
+  rules: membersCriteria;
 
   @Column({nullable: true})
   comparisionOpreator: ComparisonOperator;

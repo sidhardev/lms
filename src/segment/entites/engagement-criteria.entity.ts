@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "ty
 import { UserSegment } from "./user_segment.entity";
 import { ComparisonOperator } from "../enums/segment-opretaors.enum";
 import { conditions } from "../enums/comparison.enum";
+import { EngagementRuleType } from "../enums/engagement-rule.enum";
 
     @Entity('engagement_criteria')
 
@@ -14,8 +15,8 @@ import { conditions } from "../enums/comparison.enum";
   })
   @JoinColumn()
     userSegment: UserSegment;
-
-    rules: string;
+    @Column()
+    rules: EngagementRuleType;
 
     @Column({nullable: true})
     comparisionOpreator: ComparisonOperator;

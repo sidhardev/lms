@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ProductSegment } from "./product_segment.entity";
+import { stockLevelRule } from "../enums/stock-level.enum";
 
 @Entity('stock_level')
 
@@ -15,7 +16,7 @@ export class StockLevel {
         ProductSegment: ProductSegment;
 
     @Column()
-    level: string;
+    rule: stockLevelRule;
 
     @Column()
     value: number;

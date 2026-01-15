@@ -1,5 +1,0 @@
-export enum discountCriteriaTypes {
-  COUPON_USED = 'COUPON_USED',
-  DISCOUNT_AVAILED = 'DISCOUNT_AVAILED',
-  DISCOUNT_TYPE = 'DISCOUNT_TYPE',
-}

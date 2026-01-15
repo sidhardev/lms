@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "ty
 import { conditions } from "../enums/comparison.enum";
 import { ComparisonOperator } from "../enums/segment-opretaors.enum";
 import { UserSegment } from "./user_segment.entity";
+import { TransactionRules } from "../enums/transaction-rule.enum";
 
 @Entity('transaction_criteria')
 
@@ -15,7 +16,8 @@ export class TransactionCriteria {
     @JoinColumn()
     userSegment: UserSegment;
 
-    rules: string;
+    @Column()
+    rules: TransactionRules;
 
     @Column({nullable: true})
     comparisionOpreator: ComparisonOperator;
