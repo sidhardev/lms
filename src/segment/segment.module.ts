@@ -9,9 +9,13 @@ import { MembersCriteria } from './entites/members-criteria.entity';
 import { ProductSegment } from './entites/product_segment.entity';
 import { TransactionCriteria } from './entites/transaction-criteria.entity';
 import { UserSegment } from './entites/user_segment.entity';
+import { PriceBased } from './entites/price-based.entity';
+import { ProductInteraction } from './entites/product-interaction.entity';
+import { PurchaseFrequency } from './entites/purchase-frequency.entity';
+import { StockLevel } from './entites/stock-level.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Segment, discountCriteria, EngagementCriteria, MembersCriteria, ProductSegment, TransactionCriteria, UserSegment ])],
+  imports: [TypeOrmModule.forFeature([Segment, discountCriteria, EngagementCriteria, MembersCriteria, ProductSegment, TransactionCriteria, UserSegment, PriceBased, ProductInteraction, PurchaseFrequency, StockLevel ])],
   controllers: [SegmentController],
   providers: [SegmentService],
 })
