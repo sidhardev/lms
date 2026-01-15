@@ -2,16 +2,17 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { conditions } from '../enums/comparison.enum';
+import { DiscountRule } from '../enums/discount-criteria.enum';
 
 export class CreateDiscountCriteriaDto {
   @ApiProperty({ example: 12 })
   @IsNumber()
   userSegmentId: number;
 
-  @ApiPropertyOptional({ example: 'Order amount based discount' })
-  @IsString()
+  @ApiPropertyOptional({ example: DiscountRule.DISCOUNT_TYPE })
+@IsEnum(DiscountRule)
   @IsOptional()
-  rules?: string;
+  rules?: DiscountRule;
 
   @ApiPropertyOptional({
     enum: ComparisonOperator,

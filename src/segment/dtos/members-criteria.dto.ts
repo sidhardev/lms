@@ -2,15 +2,16 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsOptional, IsString, IsNumber } from 'class-validator';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { conditions } from '../enums/comparison.enum';
+import { membersCriteria } from '../enums/members.enum';
 
 export class CreateMembersCriteriaDto {
   @ApiProperty({ example: 5 })
   @IsNumber()
   userSegmentId: number;
 
-  @ApiProperty({ example: 'Member signup date criteria' })
-  @IsString()
-  rules: string;
+  @ApiProperty({ example: membersCriteria.BIRTHDAY })
+@IsEnum(membersCriteria)
+  rules: membersCriteria;
 
   @ApiPropertyOptional({
     enum: ComparisonOperator,

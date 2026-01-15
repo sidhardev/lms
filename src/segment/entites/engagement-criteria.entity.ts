@@ -16,7 +16,7 @@ import { EngagementRuleType } from "../enums/engagement-rule.enum";
   @JoinColumn()
     userSegment: UserSegment;
     @Column()
-    rules: EngagementRuleType;
+    rule: EngagementRuleType;
 
     @Column({nullable: true})
     comparisionOpreator: ComparisonOperator;

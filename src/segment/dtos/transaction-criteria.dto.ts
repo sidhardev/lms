@@ -2,24 +2,23 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { conditions } from '../enums/comparison.enum';
+import { TransactionRules } from '../enums/transaction-rule.enum';
 
 export class CreateTransactionCriteriaDto {
   @ApiProperty({ example: 15 })
   @IsNumber()
   userSegmentId: number;
 
-  @ApiPropertyOptional({ example: 'Transaction amount or date based criteria' })
-  @IsString()
-  @IsOptional()
-  rules?: string;
+  @ApiPropertyOptional({ example: TransactionRules.TOTAL_AMOUNT_SPEND })
+  @IsEnum(TransactionRules)
+  rule: TransactionRules;
 
   @ApiPropertyOptional({
     enum: ComparisonOperator,
     example: ComparisonOperator.GREATER_THAN,
   })
   @IsEnum(ComparisonOperator)
-  @IsOptional()
-  comparisionOpreator?: ComparisonOperator;
+  comparisionOpreator: ComparisonOperator;
 
   @ApiProperty({
     enum: conditions,
@@ -31,15 +30,15 @@ export class CreateTransactionCriteriaDto {
   @ApiPropertyOptional({ example: 1000 })
   @IsNumber()
   @IsOptional()
-  value?: number;
+  value: number;
 
   @ApiPropertyOptional({ example: '2024-06-01' })
   @IsDateString()
   @IsOptional()
-  startDate?: Date;
+  startDate: Date;
 
   @ApiPropertyOptional({ example: '2024-06-30' })
   @IsDateString()
   @IsOptional()
-  endDate?: Date;
+  endDate: Date;
 }

@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { IsEAN, IsEnum, IsNumber, IsString } from 'class-validator';
+import { PurchaseFrequencyRule } from '../enums/purchase-frequency.enum';
 
 export class CreatePurchaseFrequencyDto {
-  @ApiProperty({ example: 'REPEAT_CUSTOMER' })
-  @IsString()
-  type: string;
+  @ApiProperty({ example: PurchaseFrequencyRule.HIGH_FREQUENCY })
+@IsEnum(PurchaseFrequencyRule)
+  rule: PurchaseFrequencyRule;
 
   @ApiProperty({ example: 3 })
   @IsNumber()
