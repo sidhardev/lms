@@ -1,4 +1,4 @@
-export enum Segmentopearotors {
+export enum ComparisonOperator {
   GREATER_THEN = 'GREATER_THEN',
   LESS_THEN = 'LESS_THEN',
   EQUAL_TO = 'EQUAL_TO',

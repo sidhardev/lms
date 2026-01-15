@@ -2,11 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { segmentType } from '../enums/segementType.enum';
 import { CreateSegmentDto } from '../dtos/create-segment.dto';
+import { UserSegment } from './user_segment.entity';
+import { ProductSegment } from './product_segment.entity';
 
 @Entity()
 export class Segment {
@@ -19,6 +22,21 @@ export class Segment {
   @Column()
   description: string;
 
+ @OneToOne(() => UserSegment, (userSegment) => userSegment.segment, {
+    cascade: true,
+    eager: true,
+  })
+  UserSegment: UserSegment;
+
+  @OneToOne(() => ProductSegment, (productSegment) => productSegment.segment, {
+    cascade: true,
+    eager: true,
+  })
+  ProductSegment: ProductSegment;
+
+
+
+
   @Column()
   segmentType: segmentType;
 
@@ -28,6 +46,4 @@ export class Segment {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  // @Column({type: 'jsonb', nullable: true})
-  // criteria: ;
 }
