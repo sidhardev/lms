@@ -119,6 +119,9 @@ export class campaign {
   )
   notification: CampaignNotification;
 
+
+
+
   @Column({ nullable: true })
   couponType: CouponType;
 
@@ -171,6 +174,6 @@ export class campaign {
   @Column({ default: 0 })
   maxDiscount: number;
 
-  @Column({ default: { contries: 'no one' }, type: 'jsonb' })
+  @Column({ default: { contries: '' }, type: 'jsonb' })
   eligible_locations: EligibleLocationDto[];
 }

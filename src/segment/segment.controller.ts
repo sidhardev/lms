@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateSegmentDto } from './dtos/create-segment.dto';
 import { SegmentService } from './segment.service';
 
@@ -6,8 +6,13 @@ import { SegmentService } from './segment.service';
 export class SegmentController {
   constructor(private readonly segmentService: SegmentService) {}
 
-  @Post()
+  @Post('/create')
   create(@Body() createSegmentDto: CreateSegmentDto) {
     return this.segmentService.create(createSegmentDto);
   }
+  @Get('/all')
+  getAll() {
+    return this.segmentService.getAll();
+  }
+
 }

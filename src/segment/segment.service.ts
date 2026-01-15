@@ -233,4 +233,28 @@ export class SegmentService {
       );
     }
   }
+
+
+  getAll() {
+    return this.segmentRepository.find({
+      relations: {
+        UserSegment: {
+          membersCriteria: true,
+          engagementCriteria: true,
+          discountCriteria: true,
+          transactionCriteria: true,
+        },
+        ProductSegment: {
+          productInteraction: true,
+          stockLevel: true,
+          purchaseFrequency: true,
+          priceBased: true,
+        }
+        
+      },
+      order: {
+        id: 'ASC'
+      }
+    })
+  }
 }
