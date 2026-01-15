@@ -19,16 +19,16 @@ export class UserSegment {
   segment: Segment;
 
   @OneToOne(() => MembersCriteria, (c) => c.userSegment)
-  membersCriteria: MembersCriteria[];
+  membersCriteria: MembersCriteria;
 
   @OneToOne(() => discountCriteria, (c) => c.userSegment)
-  discountCriteria: discountCriteria[];
+  discountCriteria: discountCriteria;
 
   @OneToOne(() => EngagementCriteria, (c) => c.userSegment)
-  engagementCriteria: EngagementCriteria[];
+  engagementCriteria: EngagementCriteria;
 
   @OneToOne(() => TransactionCriteria, (c) => c.userSegment)
-  transactionCriteria: TransactionCriteria[];
+  transactionCriteria: TransactionCriteria;
 
 
 

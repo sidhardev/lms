@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { UserSegment } from "./user_segment.entity";
 import { ComparisonOperator } from "../enums/segment-opretaors.enum";
 import { conditions } from "../enums/comparison.enum";
@@ -12,6 +12,7 @@ export class MembersCriteria {
     @OneToOne(() => UserSegment, (userSegment) => userSegment.membersCriteria, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
     userSegment: UserSegment;
 
   @Column()
@@ -28,6 +29,8 @@ export class MembersCriteria {
 
   @Column({nullable: true})
   endDate: Date;
+
+  
 
   
 
