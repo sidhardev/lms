@@ -66,9 +66,11 @@ export class SegmentService {
   ) {}
 
   async create(createSegmentDto: CreateSegmentDto) {
-    const { segmentType: type, criteria, criteriaType } = createSegmentDto;
+    const { segmentType: type, selectedCriterias } = createSegmentDto;
 
-    await this.validateCriteria(type, criteria, criteriaType);
+    for (const item of selectedCriterias) {
+      await this.validateCriteria(type, item.criteria, item.criteriaType);
+    }
 
     const segment = this.segmentRepository.create({
       name: createSegmentDto.name,
@@ -82,7 +84,9 @@ export class SegmentService {
         segment: savedSegment,
       });
       const savedUserSegment = await this.userSegmentRepository.save(userSegment);
-      await this.saveUserCriteria(savedUserSegment, criteria, criteriaType);
+      for (const item of selectedCriterias) {
+        await this.saveUserCriteria(savedUserSegment, item.criteria, item.criteriaType);
+      }
     } else if (type === segmentType.PRODUCT_SEGMENT) {
       const productSegment = this.productSegmentRepository.create({
         segment: savedSegment,
@@ -90,7 +94,9 @@ export class SegmentService {
       const savedProductSegment = await this.productSegmentRepository.save(
         productSegment,
       );
-      await this.saveProductCriteria(savedProductSegment, criteria, criteriaType);
+      for (const item of selectedCriterias) {
+        await this.saveProductCriteria(savedProductSegment, item.criteria, item.criteriaType);
+      }
     }
 
     return savedSegment;
