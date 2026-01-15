@@ -1,13 +1,8 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { RuleType } from '../rules.enum';
 
 @Entity('product_discounts')
 export class ProductDiscount {
-
   @PrimaryGeneratedColumn()
   id: number;
 

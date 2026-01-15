@@ -22,7 +22,7 @@ export class Segment {
   @Column()
   description: string;
 
- @OneToOne(() => UserSegment, (userSegment) => userSegment.segment, {
+  @OneToOne(() => UserSegment, (userSegment) => userSegment.segment, {
     cascade: true,
     eager: true,
   })
@@ -34,9 +34,6 @@ export class Segment {
   })
   ProductSegment: ProductSegment;
 
-
-
-
   @Column()
   segmentType: segmentType;
 
@@ -45,5 +42,4 @@ export class Segment {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
 }

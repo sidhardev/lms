@@ -15,7 +15,21 @@ import { PurchaseFrequency } from './entites/purchase-frequency.entity';
 import { StockLevel } from './entites/stock-level.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Segment, discountCriteria, EngagementCriteria, MembersCriteria, ProductSegment, TransactionCriteria, UserSegment, PriceBased, ProductInteraction, PurchaseFrequency, StockLevel ])],
+  imports: [
+    TypeOrmModule.forFeature([
+      Segment,
+      discountCriteria,
+      EngagementCriteria,
+      MembersCriteria,
+      ProductSegment,
+      TransactionCriteria,
+      UserSegment,
+      PriceBased,
+      ProductInteraction,
+      PurchaseFrequency,
+      StockLevel,
+    ]),
+  ],
   controllers: [SegmentController],
   providers: [SegmentService],
 })

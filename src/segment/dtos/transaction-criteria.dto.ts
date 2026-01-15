@@ -1,5 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsDateString, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { conditions } from '../enums/comparison.enum';
 import { TransactionRules } from '../enums/transaction-rule.enum';

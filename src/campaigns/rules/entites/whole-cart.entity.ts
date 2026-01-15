@@ -1,13 +1,8 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { DiscountMode, RuleType } from '../rules.enum';
 
 @Entity('whole_cart_discounts')
 export class WholeCart {
-
   @PrimaryGeneratedColumn()
   id: number;
 

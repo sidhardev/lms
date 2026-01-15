@@ -1,24 +1,20 @@
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Segment } from "./segment.enity";
-import { ProductInteraction } from "./product-interaction.entity";
-import { StockLevel } from "./stock-level.entity";
-import { PriceBased } from "./price-based.entity";
-import { PurchaseFrequency } from "./purchase-frequency.entity";
+import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Segment } from './segment.enity';
+import { ProductInteraction } from './product-interaction.entity';
+import { StockLevel } from './stock-level.entity';
+import { PriceBased } from './price-based.entity';
+import { PurchaseFrequency } from './purchase-frequency.entity';
 
 @Entity()
+export class ProductSegment {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-export class ProductSegment { 
-
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @OneToOne(() => Segment, (segment) => segment.UserSegment, {
+  @OneToOne(() => Segment, (segment) => segment.UserSegment, {
     onDelete: 'CASCADE',
   })
   @JoinColumn()
   segment: Segment;
-
-
 
   @OneToOne(() => ProductInteraction, (c) => c.ProductSegment)
   productInteraction: ProductInteraction;
@@ -31,13 +27,4 @@ export class ProductSegment {
 
   @OneToOne(() => PurchaseFrequency, (c) => c.ProductSegment)
   purchaseFrequency: PurchaseFrequency;
-
-
-
-
-
-
-
-
-
 }

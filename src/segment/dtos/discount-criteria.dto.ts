@@ -10,7 +10,7 @@ export class CreateDiscountCriteriaDto {
   userSegmentId: number;
 
   @ApiPropertyOptional({ example: DiscountRule.DISCOUNT_TYPE })
-@IsEnum(DiscountRule)
+  @IsEnum(DiscountRule)
   @IsOptional()
   rules?: DiscountRule;
 

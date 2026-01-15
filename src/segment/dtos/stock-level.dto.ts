@@ -4,7 +4,7 @@ import { stockLevelRule } from '../enums/stock-level.enum';
 
 export class CreateStockLevelDto {
   @ApiProperty({ example: stockLevelRule.LOW_STOCK })
-@IsEnum(stockLevelRule)
+  @IsEnum(stockLevelRule)
   rule: stockLevelRule;
 
   @ApiProperty({ example: 10 })

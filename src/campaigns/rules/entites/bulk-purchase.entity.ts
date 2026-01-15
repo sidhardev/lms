@@ -1,13 +1,8 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { DiscountMode, RuleType } from '../rules.enum';
 
 @Entity('bulk_purchases')
 export class BulkPurchase {
-
   @PrimaryGeneratedColumn()
   id: number;
 

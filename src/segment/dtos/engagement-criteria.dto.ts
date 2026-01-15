@@ -10,7 +10,7 @@ export class CreateEngagementCriteriaDto {
   userSegmentId: number;
 
   @ApiPropertyOptional({ example: EngagementRuleType.ANY_EMAIL })
-@IsEnum(EngagementRuleType)
+  @IsEnum(EngagementRuleType)
   @IsOptional()
   rule?: EngagementRuleType;
 

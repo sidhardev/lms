@@ -9,7 +9,7 @@ import { Segment } from './entites/segment.enity';
 import { UserSegment } from './entites/user_segment.entity';
 import { ProductSegment } from './entites/product_segment.entity';
 
- import { MembersCriteria } from './entites/members-criteria.entity';
+import { MembersCriteria } from './entites/members-criteria.entity';
 import { EngagementCriteria } from './entites/engagement-criteria.entity';
 import { discountCriteria } from './entites/discount-criteria.entity';
 import { TransactionCriteria } from './entites/transaction-criteria.entity';
@@ -18,7 +18,7 @@ import { StockLevel } from './entites/stock-level.entity';
 import { PriceBased } from './entites/price-based.entity';
 import { PurchaseFrequency } from './entites/purchase-frequency.entity';
 
- import { CreateMembersCriteriaDto } from './dtos/members-criteria.dto';
+import { CreateMembersCriteriaDto } from './dtos/members-criteria.dto';
 import { CreateEngagementCriteriaDto } from './dtos/engagement-criteria.dto';
 import { CreateDiscountCriteriaDto } from './dtos/discount-criteria.dto';
 import { CreateTransactionCriteriaDto } from './dtos/transaction-criteria.dto';
@@ -79,31 +79,42 @@ export class SegmentService {
     });
     const savedSegment = await this.segmentRepository.save(segment);
 
-     if (type === segmentType.USER_SEGMENT) {
+    if (type === segmentType.USER_SEGMENT) {
       const userSegment = this.userSegmentRepository.create({
         segment: savedSegment,
       });
-      const savedUserSegment = await this.userSegmentRepository.save(userSegment);
+      const savedUserSegment =
+        await this.userSegmentRepository.save(userSegment);
       for (const item of selectedCriterias) {
-        await this.saveUserCriteria(savedUserSegment, item.criteria, item.criteriaType);
+        await this.saveUserCriteria(
+          savedUserSegment,
+          item.criteria,
+          item.criteriaType,
+        );
       }
     } else if (type === segmentType.PRODUCT_SEGMENT) {
       const productSegment = this.productSegmentRepository.create({
         segment: savedSegment,
       });
-      const savedProductSegment = await this.productSegmentRepository.save(
-        productSegment,
-      );
+      const savedProductSegment =
+        await this.productSegmentRepository.save(productSegment);
       for (const item of selectedCriterias) {
-        await this.saveProductCriteria(savedProductSegment, item.criteria, item.criteriaType);
+        await this.saveProductCriteria(
+          savedProductSegment,
+          item.criteria,
+          item.criteriaType,
+        );
       }
     }
 
     return savedSegment;
   }
 
-
-  private async validateCriteria(type: segmentType, criteria: any, criteriaType: string) {
+  private async validateCriteria(
+    type: segmentType,
+    criteria: any,
+    criteriaType: string,
+  ) {
     let dtoClass: any;
 
     if (type === segmentType.USER_SEGMENT) {
@@ -121,7 +132,9 @@ export class SegmentService {
           dtoClass = CreateTransactionCriteriaDto;
           break;
         default:
-          throw new BadRequestException(`Invalid criteria type '${criteriaType}' for USER_SEGMENT`);
+          throw new BadRequestException(
+            `Invalid criteria type '${criteriaType}' for USER_SEGMENT`,
+          );
       }
     } else if (type === segmentType.PRODUCT_SEGMENT) {
       switch (criteriaType) {
@@ -138,7 +151,9 @@ export class SegmentService {
           dtoClass = CreatePriceBasedDto;
           break;
         default:
-          throw new BadRequestException(`Invalid criteria type '${criteriaType}' for PRODUCT_SEGMENT`);
+          throw new BadRequestException(
+            `Invalid criteria type '${criteriaType}' for PRODUCT_SEGMENT`,
+          );
       }
     }
 
@@ -155,7 +170,11 @@ export class SegmentService {
     }
   }
 
-  private async saveUserCriteria(userSegment: UserSegment, criteria: any, criteriaType: string) {
+  private async saveUserCriteria(
+    userSegment: UserSegment,
+    criteria: any,
+    criteriaType: string,
+  ) {
     if (criteriaType === UserCriteria.MEMBERS_CRITERIA) {
       await this.membersCriteriaRepository.save(
         this.membersCriteriaRepository.create({ ...criteria, userSegment }),
@@ -172,14 +191,18 @@ export class SegmentService {
       await this.transactionCriteriaRepository.save(
         this.transactionCriteriaRepository.create({
           ...criteria,
-          rules: criteria.rule,  
+          rules: criteria.rule,
           userSegment,
         }),
       );
     }
   }
 
-  private async saveProductCriteria(productSegment: ProductSegment, criteria: any, criteriaType: string) {
+  private async saveProductCriteria(
+    productSegment: ProductSegment,
+    criteria: any,
+    criteriaType: string,
+  ) {
     if (criteriaType === ProductCriteria.PRODUCT_INTERACTION) {
       await this.productInteractionRepository.save(
         this.productInteractionRepository.create({

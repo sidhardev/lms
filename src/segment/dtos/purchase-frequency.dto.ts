@@ -4,7 +4,7 @@ import { PurchaseFrequencyRule } from '../enums/purchase-frequency.enum';
 
 export class CreatePurchaseFrequencyDto {
   @ApiProperty({ example: PurchaseFrequencyRule.HIGH_FREQUENCY })
-@IsEnum(PurchaseFrequencyRule)
+  @IsEnum(PurchaseFrequencyRule)
   rule: PurchaseFrequencyRule;
 
   @ApiProperty({ example: 3 })

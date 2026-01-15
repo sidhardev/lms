@@ -3,7 +3,9 @@ import { IsEnum, IsNumber, IsString } from 'class-validator';
 import { ProductInteractionRule } from '../enums/product-interaction.enum';
 
 export class CreateProductInteractionDto {
-  @ApiProperty({ example: ProductInteractionRule.ADDED_TO_CART_BUT_NOT_PURCHASED })
+  @ApiProperty({
+    example: ProductInteractionRule.ADDED_TO_CART_BUT_NOT_PURCHASED,
+  })
   @IsEnum(ProductInteractionRule)
   rule: ProductInteractionRule;
 
