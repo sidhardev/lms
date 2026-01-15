@@ -5,8 +5,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { segmentType } from './enums/segementType.enum';
-import { CreateSegmentDto } from './dtos/create-segment.dto';
+import { segmentType } from '../enums/segementType.enum';
+import { CreateSegmentDto } from '../dtos/create-segment.dto';
 
 @Entity()
 export class Segment {

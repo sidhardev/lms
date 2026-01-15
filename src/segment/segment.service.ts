@@ -1,6 +1,6 @@
 import { Body, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Segment } from './segment.enity';
+import { Segment } from './entites/segment.enity';
 import { Repository } from 'typeorm';
 import { CreateSegmentDto } from './dtos/create-segment.dto';
 

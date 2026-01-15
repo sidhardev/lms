@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Segment } from './segment.enity';
+import { Segment } from './entites/segment.enity';
 import { SegmentService } from './segment.service';
 import { SegmentController } from './segment.controller';
 
