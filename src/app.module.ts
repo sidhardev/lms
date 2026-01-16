@@ -12,14 +12,9 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { CouponsModule } from './coupons/coupons.module';
 import { Coupon } from './coupons/coupon.entity';
-import { AdminCouponsController } from './coupons/admin/admin-coupons.controller';
 import { AdminModule } from './coupons/admin/admin-coupons.module';
-import { CouponRedemption } from './coupons/redemptions/coupon-redemption.entity';
 import { CampaignsController } from './campaigns/campaigns.controller';
-import { CampaignsService } from './campaigns/campaigns.service';
 import { CampaignsModule } from './campaigns/campaigns.module';
-import { campaign } from './campaigns/campaign.entity';
-import { RedemptionController } from './redemption/redemption.controller';
 import { RedemptionModule } from './redemption/redemption.module';
 import { LoyaltyProgramController } from './loyalty-program/loyalty-program.controller';
 import { LoyaltyProgramModule } from './loyalty-program/loyalty-program.module';
@@ -27,8 +22,6 @@ import { NotificationsController } from './notifications/notifications.controlle
 import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
 import { SegmentModule } from './segment/segment.module';
-import { PromotionService } from './promotion/promotion.service';
-import { PromotionController } from './promotion/promotion.controller';
 import { PromotionModule } from './promotion/promotion.module';
 
 @Module({
@@ -64,15 +57,16 @@ import { PromotionModule } from './promotion/promotion.module';
     NotificationsModule,
     SegmentModule,
     PromotionModule,
+    
   ],
   controllers: [
     AppController,
     CampaignsController,
-    RedemptionController,
-    LoyaltyProgramController,
+        LoyaltyProgramController,
     NotificationsController,
-    PromotionController,
+    
+    
   ],
-  providers: [AppService, NotificationsService, PromotionService],
+  providers: [AppService, NotificationsService,],
 })
 export class AppModule {}

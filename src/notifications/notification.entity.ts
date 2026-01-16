@@ -1,10 +1,12 @@
 import { campaign } from 'src/campaigns/campaign.entity';
 import { LoyaltyProgram } from 'src/loyalty-program/loyalty-program.entity';
+import { Promotion } from 'src/promotion/promotion.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -21,12 +23,19 @@ export class CampaignNotification {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => campaign, (campaign) => campaign.notification, {
+  @ManyToOne(() => campaign, (campaign) => campaign.notifications, {
     onDelete: 'CASCADE',
     nullable: true,
   })
-  @JoinColumn()
   campaign?: campaign;
+
+  @ManyToOne(() => Promotion, (promotion) => promotion.notifications, {
+    onDelete: 'CASCADE',
+    nullable: true,
+  })
+  promotion?: Promotion;
+
+
 
   @OneToOne(
     () => LoyaltyProgram,

@@ -1,6 +1,7 @@
 import { DiscountType } from "src/campaigns/campaign.entity";
 import { DiscountMode } from "src/campaigns/rules/rules.enum";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { CampaignNotification } from "src/notifications/notification.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('promotion')
 
@@ -26,14 +27,21 @@ export class Promotion {
     @Column()
     discountType: DiscountMode;
 
-    @Column()
+    @Column({nullable: true})
     disocuntPercent: number;
 
-    @Column()
+    @Column({nullable: true})
     discountAmount: number;
 
     @Column()
     maxDiscount: number;
+
+      @OneToMany(
+    () => CampaignNotification,
+    (notification) => notification.promotion,
+    { cascade: true, eager: true },
+  )
+  notifications: CampaignNotification[];
 
 
 

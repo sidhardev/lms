@@ -45,8 +45,8 @@ export class CampaignsService {
       recurringValidDays: CreateCampaignDto.recurringValidDays,
       recurringStartTime: CreateCampaignDto.recurringStartTime,
       recurringEndTime: CreateCampaignDto.recurringEndTime,
-      notification: CreateCampaignDto.notification
-        ? { ...CreateCampaignDto.notification }
+      notifications: (CreateCampaignDto as any).notifications
+        ? (CreateCampaignDto as any).notifications.map((n: any) => ({ ...n }))
         : undefined,
     });
 
@@ -86,7 +86,7 @@ export class CampaignsService {
     return this.CampaignRepository.find({
       where: { discountType: DiscountType.ORDER_DISCOUNT },
       relations: {
-        notification: true,
+        notifications: true,
       },
     });
   }

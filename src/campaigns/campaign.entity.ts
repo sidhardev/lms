@@ -12,8 +12,9 @@ import {
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
+  OneToMany,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { WholeCart } from './rules/entites/whole-cart.entity';
 import { BulkPurchase } from './rules/entites/bulk-purchase.entity';
@@ -116,12 +117,12 @@ export class campaign {
   @MaxLength(6)
   code: string;
 
-  @OneToOne(
+  @OneToMany(
     () => CampaignNotification,
     (notification) => notification.campaign,
     { cascade: true, eager: true },
   )
-  notification: CampaignNotification;
+  notifications: CampaignNotification[];
 
 
 
@@ -199,6 +200,6 @@ export class campaign {
   @Column({ default: 0 })
   maxDiscount: number;
 
-  @Column({ default: { contries: '' }, type: 'jsonb' })
+  @Column({ default: { countries: '' }, type: 'jsonb' })
   eligible_locations: EligibleLocationDto[];
 }
