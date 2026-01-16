@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateSegmentDto } from './dtos/create-segment.dto';
 import { SegmentService } from './segment.service';
 
@@ -14,5 +14,14 @@ export class SegmentController {
   getAll() {
     return this.segmentService.getAll();
   }
+
+  @Delete(':id')
+  deleteById(@Param('id') id: number) {
+     this.segmentService.deleteById(id);
+     return {
+      status: true,
+      message: 'Segment deleted successfully'
+     }
+  } 
 
 }

@@ -23,7 +23,7 @@ export class CreateMembersCriteriaDto {
   })
   @IsEnum(ComparisonOperator)
   @IsOptional()
-  comparisionOpreator?: ComparisonOperator;
+  comparisionOpreator: ComparisonOperator;
 
   @ApiProperty({
     enum: conditions,
@@ -35,15 +35,15 @@ export class CreateMembersCriteriaDto {
   @ApiPropertyOptional({ example: '2024-01-01' })
   @IsDateString()
   @IsOptional()
-  startDate?: Date;
+  startDate: Date;
 
   @ApiPropertyOptional({ example: '2024-12-31' })
   @IsDateString()
   @IsOptional()
-  endDate?: Date;
+  endDate: Date;
 
   @ApiPropertyOptional({ example: 'ACTIVE' })
   @IsString()
   @IsOptional()
-  value?: string;
+  value: string;
 }

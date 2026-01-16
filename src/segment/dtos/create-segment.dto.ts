@@ -36,7 +36,7 @@ export class CreateSegmentDto {
   })
   @IsOptional()
   @IsString()
-  description?: string;
+  description: string;
 
   @ApiProperty({
     enum: segmentType,
@@ -54,7 +54,7 @@ export class CreateSegmentDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateMembersCriteriaDto)
-  membersCriteria?: CreateMembersCriteriaDto[];
+  membersCriteria: CreateMembersCriteriaDto[];
 
   @ApiProperty({
     type: [CreateEngagementCriteriaDto],
@@ -64,7 +64,7 @@ export class CreateSegmentDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateEngagementCriteriaDto)
-  engagementCriteria?: CreateEngagementCriteriaDto[];
+  engagementCriteria: CreateEngagementCriteriaDto[];
 
   @ApiProperty({
     type: [CreateDiscountCriteriaDto],
@@ -74,7 +74,7 @@ export class CreateSegmentDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateDiscountCriteriaDto)
-  discountCriteria?: CreateDiscountCriteriaDto[];
+  discountCriteria: CreateDiscountCriteriaDto[];
 
   @ApiProperty({
     type: [CreateTransactionCriteriaDto],
@@ -84,7 +84,7 @@ export class CreateSegmentDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateTransactionCriteriaDto)
-  transactionCriteria?: CreateTransactionCriteriaDto[];
+  transactionCriteria: CreateTransactionCriteriaDto[];
 
  
   @ApiProperty({
@@ -95,7 +95,7 @@ export class CreateSegmentDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateProductInteractionDto)
-  productInteraction?: CreateProductInteractionDto[];
+  productInteraction: CreateProductInteractionDto[];
 
   @ApiProperty({
     type: [CreateStockLevelDto],
@@ -105,7 +105,7 @@ export class CreateSegmentDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateStockLevelDto)
-  stockLevel?: CreateStockLevelDto[];
+  stockLevel: CreateStockLevelDto[];
 
   @ApiProperty({
     type: [CreatePurchaseFrequencyDto],
@@ -115,7 +115,7 @@ export class CreateSegmentDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreatePurchaseFrequencyDto)
-  purchaseFrequency?: CreatePurchaseFrequencyDto[];
+  purchaseFrequency: CreatePurchaseFrequencyDto[];
 
   @ApiProperty({
     type: [CreatePriceBasedDto],
@@ -125,5 +125,5 @@ export class CreateSegmentDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreatePriceBasedDto)
-  priceBased?: CreatePriceBasedDto[];
+  priceBased: CreatePriceBasedDto[];
 }
