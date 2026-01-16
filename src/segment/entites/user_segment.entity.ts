@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Segment } from './segment.enity';
 import { MembersCriteria } from './members-criteria.entity';
 import { discountCriteria } from './discount-criteria.entity';
@@ -16,15 +16,15 @@ export class UserSegment {
   @JoinColumn()
   segment: Segment;
 
-  @OneToOne(() => MembersCriteria, (c) => c.userSegment)
+  @OneToMany(() => MembersCriteria, (c) => c.userSegment)
   membersCriteria: MembersCriteria;
 
-  @OneToOne(() => discountCriteria, (c) => c.userSegment)
+  @OneToMany(() => discountCriteria, (c) => c.userSegment)
   discountCriteria: discountCriteria;
 
-  @OneToOne(() => EngagementCriteria, (c) => c.userSegment)
+  @OneToMany(() => EngagementCriteria, (c) => c.userSegment)
   engagementCriteria: EngagementCriteria;
 
-  @OneToOne(() => TransactionCriteria, (c) => c.userSegment)
+  @OneToMany(() => TransactionCriteria, (c) => c.userSegment)
   transactionCriteria: TransactionCriteria;
 }
