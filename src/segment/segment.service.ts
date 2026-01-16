@@ -239,6 +239,9 @@ export class SegmentService {
 
 async deleteById(id: number) {
   this.segmentRepository.delete(id);
+  return {
+    message: 'Segment Deleted Sucessfully!'
+  } 
 }
 
 findById(id: number) {

@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,7 +14,7 @@ export class StockLevel {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(
+  @ManyToOne(
     () => ProductSegment,
     (ProductSegment) => ProductSegment.stockLevel,
     {

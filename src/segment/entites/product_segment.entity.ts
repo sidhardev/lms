@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Segment } from './segment.enity';
 import { ProductInteraction } from './product-interaction.entity';
 import { StockLevel } from './stock-level.entity';
@@ -10,21 +10,21 @@ export class ProductSegment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Segment, (segment) => segment.UserSegment, {
+  @OneToMany(() => Segment, (segment) => segment.UserSegment, {
     onDelete: 'CASCADE',
   })
   @JoinColumn()
   segment: Segment;
 
-  @OneToOne(() => ProductInteraction, (c) => c.ProductSegment)
+  @OneToMany(() => ProductInteraction, (c) => c.ProductSegment)
   productInteraction: ProductInteraction;
 
-  @OneToOne(() => StockLevel, (c) => c.ProductSegment)
+  @OneToMany(() => StockLevel, (c) => c.ProductSegment)
   stockLevel: StockLevel;
 
-  @OneToOne(() => PriceBased, (c) => c.ProductSegment)
+  @OneToMany(() => PriceBased, (c) => c.ProductSegment)
   priceBased: PriceBased;
 
-  @OneToOne(() => PurchaseFrequency, (c) => c.ProductSegment)
+  @OneToMany(() => PurchaseFrequency, (c) => c.ProductSegment)
   purchaseFrequency: PurchaseFrequency;
 }

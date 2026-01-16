@@ -27,6 +27,9 @@ import { NotificationsController } from './notifications/notifications.controlle
 import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
 import { SegmentModule } from './segment/segment.module';
+import { PromotionService } from './promotion/promotion.service';
+import { PromotionController } from './promotion/promotion.controller';
+import { PromotionModule } from './promotion/promotion.module';
 
 @Module({
   imports: [
@@ -60,6 +63,7 @@ import { SegmentModule } from './segment/segment.module';
     LoyaltyProgramModule,
     NotificationsModule,
     SegmentModule,
+    PromotionModule,
   ],
   controllers: [
     AppController,
@@ -67,7 +71,8 @@ import { SegmentModule } from './segment/segment.module';
     RedemptionController,
     LoyaltyProgramController,
     NotificationsController,
+    PromotionController,
   ],
-  providers: [AppService, NotificationsService],
+  providers: [AppService, NotificationsService, PromotionService],
 })
 export class AppModule {}

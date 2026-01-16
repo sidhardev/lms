@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -16,7 +17,7 @@ export class discountCriteria {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => UserSegment, (userSegment) => userSegment.membersCriteria, {
+  @ManyToOne(() => UserSegment, (userSegment) => userSegment.membersCriteria, {
     onDelete: 'CASCADE',
   })
   @JoinColumn()

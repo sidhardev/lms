@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -12,7 +13,7 @@ export class PriceBased {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(
+  @ManyToOne(
     () => ProductSegment,
     (ProductSegment) => ProductSegment.priceBased,
     {

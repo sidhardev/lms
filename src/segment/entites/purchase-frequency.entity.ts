@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -14,7 +15,7 @@ export class PurchaseFrequency {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(
+  @ManyToOne(
     () => ProductSegment,
     (ProductSegment) => ProductSegment.purchaseFrequency,
     {

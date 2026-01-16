@@ -2,6 +2,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,7 +15,7 @@ export class ProductInteraction {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(
+  @ManyToOne(
     () => ProductSegment,
     (ProductSegment) => ProductSegment.productInteraction,
     {
