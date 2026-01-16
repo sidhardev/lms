@@ -15,6 +15,12 @@ export class SegmentController {
     return this.segmentService.getAll();
   }
 
+@Get('/:id')
+findById(@Param('id') id: number) {
+  return this.segmentService.findById(id);
+}
+
+
   @Delete(':id')
   deleteById(@Param('id') id: number) {
      this.segmentService.deleteById(id);

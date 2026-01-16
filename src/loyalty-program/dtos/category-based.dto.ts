@@ -7,7 +7,7 @@ import { CategoryPointsItemDto } from './category-points-item.dto';
 export class CategoryBasedDto {
   @ApiProperty({
     enum: AccumulationRuleType,
-    example: AccumulationRuleType.CATEGORY_BASED,
+    example: AccumulationRuleType,
   })
   @IsEnum(AccumulationRuleType)
   ruleType: AccumulationRuleType.CATEGORY_BASED;

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -27,5 +28,10 @@ export class ShippingCampaignController {
   @Patch(':id/status')
   updateStatus(@Param('id', ParseIntPipe) id: number) {
     return this.shippingService.UpdateStatus(id);
+  }
+
+  @Delete(':id')
+  deleteById(@Param('id') id: number) {
+    return this.shippingService.deleteById(id);
   }
 }

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -39,5 +40,10 @@ export class CampaignsController {
   @Patch(':id/status')
   updateStatus(@Param('id', ParseIntPipe) id: number) {
     return this.campaignService.UpdateStatus(id);
+  }
+
+  @Delete(':id')
+  deleteById(@Param('id') id: number) {
+    return this.campaignService.deleteById(id);
   }
 }

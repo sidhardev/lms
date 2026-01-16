@@ -15,7 +15,7 @@ export class PointsPerRupeeDto {
     example: AccumulationRuleType.POINTS_PER_RUPEE,
   })
   @IsEnum(AccumulationRuleType)
-  ruleType: AccumulationRuleType.POINTS_PER_RUPEE;
+  ruleType: AccumulationRuleType;
 
   @ApiProperty({ enum: PointsMode, example: PointsMode.DYNAMIC })
   @IsEnum(PointsMode)

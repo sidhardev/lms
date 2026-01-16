@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateLoyaltyProgramDto } from './dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from './loyalty-program.service';
 import { ApiCreatedResponse } from '@nestjs/swagger';
@@ -21,5 +21,10 @@ export class LoyaltyProgramController {
   @Get('/get')
   get() {
     return this.loyaltyProgramService.findAll();
+  }
+
+  @Delete(':id')
+  deleteById(@Param('id') id: number) {
+    return this.loyaltyProgramService.deleteById(id);
   }
 }

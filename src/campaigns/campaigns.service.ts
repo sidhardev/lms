@@ -113,5 +113,14 @@ export class CampaignsService {
       where: { status: CampaignStatus.ACTIVE },
     });
   }
+
+  deleteById(id: number) {
+     this.CampaignRepository.delete(id);
+     return {
+      message: 'Campaign deleted successfully',
+      status: true
+     }
+  
+  }
 }
   

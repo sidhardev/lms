@@ -8,7 +8,7 @@ export class FirstPurchasePointsDto {
     example: AccumulationRuleType.FIRST_PURCHASE,
   })
   @IsEnum(AccumulationRuleType)
-  ruleType: AccumulationRuleType.FIRST_PURCHASE;
+  ruleType: AccumulationRuleType;
 
   @ApiProperty({
     example: 100,

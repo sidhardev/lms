@@ -1,14 +1,20 @@
-import { IsObject, IsOptional } from 'class-validator';
+import { IsOptional } from 'class-validator';
 import { recurringValidDays } from 'src/campaigns/campaign.entity';
 import { CampaignNotification } from 'src/notifications/notification.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { PointsPerRupee } from './points-per-rupee.entity';
+import { FirstPurchase } from './first-purchase.entity';
+import { DailyLoginStreak } from './daily-login-streak.entity';
+import { CategoryBased } from './category-based.entity';
+
 
 @Entity('loyalty-program')
 export class LoyaltyProgram {
@@ -41,15 +47,36 @@ export class LoyaltyProgram {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column({ nullable: true })
+  @Column()
   validDays: recurringValidDays;
 
-  @Column({ nullable: true })
+  @Column()
   validityStartTime: string;
 
-  @Column({ nullable: true })
+  @Column()
   validityEndTime: string;
 
-  @Column({ type: 'jsonb', nullable: true })
-  rules: Record<string, any>;
+  @OneToOne(() => PointsPerRupee, (rule) => rule.loyaltyProgram, {
+    cascade: true,
+    eager: true,
+  })
+  pointsPerRupee: PointsPerRupee;
+
+  @OneToOne(() => FirstPurchase, (rule) => rule.loyaltyProgram, {
+    cascade: true,
+    eager: true,
+  })
+  firstPurchase: FirstPurchase;
+
+  @OneToOne(() => DailyLoginStreak, (rule) => rule.loyaltyProgram, {
+    cascade: true,
+    eager: true,
+  })
+  dailyLoginStreak: DailyLoginStreak;
+
+  @OneToMany(() => CategoryBased, (rule) => rule.loyaltyProgram, {
+    cascade: true,
+    eager: true,
+  })
+  categoryBased: CategoryBased[];
 }

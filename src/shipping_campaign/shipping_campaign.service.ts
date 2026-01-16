@@ -60,4 +60,12 @@ export class ShippingCampaignService {
       throw new NotFoundException('Campaign Not found!');
     }
   }
+
+  deleteById(id: number) {
+    this.CampaignRepository.delete(id);
+    return {
+      message: 'Campaign deleted successfully',
+      status: true,
+    };
+  }
 }

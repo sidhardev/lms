@@ -8,7 +8,7 @@ export class DailyLoginStreakDto {
     example: AccumulationRuleType.DAILY_LOGIN_STREAK,
   })
   @IsEnum(AccumulationRuleType)
-  ruleType: AccumulationRuleType.DAILY_LOGIN_STREAK;
+  ruleType: AccumulationRuleType;
 
   @ApiProperty({
     example: 5,
