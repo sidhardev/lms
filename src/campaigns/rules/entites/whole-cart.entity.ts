@@ -1,5 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { DiscountMode, RuleType } from '../rules.enum';
+// c:\Users\Moon Link\lms\src\campaigns\rules\entities\whole-cart.entity.ts
+
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { campaign } from '../../campaign.entity';
+import { RuleType, DiscountMode } from '../rules.enum';
 
 @Entity('whole_cart_discounts')
 export class WholeCart {
@@ -9,8 +12,9 @@ export class WholeCart {
   @Column({
     type: 'enum',
     enum: RuleType,
+    default: RuleType.WHOLE_CART,
   })
-  ruleType: RuleType.WHOLE_CART;
+  ruleType: RuleType;
 
   @Column({
     type: 'enum',
@@ -18,20 +22,15 @@ export class WholeCart {
   })
   discountMode: DiscountMode;
 
-  @Column({
-    type: 'int',
-    nullable: true,
-  })
-  discoutPercent?: number;
+  @Column({ type: 'int', nullable: true })
+  discountPercent: number;
 
-  @Column({
-    type: 'int',
-    nullable: true,
-  })
-  discountAmount?: number;
+  @Column({ type: 'int', nullable: true })
+  discountAmount: number;
 
-  @Column({
-    type: 'int',
-  })
-  MaxDiscount: number;
+  @Column({ type: 'int', nullable: true })
+  maxDiscount: number;
+
+  @OneToOne(() => campaign, (campaign) => campaign.wholeCart)
+  campaign: campaign;
 }

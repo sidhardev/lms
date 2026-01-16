@@ -5,9 +5,7 @@ import { conditions } from '../enums/comparison.enum';
 import { DiscountRule } from '../enums/discount-criteria.enum';
 
 export class CreateDiscountCriteriaDto {
-  @ApiProperty({ example: 12 })
-  @IsNumber()
-  userSegmentId: number;
+  
 
   @ApiPropertyOptional({ example: DiscountRule.DISCOUNT_TYPE })
   @IsEnum(DiscountRule)

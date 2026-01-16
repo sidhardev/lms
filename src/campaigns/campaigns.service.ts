@@ -10,6 +10,11 @@ import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { plainToInstance } from 'class-transformer';
 
 import { validateSync } from 'class-validator';
+import { RuleType } from './rules/rules.enum';
+import { WholeCart } from './rules/entites/whole-cart.entity';
+import { BulkPurchase } from './rules/entites/bulk-purchase.entity';
+import { CategoryDiscount } from './rules/entites/category-discount.entity';
+
 
 @Injectable()
 export class CampaignsService {
@@ -44,6 +49,36 @@ export class CampaignsService {
         ? { ...CreateCampaignDto.notification }
         : undefined,
     });
+
+    const rules = CreateCampaignDto.rules as any;
+    if (rules) {
+      if (rules.ruleType === RuleType.WHOLE_CART) {
+        const wholeCart = new WholeCart();
+        wholeCart.ruleType = rules.ruleType;
+        wholeCart.discountMode = rules.discountMode;
+        wholeCart.discountPercent = rules.discoutPercent;
+        wholeCart.discountAmount = rules.discountAmount;
+        wholeCart.maxDiscount = rules.MaxDiscount;
+        campaign.wholeCart = wholeCart;
+      } else if (rules.ruleType === RuleType.BULK_PURCHASE) {
+        const bulkPurchase = new BulkPurchase();
+        bulkPurchase.ruleType = rules.ruleType;
+        bulkPurchase.discountMode = rules.discountMode;
+        bulkPurchase.discountPercent = rules.discoutPercent || rules.discountPercent;
+        bulkPurchase.discountAmount = rules.discountAmount;
+        bulkPurchase.minQuantity = rules.minQuantity;
+        campaign.bulkPurchase = bulkPurchase;
+      } else if (rules.ruleType === RuleType.CATEGORY) {
+        const categoryDiscount = new CategoryDiscount();
+        categoryDiscount.ruleType = rules.ruleType;
+        categoryDiscount.discountMode = rules.discountMode;
+        categoryDiscount.discountPercent = rules.discoutPercent || rules.discountPercent;
+        categoryDiscount.discountAmount = rules.discountAmount;
+        categoryDiscount.categoryId = rules.categoryId;
+        campaign.categoryDiscount = categoryDiscount;
+      }
+    }
+
     return this.CampaignRepository.save(campaign);
   }
 
@@ -79,3 +114,4 @@ export class CampaignsService {
     });
   }
 }
+  

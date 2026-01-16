@@ -1,7 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { DiscountMode, RuleType } from '../rules.enum';
+// c:\Users\Moon Link\lms\src\campaigns\rules\entities\bulk-purchase.entity.ts
 
-@Entity('bulk_purchases')
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { campaign } from '../../campaign.entity';
+import { RuleType, DiscountMode } from '../rules.enum';
+
+@Entity('bulk_purchase_discounts')
 export class BulkPurchase {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,34 +12,25 @@ export class BulkPurchase {
   @Column({
     type: 'enum',
     enum: RuleType,
+    default: RuleType.BULK_PURCHASE,
   })
-  ruleType: RuleType.BULK_PURCHASE;
+  ruleType: RuleType;
 
   @Column({
     type: 'enum',
     enum: DiscountMode,
   })
-  mode: DiscountMode;
+  discountMode: DiscountMode;
 
-  @Column({
-    type: 'int',
-  })
-  minOrderValue: number;
+  @Column({ type: 'int', nullable: true })
+  discountPercent: number;
 
-  @Column({
-    type: 'int',
-  })
-  minItems: number;
+  @Column({ type: 'int', nullable: true })
+  discountAmount: number;
 
-  @Column({
-    type: 'int',
-    nullable: true,
-  })
-  discountAmount?: number;
+  @Column({ type: 'int' })
+  minQuantity: number;
 
-  @Column({
-    type: 'int',
-    nullable: true,
-  })
-  discountPercent?: number;
+  @OneToOne(() => campaign, (campaign) => campaign.bulkPurchase)
+  campaign: campaign;
 }

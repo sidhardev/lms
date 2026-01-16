@@ -11,9 +11,7 @@ import { conditions } from '../enums/comparison.enum';
 import { membersCriteria } from '../enums/members.enum';
 
 export class CreateMembersCriteriaDto {
-  @ApiProperty({ example: 5 })
-  @IsNumber()
-  userSegmentId: number;
+   
 
   @ApiProperty({ example: membersCriteria.BIRTHDAY })
   @IsEnum(membersCriteria)

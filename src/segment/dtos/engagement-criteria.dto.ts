@@ -5,9 +5,7 @@ import { conditions } from '../enums/comparison.enum';
 import { EngagementRuleType } from '../enums/engagement-rule.enum';
 
 export class CreateEngagementCriteriaDto {
-  @ApiProperty({ example: 8 })
-  @IsNumber()
-  userSegmentId: number;
+   
 
   @ApiPropertyOptional({ example: EngagementRuleType.ANY_EMAIL })
   @IsEnum(EngagementRuleType)

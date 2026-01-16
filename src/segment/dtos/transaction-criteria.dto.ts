@@ -11,9 +11,7 @@ import { conditions } from '../enums/comparison.enum';
 import { TransactionRules } from '../enums/transaction-rule.enum';
 
 export class CreateTransactionCriteriaDto {
-  @ApiProperty({ example: 15 })
-  @IsNumber()
-  userSegmentId: number;
+   
 
   @ApiPropertyOptional({ example: TransactionRules.TOTAL_AMOUNT_SPEND })
   @IsEnum(TransactionRules)

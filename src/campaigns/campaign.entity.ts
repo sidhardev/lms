@@ -15,6 +15,10 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
+import { WholeCart } from './rules/entites/whole-cart.entity';
+import { BulkPurchase } from './rules/entites/bulk-purchase.entity';
+import { CategoryDiscount } from './rules/entites/category-discount.entity';
+
 
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
@@ -159,6 +163,27 @@ export class campaign {
 
   @Column({ type: 'jsonb', nullable: true })
   rules: Record<string, any>;
+
+  @OneToOne(() => WholeCart, (wholeCart) => wholeCart.campaign, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn()
+  wholeCart: WholeCart;
+
+  @OneToOne(() => BulkPurchase, (bulkPurchase) => bulkPurchase.campaign, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn()
+  bulkPurchase: BulkPurchase;
+
+  @OneToOne(() => CategoryDiscount, (categoryDiscount) => categoryDiscount.campaign, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn()
+  categoryDiscount: CategoryDiscount;
 
   @Column({ default: true })
   isActive: boolean;
