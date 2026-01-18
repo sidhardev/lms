@@ -11,7 +11,7 @@ import {
   IsOptional,
   ValidateNested,
 } from 'class-validator';
-import { DiscountMode } from 'src/campaigns/rules/rules.enum';
+import { DiscountMode } from 'src/order-campaign/rules/rules.enum';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 
 export class CreatePromotionDto {

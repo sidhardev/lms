@@ -1,5 +1,5 @@
-import { DiscountType } from "src/campaigns/campaign.entity";
-import { DiscountMode } from "src/campaigns/rules/rules.enum";
+import { DiscountType } from "src/order-campaign/campaign.entity";
+import { DiscountMode } from "src/order-campaign/rules/rules.enum";
 import { CampaignNotification } from "src/notifications/notification.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 

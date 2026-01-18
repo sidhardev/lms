@@ -8,7 +8,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { recurringValidDays } from '../../campaigns/campaign.entity';
+import { recurringValidDays } from '../../order-campaign/campaign.entity';
 import { CreateCampaignNotificationDto } from '../../notifications/dtos/createNotificationChannel.dto';
 import { AccumulationRuleType } from '../enums/points.enum';
 import { CategoryBasedDto } from './category-based.dto';

@@ -1,5 +1,5 @@
 import { IsOptional } from 'class-validator';
-import { recurringValidDays } from 'src/campaigns/campaign.enums';
+import { recurringValidDays } from 'src/order-campaign/campaign.enums';
 import { CampaignNotification } from 'src/notifications/notification.entity';
 import {
   Column,

@@ -88,7 +88,7 @@ export class AuthService {
       throw new BadRequestException('Invalid or expired token');
     }
 
-    return { message: 'Token valid ✅', isValid: true };
+    return { message: 'Token valid', isValid: true };
   }
   async resetPassword(token: string, newPassword: string) {
     const user = await this.userService.findByToken({
