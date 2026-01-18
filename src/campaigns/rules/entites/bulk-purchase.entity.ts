@@ -1,6 +1,6 @@
 // c:\Users\Moon Link\lms\src\campaigns\rules\entities\bulk-purchase.entity.ts
 
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
 import { campaign } from '../../campaign.entity';
 import { RuleType, DiscountMode } from '../rules.enum';
 
@@ -31,6 +31,7 @@ export class BulkPurchase {
   @Column({ type: 'int' })
   minQuantity: number;
 
-  @OneToOne(() => campaign, (campaign) => campaign.bulkPurchase)
+  @OneToOne(() => campaign, (campaign) => campaign.bulkPurchase, { onDelete: 'CASCADE' })
+  @JoinColumn()
   campaign: campaign;
 }

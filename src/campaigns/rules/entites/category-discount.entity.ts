@@ -1,6 +1,5 @@
-// c:\Users\Moon Link\lms\src\campaigns\rules\entities\category-discount.entity.ts
-
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+ 
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
 import { campaign } from '../../campaign.entity';
 import { RuleType, DiscountMode } from '../rules.enum';
 
@@ -31,6 +30,7 @@ export class CategoryDiscount {
   @Column({ type: 'int' })
   categoryId: number;
 
-  @OneToOne(() => campaign, (campaign) => campaign.categoryDiscount)
+  @OneToOne(() => campaign, (campaign) => campaign.categoryDiscount, { onDelete: 'CASCADE' })
+  @JoinColumn()
   campaign: campaign;
 }

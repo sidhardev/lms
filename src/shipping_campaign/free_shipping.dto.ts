@@ -158,7 +158,7 @@ export class CreateFreeShippingDto {
 
   @ApiProperty({
     enum: recurringValidDays,
-    example: recurringValidDays.MON,
+    example: [recurringValidDays.MON, recurringValidDays.WED],
     description: 'Valid days for recurring campaigns',
     required: false,
   })

@@ -1,5 +1,5 @@
 import { IsOptional } from 'class-validator';
-import { recurringValidDays } from 'src/campaigns/campaign.entity';
+import { recurringValidDays } from 'src/campaigns/campaign.enums';
 import { CampaignNotification } from 'src/notifications/notification.entity';
 import {
   Column,
@@ -24,7 +24,7 @@ export class LoyaltyProgram {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsOptional()
   description: string;
 
@@ -47,8 +47,14 @@ export class LoyaltyProgram {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column()
-  validDays: recurringValidDays;
+  @Column({
+  type: 'enum',
+  enum: recurringValidDays,
+   array: true,
+  nullable: true,
+})
+validDays: recurringValidDays[];
+
 
   @Column()
   validityStartTime: string;

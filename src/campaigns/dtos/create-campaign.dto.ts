@@ -119,6 +119,7 @@ export class CreateCampaignDto {
   @ApiProperty({
     example: DiscountType.ORDER_DISCOUNT,
   })
+  @IsEnum(DiscountType)
   discountType: DiscountType;
 
   @ApiProperty({
@@ -152,11 +153,13 @@ export class CreateCampaignDto {
   @ApiProperty({
     example: true,
   })
+  @IsBoolean()
   useItAsCoupon: boolean;
 
   @ApiProperty({
     example: true,
   })
+  @IsBoolean()
   isActive: boolean;
 
   @ApiProperty({

@@ -43,10 +43,10 @@ export class CreateLoyaltyProgramDto {
 
   @ApiProperty({
     enum: recurringValidDays,
-    example: recurringValidDays.MON,
+    example: [recurringValidDays.MON, recurringValidDays.WED],
   })
-  @IsEnum(recurringValidDays)
-  validDays: recurringValidDays;
+  @IsEnum(recurringValidDays, {each: true})
+  validDays?: recurringValidDays[];
 
   @ApiProperty({ example: '09:00' })
   @IsString()

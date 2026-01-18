@@ -46,7 +46,7 @@ export class LoyaltyProgramService {
     return await this.loyaltyRepository.save(loyaltyProgram);
   }
 
-  async findAll() {
+  async findAll(page: number, limit: number) {
     return await this.loyaltyRepository.find({
       relations: {
         notification: true,
@@ -55,10 +55,12 @@ export class LoyaltyProgramService {
         dailyLoginStreak: true,
         categoryBased: true,
       },
+      skip: (page - 1) * limit,
+      take: limit,
     });
   }
-  deleteById(id: number) {
-    this.loyaltyRepository.delete(id);
+  async deleteById(id: number) {
+    await this.loyaltyRepository.delete(id);
     return {
       message: 'Loyalty Program deleted successfully',
       status: true

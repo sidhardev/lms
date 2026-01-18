@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, ParseIntPipe, DefaultValuePipe } from '@nestjs/common';
 import { CreateLoyaltyProgramDto } from './dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from './loyalty-program.service';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiQuery } from '@nestjs/swagger';
 import { LoyaltyProgram } from './loyalty-program.entity';
 
 @Controller('loyalty-program')
@@ -19,12 +19,18 @@ export class LoyaltyProgramController {
   }
 
   @Get('/get')
-  get() {
-    return this.loyaltyProgramService.findAll();
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+
+  get(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ) {
+    return this.loyaltyProgramService.findAll(page, limit);
   }
 
   @Delete(':id')
-  deleteById(@Param('id') id: number) {
+  deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.loyaltyProgramService.deleteById(id);
   }
 }

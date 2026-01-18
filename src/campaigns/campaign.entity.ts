@@ -13,12 +13,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  JoinColumn,
   OneToOne,
 } from 'typeorm';
 import { WholeCart } from './rules/entites/whole-cart.entity';
 import { BulkPurchase } from './rules/entites/bulk-purchase.entity';
 import { CategoryDiscount } from './rules/entites/category-discount.entity';
+import { recurringCycle, recurringValidDays } from './campaign.enums';
 
 
 export enum DiscountType {
@@ -44,20 +44,8 @@ export enum CampaignStatus {
   PAUSED = 'PAUSED',
   EXPIRED = 'EXPIRED',
 }
-export enum recurringCycle {
-  EVERY_MONTH = 'EVERY_MONTH',
-  EVERY_WEEK = 'EVERY_WEEK',
-}
 
-export enum recurringValidDays {
-  SUN = 'SUN',
-  MON = 'MON',
-  TUE = 'TUE',
-  WED = 'WED',
-  THR = 'THR',
-  FRI = 'FRI',
-  SAT = 'SAT',
-}
+export { recurringCycle, recurringValidDays };
 
 @Entity('campaigns')
 export class campaign {
@@ -169,21 +157,18 @@ export class campaign {
     cascade: true,
     eager: true,
   })
-  @JoinColumn()
   wholeCart: WholeCart;
 
   @OneToOne(() => BulkPurchase, (bulkPurchase) => bulkPurchase.campaign, {
     cascade: true,
     eager: true,
   })
-  @JoinColumn()
   bulkPurchase: BulkPurchase;
 
   @OneToOne(() => CategoryDiscount, (categoryDiscount) => categoryDiscount.campaign, {
     cascade: true,
     eager: true,
   })
-  @JoinColumn()
   categoryDiscount: CategoryDiscount;
 
   @Column({ default: true })
