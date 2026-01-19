@@ -5,24 +5,35 @@ import { Repository } from 'typeorm';
 import { CreateLoyaltyProgramDto } from './dtos/create-loyalty-program.dto';
 import { AccumulationRuleType } from './enums/points.enum';
 import { CategoryBasedDto } from './dtos/category-based.dto';
+import { Campaigns } from '../campaign.entity';
+import { campaignType } from '../campaign-type.enum';
 
 @Injectable()
 export class LoyaltyProgramService {
   constructor(
     @InjectRepository(LoyaltyProgram)
     private readonly loyaltyRepository: Repository<LoyaltyProgram>,
+    @InjectRepository(Campaigns)
+    private readonly parentCampaignRepository: Repository<Campaigns>,
   ) {}
 
   async create(dto: CreateLoyaltyProgramDto): Promise<LoyaltyProgram> {
-    const loyaltyProgram = this.loyaltyRepository.create({
+    const parentCampaign = this.parentCampaignRepository.create({
       name: dto.name,
       description: dto.description,
-      startAt: new Date(dto.startAt),
+      type: campaignType.LOYALTY_PROGRAM,
+       startAt: new Date(dto.startAt),
       endAt: new Date(dto.endAt),
+    });
+    const savedParent = await this.parentCampaignRepository.save(parentCampaign);
+
+    const loyaltyProgram = this.loyaltyRepository.create({
+      
       validDays: dto.validDays,
       validityStartTime: dto.validityStartTime,
       validityEndTime: dto.validityEndTime,
       notification: dto.notification ? { ...dto.notification } : undefined,
+      campaign: savedParent,
     });
 
     if (dto.rules) {
@@ -51,6 +62,7 @@ export class LoyaltyProgramService {
 
       skip: (page - 1) * limit,
       take: limit,
+      relations: ['campaign'],
     });
   }
   async deleteById(id: number) {

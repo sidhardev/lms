@@ -5,6 +5,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -14,6 +16,7 @@ import { PointsPerRupee } from './points-per-rupee.entity';
 import { FirstPurchase } from './first-purchase.entity';
 import { DailyLoginStreak } from './daily-login-streak.entity';
 import { CategoryBased } from './category-based.entity';
+import { Campaigns } from '../campaign.entity';
 
 
 @Entity('loyalty-program')
@@ -21,17 +24,14 @@ export class LoyaltyProgram {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
+  @ManyToOne(() => Campaigns, (campaigns) => campaigns.loyaltyPrograms)
+  @JoinColumn({ name: 'campaignId' })
+  campaign: Campaigns;
 
-  @Column({ nullable: true })
-  @IsOptional()
-  description: string;
-
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   startAt: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   endAt: Date;
 
   @OneToOne(

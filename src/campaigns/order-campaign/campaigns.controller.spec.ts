@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CampaignsController } from './campaigns.controller';
+import { CampaignsController } from './disocunt-campaign.controller';
 
 describe('CampaignsController', () => {
   let controller: CampaignsController;

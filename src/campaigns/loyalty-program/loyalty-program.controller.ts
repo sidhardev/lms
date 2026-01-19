@@ -4,10 +4,10 @@ import { LoyaltyProgramService } from './loyalty-program.service';
 import { ApiCreatedResponse, ApiQuery } from '@nestjs/swagger';
 import { LoyaltyProgram } from './loyalty-program.entity';
 
-@Controller('loyalty-program')
+@Controller()
 export class LoyaltyProgramController {
   constructor(private loyaltyProgramService: LoyaltyProgramService) {}
-  @Post('/create')
+  @Post('campaigns/loyaltyprogram/create')
   @ApiCreatedResponse({
     description: 'Loyalty program created successfully',
     type: LoyaltyProgram,

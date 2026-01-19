@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus, DiscountType } from './campaign.entity';
+import { campaign, CampaignStatus, DiscountType } from './discount-campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 
@@ -13,23 +13,42 @@ import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { CategoryDiscount } from './entites/category-discount.entity';
 import { LoyaltyProgramService } from 'src/campaigns/loyalty-program/loyalty-program.service';
+import { Campaigns } from '../campaign.entity';
+import { campaignType } from '../campaign-type.enum';
+import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 
 
 @Injectable()
 export class CampaignsService {
   constructor(
     @InjectRepository(campaign)
-    private readonly CampaignRepository: Repository<campaign>, 
-    private loyaltyService: LoyaltyProgramService
+    private readonly CampaignRepository: Repository<campaign>,
+    @InjectRepository(Campaigns)
+    private readonly parentCampaignRepository: Repository<Campaigns>,
+    private loyaltyService: LoyaltyProgramService,
+    private shippingService: ShippingCampaignService
   ) {}
 
-  create(CreateCampaignDto: CreateCampaignDto) {
-    const campaign = this.CampaignRepository.create({
-      name: CreateCampaignDto.name,
-      description: CreateCampaignDto.description,
-      useItAsCoupon: CreateCampaignDto.useItAsCoupon,
+  async createDiscountCoupon(CreateCampaignDto: CreateCampaignDto) {
+
+
+
+    const parentCampaign = this.parentCampaignRepository.create({
+      name: (CreateCampaignDto as any).name,
+      description: (CreateCampaignDto as any).description,
+      type: campaignType.DISCOUNT_COUPON,
       startAt: CreateCampaignDto.startAt,
-      endAt: CreateCampaignDto.endAt,
+            endAt: CreateCampaignDto.endAt,
+
+
+    });
+    const savedParent = await this.parentCampaignRepository.save(parentCampaign);
+
+    
+
+    const campaign = this.CampaignRepository.create({
+       useItAsCoupon: CreateCampaignDto.useItAsCoupon,
+      
       status: CampaignStatus.DRAFT,
       metadata: CreateCampaignDto.metadata,
       couponType: CreateCampaignDto.couponType,
@@ -52,6 +71,7 @@ export class CampaignsService {
       minOrderValue: (CreateCampaignDto as any).minOrderValue,
       maxDiscount: (CreateCampaignDto as any).maxDiscount,
       eligible_locations: (CreateCampaignDto as any).eligible_locations,
+      campaign: savedParent,
     });
 
     const rules = CreateCampaignDto.rules as any;
@@ -87,20 +107,12 @@ export class CampaignsService {
   }
 
    async findAll(page, limit) {
-    const campaign =  await this.CampaignRepository.find({
-      relations: {
-        notifications: true,
-      },
-
-      skip: (page - 1) * limit,
+    const campaign =  await this.parentCampaignRepository.find({
+skip: (page - 1) * limit,
       take: limit,
-      
-    });
-    const loyaltyProgram = await this.loyaltyService.findAll(page, limit);
+    })
 
-    const response = [...campaign, ...loyaltyProgram]
-
-return response;
+return campaign;
   }
 
   findOne(id: number) {

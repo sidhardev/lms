@@ -1,4 +1,4 @@
-import { IsOptional, MaxLength, MinLength } from 'class-validator';
+import { IsEnum, IsOptional, MaxLength, MinLength } from 'class-validator';
 import { timestamp } from 'rxjs';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
@@ -14,11 +14,15 @@ import {
   UpdateDateColumn,
   OneToMany,
   OneToOne,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { CategoryDiscount } from './entites/category-discount.entity';
 import { recurringCycle, recurringValidDays } from './campaign.enums';
+import { campaignType } from '../campaign-type.enum';
+import { Campaigns } from '../campaign.entity';
 
 
 export enum DiscountType {
@@ -47,17 +51,17 @@ export enum CampaignStatus {
 
 export { recurringCycle, recurringValidDays };
 
-@Entity('campaigns')
+@Entity('discount-campaigns')
 export class campaign {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
+   
 
-  @Column()
-  @IsOptional()
-  description: string;
+@ManyToOne(() => Campaigns, (campaigns) => campaigns.discountCoupons)
+    @JoinColumn({ name: 'campaignId' })  
+    campaign: Campaigns;
+  
 
   @Column({
     type: 'enum',
@@ -72,10 +76,7 @@ export class campaign {
   })
   status: CampaignStatus;
 
-  // @OneToOne(() => Coupon, (coupon) => coupon.campaign, {
-  //   cascade: true,
-  // })
-  // coupon: Coupon;
+  
 
   @Column({
     type: 'boolean',
@@ -85,10 +86,10 @@ export class campaign {
   @IsOptional()
   useItAsCoupon: boolean;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   startAt: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   endAt: Date;
 
   @Column({ type: 'jsonb', nullable: true })

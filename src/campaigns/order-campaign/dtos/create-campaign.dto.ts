@@ -20,7 +20,7 @@ import {
   recurringCycle,
   recurringValidDays,
   userEligiblity,
-} from '../campaign.entity';
+} from '../discount-campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
@@ -75,8 +75,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
 
     const errors = await validate(rulesInstance as object);
 
-    // Store validation errors for error message
-    if (errors.length > 0) {
+     if (errors.length > 0) {
       (args as any).validationErrors = errors;
     }
 
@@ -299,7 +298,7 @@ export class CreateCampaignDto {
   })
   @IsOptional()
   @IsEnum(ShippingMethod)
-  shippingMethod?: ShippingMethod;
+  shippingMethod: ShippingMethod;
 
   @ApiProperty({
     example: 500,

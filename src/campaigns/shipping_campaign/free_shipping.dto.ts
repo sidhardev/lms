@@ -20,7 +20,7 @@ import {
   recurringCycle,
   recurringValidDays,
   userEligiblity,
-} from 'src/campaigns/order-campaign/campaign.entity';
+} from 'src/campaigns/order-campaign/discount-campaign.entity';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 
 export class CreateFreeShippingDto {

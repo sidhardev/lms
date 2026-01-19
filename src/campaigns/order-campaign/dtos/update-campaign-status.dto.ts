@@ -1,5 +1,5 @@
 import { IsEnum } from 'class-validator';
-import { CampaignStatus } from '../campaign.entity';
+import { CampaignStatus } from '../discount-campaign.entity';
 
 export class UpdateCampaignStatusDto {
   @IsEnum(CampaignStatus)

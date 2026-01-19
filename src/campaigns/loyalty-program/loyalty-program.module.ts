@@ -6,6 +6,8 @@ import { PointsPerRupee } from './points-per-rupee.entity';
 import { FirstPurchase } from './first-purchase.entity';
 import { DailyLoginStreak } from './daily-login-streak.entity';
 import { CategoryBased } from './category-based.entity';
+import { CampaignEntityModule } from '../campaigns.module';
+import { Campaigns } from '../campaign.entity';
 
 
 @Module({
@@ -15,8 +17,10 @@ import { CategoryBased } from './category-based.entity';
     PointsPerRupee,
     FirstPurchase,
     DailyLoginStreak,
-    CategoryBased
-  ])],
+    CategoryBased,
+    Campaigns
+
+  ]), CampaignEntityModule],
   exports: [LoyaltyProgramService],
 })
 export class LoyaltyProgramModule {}

@@ -15,22 +15,22 @@ import { CreateFreeShippingDto } from './free_shipping.dto';
 export class ShippingCampaignController {
   constructor(private readonly shippingService: ShippingCampaignService) {}
 
-  @Post('/create')
-  create(@Body() dto: CreateFreeShippingDto) {
-    return this.shippingService.create(dto);
-  }
+  // @Post('/create')
+  // create(@Body() dto: CreateFreeShippingDto) {
+  //   return this.shippingService.create(dto);
+  // }
 
-  @Get('/shipping')
+  // @Get('/shipping')
   findAll() {
     return this.shippingService.findAll();
   }
 
-  @Patch(':id/status')
+  // @Patch(':id/status')
   updateStatus(@Param('id', ParseIntPipe) id: number) {
     return this.shippingService.UpdateStatus(id);
   }
 
-  @Delete(':id')
+  // @Delete(':id')
   deleteById(@Param('id') id: number) {
     return this.shippingService.deleteById(id);
   }

@@ -16,10 +16,12 @@ import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
 import { SegmentModule } from './segment/segment.module';
 import { PromotionModule } from './promotion/promotion.module';
-import { CampaignsModule } from './campaigns/order-campaign/campaigns.module';
+import { CampaignsModule } from './campaigns/order-campaign/discount-campaign.module';
 import { LoyaltyProgramModule } from './campaigns/loyalty-program/loyalty-program.module';
-import { CampaignsController } from './campaigns/order-campaign/campaigns.controller';
+import { CampaignEntityModule } from './campaigns/campaigns.module';
+import { CampaignsController } from './campaigns/order-campaign/disocunt-campaign.controller';
 import { LoyaltyProgramController } from './campaigns/loyalty-program/loyalty-program.controller';
+import { ShippingCampaignModule } from './campaigns/shipping_campaign/shipping_campaign.module';
 
 @Module({
   imports: [
@@ -50,11 +52,12 @@ import { LoyaltyProgramController } from './campaigns/loyalty-program/loyalty-pr
     AdminModule,
     CampaignsModule,
     RedemptionModule,
+    CampaignEntityModule,
     LoyaltyProgramModule,
     NotificationsModule,
     SegmentModule,
     PromotionModule,
-    
+    ShippingCampaignModule
   ],
   controllers: [
     AppController,

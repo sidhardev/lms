@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus } from 'src/campaigns/order-campaign/campaign.entity';
+import { campaign, CampaignStatus } from 'src/campaigns/order-campaign/discount-campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateFreeShippingDto } from './free_shipping.dto';
 import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
@@ -13,11 +13,9 @@ export class ShippingCampaignService {
     private readonly CampaignRepository: Repository<campaign>,
   ) {}
 
-  create(CreateFreeShippingDto: CreateFreeShippingDto) {
+  create(CreateFreeShippingDto: CreateCampaignDto) {
     const campaign = this.CampaignRepository.create({
-      name: CreateFreeShippingDto.name,
-      description: CreateFreeShippingDto.description,
-      startAt: CreateFreeShippingDto.startAt,
+       startAt: CreateFreeShippingDto.startAt,
       endAt: CreateFreeShippingDto.endAt,
       status: CampaignStatus.DRAFT,
       metadata: CreateFreeShippingDto.metadata,

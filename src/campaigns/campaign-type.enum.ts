@@ -1,0 +1,5 @@
+export enum campaignType {
+    LOYALTY_PROGRAM = 'LOYALTY_PROGRAM',
+    DISCOUNT_COUPON = 'DISCOUNT_COUPON'
+
+}

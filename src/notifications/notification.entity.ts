@@ -1,4 +1,4 @@
-import { campaign } from 'src/campaigns/order-campaign/campaign.entity';
+import { campaign } from 'src/campaigns/order-campaign/discount-campaign.entity';
 import { LoyaltyProgram } from 'src/campaigns/loyalty-program/loyalty-program.entity';
 import { Promotion } from 'src/promotion/promotion.entity';
 import {
