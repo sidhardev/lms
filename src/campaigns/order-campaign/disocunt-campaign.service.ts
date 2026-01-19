@@ -67,11 +67,7 @@ export class CampaignsService {
       notifications: (CreateCampaignDto as any).notifications
         ? (CreateCampaignDto as any).notifications.map((n: any) => ({ ...n }))
         : undefined,
-      shippingMethod: (CreateCampaignDto as any).shippingMethod,
-      minOrderValue: (CreateCampaignDto as any).minOrderValue,
-      maxDiscount: (CreateCampaignDto as any).maxDiscount,
-      eligible_locations: (CreateCampaignDto as any).eligible_locations,
-      campaign: savedParent,
+       campaign: savedParent,
     });
 
     const rules = CreateCampaignDto.rules as any;

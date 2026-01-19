@@ -5,36 +5,50 @@ import { Repository } from 'typeorm';
 import { CreateFreeShippingDto } from './free_shipping.dto';
 import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
+import { campaignType } from '../campaign-type.enum';
+import { Campaigns } from '../campaign.entity';
 
 @Injectable()
 export class ShippingCampaignService {
   constructor(
     @InjectRepository(campaign)
     private readonly CampaignRepository: Repository<campaign>,
+    @InjectRepository(Campaigns) private parentCampaignRepository: Repository<Campaigns>
   ) {}
 
-  create(CreateFreeShippingDto: CreateCampaignDto) {
+  async create(CreateCampaignDto: CreateCampaignDto) {
+
+    const parentCampaign = this.parentCampaignRepository.create({
+      name: (CreateCampaignDto as any).name,
+      description: (CreateCampaignDto as any).description,
+      type: campaignType.DISCOUNT_COUPON,
+      startAt: CreateCampaignDto.startAt,
+            endAt: CreateCampaignDto.endAt,
+
+
+    });
+    const savedParent = await this.parentCampaignRepository.save(parentCampaign);
     const campaign = this.CampaignRepository.create({
-       startAt: CreateFreeShippingDto.startAt,
-      endAt: CreateFreeShippingDto.endAt,
-      status: CampaignStatus.DRAFT,
-      metadata: CreateFreeShippingDto.metadata,
-      discountType: CreateFreeShippingDto.discountType,
+       status: CampaignStatus.DRAFT,
+      metadata: CreateCampaignDto.metadata,
+      discountType: CreateCampaignDto.discountType,
       couponType: CouponType.FREE_SHIPPING,
-      isActive: CreateFreeShippingDto.isActive,
-      shippingMethod: CreateFreeShippingDto.shippingMethod,
-      minOrderValue: CreateFreeShippingDto.minOrderValue,
-      maxDiscount: CreateFreeShippingDto.maxDiscount,
-      eligible_locations: CreateFreeShippingDto.eligible_locations,
-      maxUses: CreateFreeShippingDto.maxUses,
-      unlimitedUses: CreateFreeShippingDto.unlimitedUses,
-      redemptionType: CreateFreeShippingDto.redemptionType,
-      userEligiblity: CreateFreeShippingDto.userEligiblity,
-      recurringValidity: CreateFreeShippingDto.recurringValidity,
-      recurringCycle: CreateFreeShippingDto.recurringCycle,
-      recurringValidDays: CreateFreeShippingDto.recurringValidDays,
-      recurringStartTime: CreateFreeShippingDto.recurringStartTime,
-      recurringEndTime: CreateFreeShippingDto.recurringEndTime,
+      isActive: CreateCampaignDto.isActive,
+      shippingMethod: CreateCampaignDto.shippingMethod,
+      minOrderValue: CreateCampaignDto.minOrderValue,
+      maxDiscount: CreateCampaignDto.maxDiscount,
+      eligible_locations: CreateCampaignDto.eligible_locations,
+      maxUses: CreateCampaignDto.maxUses,
+      unlimitedUses: CreateCampaignDto.unlimitedUses,
+      redemptionType: CreateCampaignDto.redemptionType,
+      userEligiblity: CreateCampaignDto.userEligiblity,
+      recurringValidity: CreateCampaignDto.recurringValidity,
+      recurringCycle: CreateCampaignDto.recurringCycle,
+      recurringValidDays: CreateCampaignDto.recurringValidDays,
+      recurringStartTime: CreateCampaignDto.recurringStartTime,
+      recurringEndTime: CreateCampaignDto.recurringEndTime,
+            campaign: savedParent,
+
     });
     return this.CampaignRepository.save(campaign);
   }
