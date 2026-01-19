@@ -33,8 +33,8 @@ import { plainToClass, Type } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
 import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
-import { ShippingMethod } from 'src/shipping_campaign/shipping_method.enum';
-import { EligibleLocationDto } from 'src/shipping_campaign/eligible_locations.dto';
+import { ShippingMethod } from 'src/campaigns/shipping_campaign/shipping_method.enum';
+import { EligibleLocationDto } from 'src/campaigns/shipping_campaign/eligible_locations.dto';
 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {

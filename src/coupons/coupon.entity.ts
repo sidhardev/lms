@@ -1,4 +1,4 @@
-import { campaign } from 'src/order-campaign/campaign.entity';
+import { campaign } from 'src/campaigns/order-campaign/campaign.entity';
 import {
   PrimaryGeneratedColumn,
   Column,

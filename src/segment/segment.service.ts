@@ -187,8 +187,8 @@ export class SegmentService {
       order: {
         id: 'ASC',
       },
-      // skip: (page - 1) * limit,
-      // take: limit,
+      skip: (page - 1) * limit,
+      take: limit,
     });
   }
 

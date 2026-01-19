@@ -9,12 +9,12 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { recurringValidDays } from '../../order-campaign/campaign.entity';
-import { CreateCampaignNotificationDto } from '../../notifications/dtos/createNotificationChannel.dto';
 import { AccumulationRuleType } from '../enums/points.enum';
 import { CategoryBasedDto } from './category-based.dto';
 import { DailyLoginStreakDto } from './daily-streak-login.dto';
 import { FirstPurchasePointsDto } from './first_purchase.dto';
 import { PointsPerRupeeDto } from './points-per-ruppee.dto';
+import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 
 @ApiExtraModels(
   PointsPerRupeeDto,

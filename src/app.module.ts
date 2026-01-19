@@ -6,23 +6,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './user/user.module';
-import { User } from './user/user.entity';
-import { MailModule } from './mail/mail.module';
+ import { MailModule } from './mail/mail.module';
 import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
-import { CouponsModule } from './coupons/coupons.module';
-import { Coupon } from './coupons/coupon.entity';
-import { AdminModule } from './coupons/admin/admin-coupons.module';
-import { CampaignsController } from './order-campaign/campaigns.controller';
-import { CampaignsModule } from './order-campaign/campaigns.module';
+ import { CouponsModule } from './coupons/coupons.module';
+ import { AdminModule } from './coupons/admin/admin-coupons.module';
 import { RedemptionModule } from './redemption/redemption.module';
-import { LoyaltyProgramController } from './loyalty-program/loyalty-program.controller';
-import { LoyaltyProgramModule } from './loyalty-program/loyalty-program.module';
 import { NotificationsController } from './notifications/notifications.controller';
 import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
 import { SegmentModule } from './segment/segment.module';
 import { PromotionModule } from './promotion/promotion.module';
+import { CampaignsModule } from './campaigns/order-campaign/campaigns.module';
+import { LoyaltyProgramModule } from './campaigns/loyalty-program/loyalty-program.module';
+import { CampaignsController } from './campaigns/order-campaign/campaigns.controller';
+import { LoyaltyProgramController } from './campaigns/loyalty-program/loyalty-program.controller';
 
 @Module({
   imports: [

@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Promotion } from './promotion.entity';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
-import { DiscountType } from 'src/order-campaign/campaign.entity';
-import { DiscountMode } from 'src/order-campaign/rules/rules.enum';
+import { DiscountType } from 'src/campaigns/order-campaign/campaign.entity';
+import { DiscountMode } from 'src/campaigns/order-campaign/rules/rules.enum';
 import { CampaignNotification } from 'src/notifications/notification.entity';
 
 @Injectable()
@@ -50,7 +50,7 @@ export class PromotionService {
 }
 
 findAll(page, limit) {
-  this.promotionRepository.find({
+  return this.promotionRepository.find({
     skip: (page - 1) * limit,
       take: limit,
   })

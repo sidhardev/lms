@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus } from 'src/order-campaign/campaign.entity';
+import { campaign, CampaignStatus } from 'src/campaigns/order-campaign/campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateFreeShippingDto } from './free_shipping.dto';
-import { CreateCampaignDto } from 'src/order-campaign/dtos/create-campaign.dto';
+import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 
 @Injectable()

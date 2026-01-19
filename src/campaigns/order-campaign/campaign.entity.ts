@@ -4,8 +4,8 @@ import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 import { Coupon } from 'src/coupons/coupon.entity';
 import { CampaignNotification } from 'src/notifications/notification.entity';
-import { EligibleLocationDto } from 'src/shipping_campaign/eligible_locations.dto';
-import { ShippingMethod } from 'src/shipping_campaign/shipping_method.enum';
+import { EligibleLocationDto } from 'src/campaigns/shipping_campaign/eligible_locations.dto';
+import { ShippingMethod } from 'src/campaigns/shipping_campaign/shipping_method.enum';
 import {
   PrimaryGeneratedColumn,
   Column,

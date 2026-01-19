@@ -1,6 +1,7 @@
 import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { CreateSegmentDto } from './dtos/create-segment.dto';
 import { SegmentService } from './segment.service';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('segment')
 export class SegmentController {
@@ -11,6 +12,8 @@ export class SegmentController {
     return this.segmentService.create(createSegmentDto);
   }
   @Get('/all')
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
   getAll(@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,) {
     return this.segmentService.getAll(page, limit);

@@ -9,7 +9,7 @@ import {
 import { UserSegment } from './user_segment.entity';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { conditions } from '../enums/comparison.enum';
-import { DiscountType } from 'src/order-campaign/campaign.entity';
+import { DiscountType } from 'src/campaigns/order-campaign/campaign.entity';
 import { DiscountRule } from '../enums/discount-criteria.enum';
 
 @Entity('disocunt_criteria')

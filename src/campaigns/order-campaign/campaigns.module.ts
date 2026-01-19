@@ -8,7 +8,7 @@ import { ShippingCampaignModule } from '../shipping_campaign/shipping_campaign.m
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { CategoryDiscount } from './entites/category-discount.entity';
-import { LoyaltyProgramModule } from 'src/loyalty-program/loyalty-program.module';
+import { LoyaltyProgramModule } from 'src/campaigns/loyalty-program/loyalty-program.module';
 
 
 @Module({

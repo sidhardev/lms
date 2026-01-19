@@ -14,12 +14,12 @@ import { CouponType } from '../admin/coupon-type.enum';
 import {
   wholeCartDto,
   WholeCartValidation,
-} from 'src/order-campaign/rules/dtos/whole-cart.dto';
-import { CartCustomTotalDto } from 'src/order-campaign/rules/dtos/cart-total-custom.dto';
-import { BulkPurchaseDto } from 'src/order-campaign/rules/dtos/bulk-purchase.dto';
-import { CategoryDiscountDto } from 'src/order-campaign/rules/dtos/category-discount.dto';
-import { ProductDiscountDto } from 'src/order-campaign/rules/dtos/product-discount.dto';
-import { BrandDiscountDto } from 'src/order-campaign/rules/dtos/brand-discount.dto';
+} from 'src/campaigns/order-campaign/rules/dtos/whole-cart.dto';
+import { CartCustomTotalDto } from 'src/campaigns/order-campaign/rules/dtos/cart-total-custom.dto';
+import { BulkPurchaseDto } from 'src/campaigns/order-campaign/rules/dtos/bulk-purchase.dto';
+import { CategoryDiscountDto } from 'src/campaigns/order-campaign/rules/dtos/category-discount.dto';
+import { ProductDiscountDto } from 'src/campaigns/order-campaign/rules/dtos/product-discount.dto';
+import { BrandDiscountDto } from 'src/campaigns/order-campaign/rules/dtos/brand-discount.dto';
 import { CouponRuleType } from '../admin/coupon-rule-type.enum';
 @ApiExtraModels(
   wholeCartDto,

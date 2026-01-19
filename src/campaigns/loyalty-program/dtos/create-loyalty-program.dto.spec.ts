@@ -2,7 +2,7 @@ import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { CreateLoyaltyProgramDto } from './create-loyalty-program.dto';
 import { AccumulationRuleType, PointsMode } from '../enums/points.enum';
-import { recurringValidDays } from 'src/order-campaign/campaign.entity';
+import { recurringValidDays } from 'src/campaigns/order-campaign/campaign.entity';
 
 describe('CreateLoyaltyProgramDto', () => {
   const validBaseDto = {

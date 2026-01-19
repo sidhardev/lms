@@ -12,7 +12,7 @@ import { RuleType } from './rules/rules.enum';
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { CategoryDiscount } from './entites/category-discount.entity';
-import { LoyaltyProgramService } from 'src/loyalty-program/loyalty-program.service';
+import { LoyaltyProgramService } from 'src/campaigns/loyalty-program/loyalty-program.service';
 
 
 @Injectable()
@@ -91,6 +91,10 @@ export class CampaignsService {
       relations: {
         notifications: true,
       },
+
+      skip: (page - 1) * limit,
+      take: limit,
+      
     });
     const loyaltyProgram = await this.loyaltyService.findAll(page, limit);
 

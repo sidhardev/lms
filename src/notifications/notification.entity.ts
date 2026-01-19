@@ -1,5 +1,5 @@
-import { campaign } from 'src/order-campaign/campaign.entity';
-import { LoyaltyProgram } from 'src/loyalty-program/loyalty-program.entity';
+import { campaign } from 'src/campaigns/order-campaign/campaign.entity';
+import { LoyaltyProgram } from 'src/campaigns/loyalty-program/loyalty-program.entity';
 import { Promotion } from 'src/promotion/promotion.entity';
 import {
   Column,

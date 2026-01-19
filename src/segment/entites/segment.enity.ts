@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -26,12 +27,14 @@ export class Segment {
     cascade: true,
     eager: true,
   })
+  @JoinColumn()
   UserSegment: UserSegment;
 
   @OneToOne(() => ProductSegment, (productSegment) => productSegment.segment, {
     cascade: true,
     eager: true,
   })
+  @JoinColumn()
   ProductSegment: ProductSegment;
 
   @Column()
