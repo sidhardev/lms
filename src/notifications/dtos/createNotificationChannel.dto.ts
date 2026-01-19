@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
-import { NotificationChannel } from '../notification.entity';
+import { NotificationChannel } from '../enums/notification-channel.enum';
 
 export class CreateCampaignNotificationDto {
   @ApiProperty({

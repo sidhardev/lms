@@ -42,9 +42,7 @@ export class ShippingCampaignService {
   }
 
   findAll() {
-    return this.CampaignRepository.find({
-      where: { couponType: CouponType.FREE_SHIPPING },
-    });
+    return this.CampaignRepository.find();
   }
 
   async findOne(id: number) {

@@ -10,13 +10,9 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { NotificationChannel } from './enums/notification-channel.enum';
 
-export enum NotificationChannel {
-  SMS = 'SMS',
-  WHATSAPP = 'WHATSAPP',
-  PUSH = 'PUSH',
-  EMAIL = 'EMAIL',
-}
+
 
 @Entity('campaign_notifications')
 export class CampaignNotification {

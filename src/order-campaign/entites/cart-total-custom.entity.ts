@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { DiscountMode, RuleType } from '../rules.enum';
+import { DiscountMode, RuleType } from '../rules/rules.enum';
 
 @Entity('cart_custom_totals')
 export class CartCustomTotal {

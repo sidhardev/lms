@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { RuleType } from '../rules.enum';
+import { RuleType } from '../rules/rules.enum';
 
 @Entity('product_discounts')
 export class ProductDiscount {

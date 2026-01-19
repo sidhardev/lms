@@ -12,6 +12,7 @@ import {
   IsBoolean,
   Min,
   ValidateNested,
+  IsArray,
 } from 'class-validator';
 import {
   DiscountType,
@@ -32,6 +33,8 @@ import { plainToClass, Type } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
 import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
+import { ShippingMethod } from 'src/shipping_campaign/shipping_method.enum';
+import { EligibleLocationDto } from 'src/shipping_campaign/eligible_locations.dto';
 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
@@ -146,13 +149,17 @@ export class CreateCampaignDto {
 
   @ApiProperty({
     example: 'ORDER',
+    required: false,
   })
+  @IsOptional()
   @IsEnum(CouponType)
   couponType: CouponType;
 
   @ApiProperty({
     example: true,
+    required: false,
   })
+  @IsOptional()
   @IsBoolean()
   useItAsCoupon: boolean;
 
@@ -183,6 +190,7 @@ export class CreateCampaignDto {
       },
     },
   })
+  @IsOptional()
   @Validate(RulesValidation)
   rules:
     | wholeCartDto
@@ -284,4 +292,34 @@ export class CreateCampaignDto {
   @ValidateNested()
   @Type(() => CreateCampaignNotificationDto)
   notification: CreateCampaignNotificationDto;
+
+  @ApiProperty({
+    example: ShippingMethod.STANDARD_SHIPPING,
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(ShippingMethod)
+  shippingMethod?: ShippingMethod;
+
+  @ApiProperty({
+    example: 500,
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  minOrderValue?: number;
+
+  @ApiProperty({
+    example: 1000,
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  maxDiscount?: number;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => EligibleLocationDto)
+  eligible_locations?: EligibleLocationDto[];
 }

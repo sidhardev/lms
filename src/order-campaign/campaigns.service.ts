@@ -1,26 +1,26 @@
 import {
   Injectable,
-  BadRequestException,
+  
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { campaign, CampaignStatus, DiscountType } from './campaign.entity';
-import { LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
-import { plainToInstance } from 'class-transformer';
 
-import { validateSync } from 'class-validator';
 import { RuleType } from './rules/rules.enum';
-import { WholeCart } from './rules/entites/whole-cart.entity';
-import { BulkPurchase } from './rules/entites/bulk-purchase.entity';
-import { CategoryDiscount } from './rules/entites/category-discount.entity';
+import { WholeCart } from './entites/whole-cart.entity';
+import { BulkPurchase } from './entites/bulk-purchase.entity';
+import { CategoryDiscount } from './entites/category-discount.entity';
+import { LoyaltyProgramService } from 'src/loyalty-program/loyalty-program.service';
 
 
 @Injectable()
 export class CampaignsService {
   constructor(
     @InjectRepository(campaign)
-    private readonly CampaignRepository: Repository<campaign>,
+    private readonly CampaignRepository: Repository<campaign>, 
+    private loyaltyService: LoyaltyProgramService
   ) {}
 
   create(CreateCampaignDto: CreateCampaignDto) {
@@ -33,7 +33,7 @@ export class CampaignsService {
       status: CampaignStatus.DRAFT,
       metadata: CreateCampaignDto.metadata,
       couponType: CreateCampaignDto.couponType,
-      discountType: DiscountType.ORDER_DISCOUNT,
+      discountType: CreateCampaignDto.discountType,
       isActive: CreateCampaignDto.isActive,
       rules: CreateCampaignDto.rules,
       maxUses: CreateCampaignDto.maxUses,
@@ -48,6 +48,10 @@ export class CampaignsService {
       notifications: (CreateCampaignDto as any).notifications
         ? (CreateCampaignDto as any).notifications.map((n: any) => ({ ...n }))
         : undefined,
+      shippingMethod: (CreateCampaignDto as any).shippingMethod,
+      minOrderValue: (CreateCampaignDto as any).minOrderValue,
+      maxDiscount: (CreateCampaignDto as any).maxDiscount,
+      eligible_locations: (CreateCampaignDto as any).eligible_locations,
     });
 
     const rules = CreateCampaignDto.rules as any;
@@ -82,13 +86,17 @@ export class CampaignsService {
     return this.CampaignRepository.save(campaign);
   }
 
-  findAll() {
-    return this.CampaignRepository.find({
-      where: { discountType: DiscountType.ORDER_DISCOUNT },
+   async findAll(page, limit) {
+    const campaign =  await this.CampaignRepository.find({
       relations: {
         notifications: true,
       },
     });
+    const loyaltyProgram = await this.loyaltyService.findAll(page, limit);
+
+    const response = [...campaign, ...loyaltyProgram]
+
+return response;
   }
 
   findOne(id: number) {

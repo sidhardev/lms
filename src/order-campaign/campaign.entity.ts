@@ -15,9 +15,9 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { WholeCart } from './rules/entites/whole-cart.entity';
-import { BulkPurchase } from './rules/entites/bulk-purchase.entity';
-import { CategoryDiscount } from './rules/entites/category-discount.entity';
+import { WholeCart } from './entites/whole-cart.entity';
+import { BulkPurchase } from './entites/bulk-purchase.entity';
+import { CategoryDiscount } from './entites/category-discount.entity';
 import { recurringCycle, recurringValidDays } from './campaign.enums';
 
 
