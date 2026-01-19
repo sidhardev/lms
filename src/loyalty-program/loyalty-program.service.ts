@@ -48,13 +48,7 @@ export class LoyaltyProgramService {
 
   async findAll(page: number, limit: number) {
     return await this.loyaltyRepository.find({
-      relations: {
-        notification: true,
-        pointsPerRupee: true,
-        firstPurchase: true,
-        dailyLoginStreak: true,
-        categoryBased: true,
-      },
+
       skip: (page - 1) * limit,
       take: limit,
     });

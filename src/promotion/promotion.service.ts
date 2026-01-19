@@ -49,7 +49,12 @@ export class PromotionService {
   return this.promotionRepository.save(promotion);
 }
 
-
+findAll(page, limit) {
+  this.promotionRepository.find({
+    skip: (page - 1) * limit,
+      take: limit,
+  })
+}
 
 
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { CreateSegmentDto } from './dtos/create-segment.dto';
 import { SegmentService } from './segment.service';
 
@@ -11,8 +11,9 @@ export class SegmentController {
     return this.segmentService.create(createSegmentDto);
   }
   @Get('/all')
-  getAll() {
-    return this.segmentService.getAll();
+  getAll(@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,) {
+    return this.segmentService.getAll(page, limit);
   }
 
 @Get('/:id')
