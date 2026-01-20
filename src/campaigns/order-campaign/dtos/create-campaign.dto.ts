@@ -22,8 +22,7 @@ import {
   userEligiblity,
 } from '../discount-campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
-import { CouponRuleType } from 'src/campaigns/enums/coupon-rule-type.enum';
-import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
+ import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
 import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
 import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
@@ -34,8 +33,7 @@ import { RuleType } from '../rules/rules.enum';
 import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
-import { EligibleLocationDto } from 'src/campaigns/shipping_campaign/eligible_locations.dto';
-
+ 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
   async validate(_: any, args: ValidationArguments): Promise<boolean> {
@@ -292,26 +290,17 @@ export class CreateCampaignDto {
   @Type(() => CreateCampaignNotificationDto)
   notification: CreateCampaignNotificationDto;
 
-  @ApiProperty({
-    example: ShippingMethod.STANDARD_SHIPPING,
-    required: false,
-  })
+  
   @IsOptional()
   @IsEnum(ShippingMethod)
   shippingMethod: ShippingMethod;
 
-  @ApiProperty({
-    example: 500,
-    required: false,
-  })
+  
   @IsOptional()
   @IsNumber()
   minOrderValue?: number;
 
-  @ApiProperty({
-    example: 1000,
-    required: false,
-  })
+  
   @IsOptional()
   @IsNumber()
   maxDiscount?: number;

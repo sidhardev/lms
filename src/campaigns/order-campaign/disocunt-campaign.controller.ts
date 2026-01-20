@@ -11,7 +11,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AdminGuard } from 'src/auth/guards/admin-guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CampaignsService } from './disocunt-campaign.service';
@@ -23,12 +23,36 @@ import { CreateFreeShippingDto } from '../shipping_campaign/free_shipping.dto';
 import { LoyaltyProgram } from '../loyalty-program/entities/loyalty-program.entity';
 import { CreateLoyaltyProgramDto } from '../loyalty-program/dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from '../loyalty-program/loyalty-program.service';
+import { BrandDiscountDto } from './rules/dtos/brand-discount.dto';
+import { ProductDiscountDto } from './rules/dtos/product-discount.dto';
+import { CategoryDiscountDto } from './rules/dtos/category-discount.dto';
+import { BulkPurchaseDto } from './rules/dtos/bulk-purchase.dto';
+import { CartCustomTotalDto } from './rules/dtos/cart-total-custom.dto';
+import { wholeCartDto } from './rules/dtos/whole-cart.dto';
+import { PointsPerRupeeDto } from '../loyalty-program/dtos/points-per-ruppee.dto';
+import { FirstPurchasePointsDto } from '../loyalty-program/dtos/first_purchase.dto';
+import { DailyLoginStreakDto } from '../loyalty-program/dtos/daily-streak-login.dto';
+import { CategoryBasedDto } from '../loyalty-program/dtos/category-based.dto';
 
 @Controller()
 // @UseGuards(JwtAuthGuard, AdminGuard)
 // @ApiBearerAuth('access-token')
 export class CampaignsController {
   constructor(private readonly campaignService: CampaignsService, private readonly shippingService: ShippingCampaignService, private readonly loyaltyProgramService: LoyaltyProgramService ) {}
+ 
+ @ApiExtraModels(
+  wholeCartDto,
+  CartCustomTotalDto,
+  BulkPurchaseDto,
+  CategoryDiscountDto,
+  ProductDiscountDto,
+  BrandDiscountDto,
+  PointsPerRupeeDto,
+  FirstPurchasePointsDto,
+  DailyLoginStreakDto,
+  CategoryBasedDto
+)
+ 
   @Post('campaigns/discount-coupon/create')
   create(@Body() dto: CreateCampaignDto) {
     switch(dto.discountType) {
