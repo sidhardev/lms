@@ -37,22 +37,8 @@ export class PromotionService {
 
 
 
-  if (dto.discountType === DiscountMode.AMOUNT) {
-    if (dto.disocuntPercent) {
-      throw new BadRequestException('Cannot specify discount percent when discount type is AMOUNT');
-    }
-    if (!dto.discountAmount) {
-      throw new BadRequestException('Discount amount is required when discount type is AMOUNT');
-    }
-  }
-
-  if (dto.discountType === DiscountMode.PERCENT) {
-    if (dto.discountAmount) {
-      throw new BadRequestException('Cannot specify discount amount when discount type is PERCENTAGE');
-    }
-    if (!dto.disocuntPercent) {
-      throw new BadRequestException('Discount percent is required when discount type is PERCENTAGE');
-    }
+  if (dto.discountAmount && dto.disocuntPercent) {
+    throw new BadRequestException('Cannot specify both discountAmount and disocuntPercent');
   }
 
   if (dto.discountAmount && dto.maxDiscount && dto.discountAmount > dto.maxDiscount) {
