@@ -20,8 +20,7 @@ export class PriceBased {
       onDelete: 'CASCADE',
     },
   )
-  @JoinColumn()
-  ProductSegment: ProductSegment;
+   ProductSegment: ProductSegment;
   @Column()
   minPrice: number;
 

@@ -1,4 +1,4 @@
-import { Body, Controller, DefaultValuePipe, Get, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { PromotionService } from './promotion.service';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { ApiQuery } from '@nestjs/swagger';
@@ -8,6 +8,7 @@ export class PromotionController {
     constructor(private readonly promotionService: PromotionService) {}
 
     @Post()
+    @UsePipes(new ValidationPipe({ transform: true }))
     create(@Body() createPromotionDto: CreatePromotionDto) {
         return this.promotionService.create(createPromotionDto);
     }
@@ -20,4 +21,11 @@ export class PromotionController {
        return this.promotionService.findAll(page, limit);
     }
 
+
+    @Delete('delete/:id')
+    delete(@Param('id') id: number) {
+
+        return this.promotionService.delete(id);
+
+    }
 }

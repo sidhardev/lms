@@ -21,8 +21,7 @@ export class StockLevel {
       onDelete: 'CASCADE',
     },
   )
-  @JoinColumn()
-  ProductSegment: ProductSegment;
+   ProductSegment: ProductSegment;
 
   @Column()
   rule: stockLevelRule;

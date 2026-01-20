@@ -17,14 +17,14 @@ export class UserSegment {
   segment: Segment;
 
   @OneToMany(() => MembersCriteria, (c) => c.userSegment)
-  membersCriteria: MembersCriteria;
+  membersCriteria: MembersCriteria[];
 
   @OneToMany(() => discountCriteria, (c) => c.userSegment)
-  discountCriteria: discountCriteria;
+  discountCriteria: discountCriteria[];
 
   @OneToMany(() => EngagementCriteria, (c) => c.userSegment)
-  engagementCriteria: EngagementCriteria;
+  engagementCriteria: EngagementCriteria[];
 
   @OneToMany(() => TransactionCriteria, (c) => c.userSegment)
-  transactionCriteria: TransactionCriteria;
+  transactionCriteria: TransactionCriteria[];
 }

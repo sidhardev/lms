@@ -22,10 +22,10 @@ description: string;
 @IsEnum(campaignType)
 type: campaignType;
 
-@OneToMany(() => LoyaltyProgram, (loyaltyProgram) => loyaltyProgram.campaign)
+@OneToMany(() => LoyaltyProgram, (loyaltyProgram) => loyaltyProgram.campaign, {cascade: true})
 loyaltyPrograms: LoyaltyProgram[];
 
-@OneToMany(() => campaign, (discountCoupon) => discountCoupon.campaign)
+@OneToMany(() => campaign, (discountCoupon) => discountCoupon.campaign, {cascade: true})
 discountCoupons: campaign[];
 
 @Column({nullable: true})

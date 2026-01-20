@@ -24,7 +24,7 @@ export class LoyaltyProgram {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Campaigns, (campaigns) => campaigns.loyaltyPrograms)
+  @ManyToOne(() => Campaigns, (campaigns) => campaigns.loyaltyPrograms, {onDelete: 'CASCADE'})
   @JoinColumn({ name: 'campaignId' })
   campaign: Campaigns;
 

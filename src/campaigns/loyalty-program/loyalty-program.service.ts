@@ -58,12 +58,11 @@ export class LoyaltyProgramService {
   }
 
   async findAll(page: number, limit: number) {
-    return await this.loyaltyRepository.find({
+    return await this.parentCampaignRepository.find({
 
       skip: (page - 1) * limit,
       take: limit,
-      relations: ['campaign'],
-    });
+     });
   }
   async deleteById(id: number) {
     await this.loyaltyRepository.delete(id);

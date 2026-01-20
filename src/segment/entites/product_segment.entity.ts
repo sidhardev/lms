@@ -10,7 +10,7 @@ export class ProductSegment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => Segment, (segment) => segment.UserSegment, {
+  @OneToOne(() => Segment, (segment) => segment.ProductSegment, {
     onDelete: 'CASCADE',
   })
   @JoinColumn()

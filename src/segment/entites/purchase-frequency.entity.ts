@@ -22,8 +22,7 @@ export class PurchaseFrequency {
       onDelete: 'CASCADE',
     },
   )
-  @JoinColumn()
-  ProductSegment: ProductSegment;
+   ProductSegment: ProductSegment;
 
   @Column()
   rule: PurchaseFrequencyRule;

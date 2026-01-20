@@ -19,7 +19,6 @@ export class EngagementCriteria {
   @ManyToOne(() => UserSegment, (userSegment) => userSegment.membersCriteria, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn()
   userSegment: UserSegment;
   @Column()
   rule: EngagementRuleType;

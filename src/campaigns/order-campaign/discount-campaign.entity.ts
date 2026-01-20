@@ -58,7 +58,7 @@ export class campaign {
 
    
 
-@ManyToOne(() => Campaigns, (campaigns) => campaigns.discountCoupons)
+@ManyToOne(() => Campaigns, (campaigns) => campaigns.discountCoupons, {onDelete: 'CASCADE'})
     @JoinColumn({ name: 'campaignId' })  
     campaign: Campaigns;
   

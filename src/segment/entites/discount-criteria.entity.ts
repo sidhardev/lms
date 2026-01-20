@@ -20,8 +20,7 @@ export class discountCriteria {
   @ManyToOne(() => UserSegment, (userSegment) => userSegment.membersCriteria, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn()
-  userSegment: UserSegment;
+   userSegment: UserSegment;
 
   @Column()
   rules: DiscountRule;

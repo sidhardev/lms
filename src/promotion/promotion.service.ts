@@ -13,6 +13,9 @@ export class PromotionService {
     constructor(@InjectRepository(Promotion) private promotionRepository: Repository<Promotion>) {}
 
   async create(dto: CreatePromotionDto): Promise<Promotion> {
+  if (new Date(dto.startDate) >= new Date(dto.endDate)) {
+    throw new BadRequestException('End date must be after start date');
+  }
   const promotion = new Promotion();
   promotion.name = dto.name;
   promotion.startDate = dto.startDate;
@@ -42,8 +45,8 @@ export class PromotionService {
     throw new BadRequestException('discountAmount cannot be greater than maxDiscount');
   }
 
-  if (dto.disocuntPercent && dto.maxDiscount && dto.disocuntPercent > dto.maxDiscount) {
-    throw new BadRequestException('disocuntPercent cannot be greater than maxDiscount');
+  if (dto.disocuntPercent && (dto.disocuntPercent < 0 || dto.disocuntPercent > 100)) {
+    throw new BadRequestException('disocuntPercent must be between 0 and 100');
   }
 
   return this.promotionRepository.save(promotion);
@@ -54,6 +57,14 @@ findAll(page, limit) {
     skip: (page - 1) * limit,
       take: limit,
   })
+}
+
+delete(id: number) {
+  this.promotionRepository.delete(id);
+  return {
+    status: true,
+    message: 'Promotion Deleted sucessfully'
+  }
 }
 
 

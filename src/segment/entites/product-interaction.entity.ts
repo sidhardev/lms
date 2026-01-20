@@ -22,8 +22,7 @@ export class ProductInteraction {
       onDelete: 'CASCADE',
     },
   )
-  @JoinColumn()
-  ProductSegment: ProductSegment;
+   ProductSegment: ProductSegment;
 
   @Column()
   rule: ProductInteractionRule;

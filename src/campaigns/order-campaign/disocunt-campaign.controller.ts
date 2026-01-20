@@ -11,7 +11,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AdminGuard } from 'src/auth/guards/admin-guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CampaignsService } from './disocunt-campaign.service';
@@ -20,12 +20,15 @@ import { UpdateCampaignStatusDto } from './dtos/update-campaign-status.dto';
 import { CampaignStatus, DiscountType } from './discount-campaign.entity';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 import { CreateFreeShippingDto } from '../shipping_campaign/free_shipping.dto';
+import { LoyaltyProgram } from '../loyalty-program/loyalty-program.entity';
+import { CreateLoyaltyProgramDto } from '../loyalty-program/dtos/create-loyalty-program.dto';
+import { LoyaltyProgramService } from '../loyalty-program/loyalty-program.service';
 
 @Controller()
 // @UseGuards(JwtAuthGuard, AdminGuard)
 // @ApiBearerAuth('access-token')
 export class CampaignsController {
-  constructor(private readonly campaignService: CampaignsService, private readonly shippingService: ShippingCampaignService) {}
+  constructor(private readonly campaignService: CampaignsService, private readonly shippingService: ShippingCampaignService, private readonly loyaltyProgramService: LoyaltyProgramService ) {}
   @Post('campaigns/discount-coupon/create')
   create(@Body() dto: CreateCampaignDto) {
     switch(dto.discountType) {
@@ -36,6 +39,17 @@ export class CampaignsController {
     case DiscountType.ORDER_DISCOUNT :
     return this.campaignService.createDiscountCoupon(dto);
     }
+  }
+
+  @Post('campaigns/loyaltyprogram/create')
+  @ApiCreatedResponse({
+    description: 'Loyalty program created successfully',
+    type: LoyaltyProgram,
+  })
+  async createloyalty(
+    @Body() createLoyaltyProgramDto: CreateLoyaltyProgramDto,
+  ): Promise<LoyaltyProgram> {
+    return this.loyaltyProgramService.create(createLoyaltyProgramDto);
   }
   @Get('campaigns/get')
     @ApiQuery({ name: 'page', required: false, type: Number })
@@ -58,7 +72,7 @@ export class CampaignsController {
     return this.campaignService.UpdateStatus(id);
   }
 
-  @Delete('campaigns/discocunt-coupon/:id')
+  @Delete('campaigns/coupon/:id')
   deleteById(@Param('id') id: number) {
     return this.campaignService.deleteById(id);
   }
