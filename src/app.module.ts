@@ -10,8 +10,7 @@ import { UserModule } from './user/user.module';
 import { ConfigService } from '@nestjs/config';
  import { CouponsModule } from './coupons/coupons.module';
  import { AdminModule } from './coupons/admin/admin-coupons.module';
-import { RedemptionModule } from './redemption/redemption.module';
-import { NotificationsController } from './notifications/notifications.controller';
+ import { NotificationsController } from './notifications/notifications.controller';
 import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
 import { SegmentModule } from './segment/segment.module';
@@ -51,8 +50,7 @@ import { ShippingCampaignModule } from './campaigns/shipping_campaign/shipping_c
     CouponsModule,
     AdminModule,
     CampaignsModule,
-    RedemptionModule,
-    CampaignEntityModule,
+     CampaignEntityModule,
     LoyaltyProgramModule,
     NotificationsModule,
     SegmentModule,
