@@ -8,9 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './user/user.module';
  import { MailModule } from './mail/mail.module';
 import { ConfigService } from '@nestjs/config';
- import { CouponsModule } from './coupons/coupons.module';
- import { AdminModule } from './coupons/admin/admin-coupons.module';
-import { RedemptionModule } from './redemption/redemption.module';
+  import { RedemptionModule } from './redemption/redemption.module';
 import { NotificationsController } from './notifications/notifications.controller';
 import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
@@ -48,9 +46,7 @@ import { ShippingCampaignModule } from './campaigns/shipping_campaign/shipping_c
     UserModule,
     AuthModule,
     MailModule,
-    CouponsModule,
-    AdminModule,
-    CampaignsModule,
+      CampaignsModule,
     RedemptionModule,
     CampaignEntityModule,
     LoyaltyProgramModule,

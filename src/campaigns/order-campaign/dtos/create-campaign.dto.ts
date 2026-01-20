@@ -318,7 +318,16 @@ export class CreateCampaignDto {
 
   @IsOptional()
   @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => EligibleLocationDto)
-  eligible_locations?: EligibleLocationDto[];
+  @IsString({ each: true })
+  countries?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  states?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  cities?: string[];
 }

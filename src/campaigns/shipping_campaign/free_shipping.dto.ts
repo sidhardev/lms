@@ -89,14 +89,23 @@ export class CreateFreeShippingDto {
   @Min(1)
   maxDiscount: number;
 
-  @ApiProperty({
-    type: [EligibleLocationDto],
-    description: 'Geographic locations eligible for free shipping',
-  })
+  @ApiProperty({ example: ['India', 'USA'] })
+  @IsOptional()
   @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => EligibleLocationDto)
-  eligible_locations: EligibleLocationDto[];
+  @IsString({ each: true })
+  countries: string[];
+
+  @ApiProperty({ example: ['Rajasthan'] })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  states: string[];
+
+  @ApiProperty({ example: ['Jaipur'] })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  cities: string[];
 
   @ApiProperty({
     example: 100,

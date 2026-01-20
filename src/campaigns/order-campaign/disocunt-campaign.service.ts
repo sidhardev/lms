@@ -64,6 +64,9 @@ export class CampaignsService {
       recurringValidDays: CreateCampaignDto.recurringValidDays,
       recurringStartTime: CreateCampaignDto.recurringStartTime,
       recurringEndTime: CreateCampaignDto.recurringEndTime,
+      countries: CreateCampaignDto.countries,
+      states: CreateCampaignDto.states,
+      cities: CreateCampaignDto.cities,
       notifications: (CreateCampaignDto as any).notifications
         ? (CreateCampaignDto as any).notifications.map((n: any) => ({ ...n }))
         : undefined,

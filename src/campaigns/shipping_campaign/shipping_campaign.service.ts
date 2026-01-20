@@ -2,11 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { campaign, CampaignStatus } from 'src/campaigns/order-campaign/discount-campaign.entity';
 import { Repository } from 'typeorm';
-import { CreateFreeShippingDto } from './free_shipping.dto';
-import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
-import { CouponType } from 'src/coupons/admin/coupon-type.enum';
-import { campaignType } from '../campaign-type.enum';
+ import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
+  import { campaignType } from '../campaign-type.enum';
 import { Campaigns } from '../campaign.entity';
+import { CouponType } from 'src/coupons/admin/coupon-type.enum';
 
 @Injectable()
 export class ShippingCampaignService {
@@ -37,7 +36,9 @@ export class ShippingCampaignService {
       shippingMethod: CreateCampaignDto.shippingMethod,
       minOrderValue: CreateCampaignDto.minOrderValue,
       maxDiscount: CreateCampaignDto.maxDiscount,
-      eligible_locations: CreateCampaignDto.eligible_locations,
+       countries: CreateCampaignDto.countries,
+      states: CreateCampaignDto.states,
+      cities: CreateCampaignDto.cities,
       maxUses: CreateCampaignDto.maxUses,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
       redemptionType: CreateCampaignDto.redemptionType,

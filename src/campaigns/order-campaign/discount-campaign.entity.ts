@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional, MaxLength, MinLength } from 'class-validator';
+import { IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { timestamp } from 'rxjs';
 import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
 import { CouponType } from 'src/coupons/admin/coupon-type.enum';
@@ -186,6 +186,12 @@ export class campaign {
   @Column({ default: 0 })
   maxDiscount: number;
 
-  @Column({ default: { countries: '' }, type: 'jsonb' })
-  eligible_locations: EligibleLocationDto[];
+  @Column({ type: 'jsonb', nullable: true })
+  countries: string[];
+
+  @Column({ type: 'jsonb', nullable: true })
+  states: string[];
+
+  @Column({ type: 'jsonb', nullable: true })
+  cities: string[];
 }
