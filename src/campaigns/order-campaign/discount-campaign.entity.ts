@@ -86,11 +86,6 @@ export class campaign {
   @IsOptional()
   useItAsCoupon: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
-  startAt: Date;
-
-  @Column({ type: 'timestamp', nullable: true })
-  endAt: Date;
 
   @Column({ type: 'jsonb', nullable: true })
   metadata: Record<string, any>;
@@ -101,10 +96,6 @@ export class campaign {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column({ nullable: true })
-  @MinLength(4)
-  @MaxLength(6)
-  code: string;
 
   @OneToMany(
     () => CampaignNotification,
@@ -116,7 +107,7 @@ export class campaign {
 
 
 
-  @Column({ nullable: true })
+  @Column()
   couponType: CouponType;
 
   @Column({ nullable: true })
@@ -125,10 +116,10 @@ export class campaign {
   @Column({ nullable: true })
   unlimitedUses: boolean;
 
-  @Column({ nullable: true })
+  @Column()
   redemptionType: redemptionType;
 
-  @Column({ nullable: true })
+  @Column()
   userEligiblity: userEligiblity;
 
   @Column({ nullable: true })
@@ -151,8 +142,6 @@ export class campaign {
   @Column({ nullable: true })
   recurringEndTime: string;
 
-  @Column({ type: 'jsonb', nullable: true })
-  rules: Record<string, any>;
 
   @OneToOne(() => WholeCart, (wholeCart) => wholeCart.campaign, {
     cascade: true,
@@ -175,8 +164,7 @@ export class campaign {
   @Column({ default: true })
   isActive: boolean;
 
-  @Column({ nullable: true })
-  createdBy: number;
+
 
   @Column({ default: ShippingMethod.NONE })
   shippingMethod: ShippingMethod;

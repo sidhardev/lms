@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { campaignType } from "./campaign-type.enum";
 import { IsEnum } from "class-validator";
-import { LoyaltyProgram } from "./loyalty-program/loyalty-program.entity";
+import { LoyaltyProgram } from "./loyalty-program/entities/loyalty-program.entity";
 import { campaign } from "./order-campaign/discount-campaign.entity";
  
 @Entity('campaign')

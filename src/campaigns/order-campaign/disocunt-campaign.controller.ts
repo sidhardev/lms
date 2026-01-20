@@ -20,7 +20,7 @@ import { UpdateCampaignStatusDto } from './dtos/update-campaign-status.dto';
 import { CampaignStatus, DiscountType } from './discount-campaign.entity';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 import { CreateFreeShippingDto } from '../shipping_campaign/free_shipping.dto';
-import { LoyaltyProgram } from '../loyalty-program/loyalty-program.entity';
+import { LoyaltyProgram } from '../loyalty-program/entities/loyalty-program.entity';
 import { CreateLoyaltyProgramDto } from '../loyalty-program/dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from '../loyalty-program/loyalty-program.service';
 

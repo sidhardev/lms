@@ -16,7 +16,7 @@ import { PointsPerRupee } from './points-per-rupee.entity';
 import { FirstPurchase } from './first-purchase.entity';
 import { DailyLoginStreak } from './daily-login-streak.entity';
 import { CategoryBased } from './category-based.entity';
-import { Campaigns } from '../campaign.entity';
+import { Campaigns } from '../../campaign.entity';
 
 
 @Entity('loyalty-program')

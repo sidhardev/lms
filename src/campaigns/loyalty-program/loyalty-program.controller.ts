@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Query, ParseIntPipe, Defaul
 import { CreateLoyaltyProgramDto } from './dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from './loyalty-program.service';
 import { ApiCreatedResponse, ApiQuery } from '@nestjs/swagger';
-import { LoyaltyProgram } from './loyalty-program.entity';
+import { LoyaltyProgram } from './entities/loyalty-program.entity';
 
 @Controller()
 export class LoyaltyProgramController {

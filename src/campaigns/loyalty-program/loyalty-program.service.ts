@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LoyaltyProgram } from './loyalty-program.entity';
+import { LoyaltyProgram } from './entities/loyalty-program.entity';
 import { Repository } from 'typeorm';
 import { CreateLoyaltyProgramDto } from './dtos/create-loyalty-program.dto';
 import { AccumulationRuleType } from './enums/points.enum';

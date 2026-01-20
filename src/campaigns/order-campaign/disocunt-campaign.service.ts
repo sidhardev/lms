@@ -25,8 +25,7 @@ export class CampaignsService {
     private readonly CampaignRepository: Repository<campaign>,
     @InjectRepository(Campaigns)
     private readonly parentCampaignRepository: Repository<Campaigns>,
-    private loyaltyService: LoyaltyProgramService,
-    private shippingService: ShippingCampaignService
+ 
   ) {}
 
   async createDiscountCoupon(CreateCampaignDto: CreateCampaignDto) {
@@ -54,8 +53,7 @@ export class CampaignsService {
       couponType: CreateCampaignDto.couponType,
       discountType: CreateCampaignDto.discountType,
       isActive: CreateCampaignDto.isActive,
-      rules: CreateCampaignDto.rules,
-      maxUses: CreateCampaignDto.maxUses,
+       maxUses: CreateCampaignDto.maxUses,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
       redemptionType: CreateCampaignDto.redemptionType,
       userEligiblity: CreateCampaignDto.userEligiblity,
