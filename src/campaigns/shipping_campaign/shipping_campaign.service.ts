@@ -1,12 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { campaign } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
 import { Repository } from 'typeorm';
  import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
   import { campaignType } from '../enums/campaign-type.enum';
 import { Campaigns } from '../campaign.entity';
-import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
-
+ 
 @Injectable()
 export class ShippingCampaignService {
   constructor(
@@ -23,16 +22,15 @@ export class ShippingCampaignService {
       type: campaignType.DISCOUNT_COUPON,
       startAt: CreateCampaignDto.startAt,
             endAt: CreateCampaignDto.endAt,
+                   status: CreateCampaignDto.status, 
+
 
 
     });
     const savedParent = await this.parentCampaignRepository.save(parentCampaign);
     const campaign = this.CampaignRepository.create({
-       status: CampaignStatus.DRAFT,
-      metadata: CreateCampaignDto.metadata,
-      discountType: CreateCampaignDto.discountType,
-       isActive: CreateCampaignDto.isActive,
-      shippingMethod: CreateCampaignDto.shippingMethod,
+       discountType: CreateCampaignDto.discountType,
+       shippingMethod: CreateCampaignDto.shippingMethod,
       minOrderValue: CreateCampaignDto.minOrderValue,
       maxDiscount: CreateCampaignDto.maxDiscount,
        countries: CreateCampaignDto.countries,

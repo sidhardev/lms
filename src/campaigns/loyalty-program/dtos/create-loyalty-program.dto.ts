@@ -8,7 +8,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { recurringValidDays } from '../../order-campaign/entites/discount-campaign.entity';
+import { CampaignStatus, recurringValidDays } from '../../order-campaign/entites/discount-campaign.entity';
 import { AccumulationRuleType } from '../../enums/points.enum';
 import { CategoryBasedDto } from './category-based.dto';
 import { DailyLoginStreakDto } from './daily-streak-login.dto';
@@ -32,6 +32,10 @@ export class CreateLoyaltyProgramDto {
   @IsOptional()
   @IsString()
   description: string;
+
+  @ApiProperty({example: 'DRAFT'})
+  @IsEnum(CampaignStatus)
+  status: CampaignStatus;
 
   @ApiProperty({ example: '2026-01-01T00:00:00Z' })
   @IsDateString()

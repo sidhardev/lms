@@ -92,9 +92,11 @@ export class CampaignsController {
     return this.campaignService.findActive();
   }
 
-  @Patch('campaigns/discount-coupon/:id/activate')
-  updateStatus(@Param('id', ParseIntPipe) id: number) {
-    return this.campaignService.UpdateStatus(id);
+  @Patch('campaigns/discount-coupon/:id/status')
+  @ApiOperation({ summary: 'Change status of campaign' })
+  @ApiParam({ name: 'id', type: Number })
+  updateStatus(@Param('id', ParseIntPipe) id: number, @Body() updateStatusDto: UpdateCampaignStatusDto) {
+    return this.campaignService.UpdateStatus(id, updateStatusDto);
   }
 
 

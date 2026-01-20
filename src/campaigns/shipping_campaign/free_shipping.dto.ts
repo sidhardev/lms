@@ -20,6 +20,7 @@ import {
   recurringCycle,
   recurringValidDays,
   userEligiblity,
+  CampaignStatus,
 } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
 import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
 
@@ -36,6 +37,10 @@ export class CreateFreeShippingDto {
     example: 'Give users Free Shipping 2026 that increase our sales!',
   })
   description: string;
+
+  @ApiProperty({example: 'DRAFT'})
+  @IsEnum(CampaignStatus)
+  status: CampaignStatus;
 
   @ApiProperty({
     example: DiscountType.FREE_SHIPPING,
@@ -64,10 +69,7 @@ export class CreateFreeShippingDto {
   @IsOptional()
   metadata: Record<string, any>;
 
-  @ApiProperty({
-    example: true,
-  })
-  isActive: boolean;
+
 
   @ApiProperty({
     example: ShippingMethod.STANDARD_SHIPPING,

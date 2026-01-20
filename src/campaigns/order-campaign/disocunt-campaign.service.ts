@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus, DiscountType } from './entites/discount-campaign.entity';
+import { campaign, CampaignStatus,   } from './entites/discount-campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 
@@ -12,12 +12,9 @@ import { RuleType } from './rules/rules.enum';
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { CategoryDiscount } from './entites/category-discount.entity';
-import { LoyaltyProgramService } from 'src/campaigns/loyalty-program/loyalty-program.service';
-import { Campaigns } from '../campaign.entity';
+ import { Campaigns } from '../campaign.entity';
 import { campaignType } from '../enums/campaign-type.enum';
-import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
-import { updateCampaignDto } from './dtos/update-order-campaign.dto';
-
+ 
 
 @Injectable()
 export class CampaignsService {
@@ -39,6 +36,7 @@ export class CampaignsService {
       type: campaignType.DISCOUNT_COUPON,
       startAt: CreateCampaignDto.startAt,
             endAt: CreateCampaignDto.endAt,
+            status: CreateCampaignDto.status,
 
 
     });
@@ -50,10 +48,8 @@ export class CampaignsService {
        useItAsCoupon: CreateCampaignDto.useItAsCoupon,
       
       status: CampaignStatus.DRAFT,
-      metadata: CreateCampaignDto.metadata,
        discountType: CreateCampaignDto.discountType,
-      isActive: CreateCampaignDto.isActive,
-       maxUses: CreateCampaignDto.maxUses,
+        maxUses: CreateCampaignDto.maxUses,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
       redemptionType: CreateCampaignDto.redemptionType,
       userEligiblity: CreateCampaignDto.userEligiblity,
@@ -118,14 +114,16 @@ return campaign;
     });
   }
 
-  async UpdateStatus(id: number) {
-    const campaign = await this.findOne(id);
+  async UpdateStatus(id: number, updateStatusDto) {
+    const campaign = await this.parentCampaignRepository.findOne({
+      where: {id: id}
+    });
     console.log(id);
     if (!campaign) {
       throw new NotFoundException('Campaign Not found!');
     }
 
-    campaign.status = CampaignStatus.ACTIVE;
+    campaign.status = updateStatusDto.status;
     return this.CampaignRepository.save(campaign);
   }
   async findActive() {

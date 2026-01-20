@@ -7,6 +7,7 @@ import { AccumulationRuleType } from '../enums/points.enum';
 import { CategoryBasedDto } from './dtos/category-based.dto';
 import { Campaigns } from '../campaign.entity';
 import { campaignType } from '../enums/campaign-type.enum';
+import { CampaignStatus } from '../order-campaign/entites/discount-campaign.entity';
 
 @Injectable()
 export class LoyaltyProgramService {
@@ -24,6 +25,7 @@ export class LoyaltyProgramService {
       type: campaignType.LOYALTY_PROGRAM,
        startAt: new Date(dto.startAt),
       endAt: new Date(dto.endAt),
+      status: dto.status,
     });
     const savedParent = await this.parentCampaignRepository.save(parentCampaign);
 

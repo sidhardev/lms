@@ -83,8 +83,7 @@ export class campaign {
   useItAsCoupon: boolean;
 
 
-  @Column({ type: 'jsonb', nullable: true })
-  metadata: Record<string, any>;
+
 
   @CreateDateColumn()
   createdAt: Date;
@@ -155,8 +154,7 @@ export class campaign {
   })
   categoryDiscount: CategoryDiscount;
 
-  @Column({ default: true })
-  isActive: boolean;
+
 
 
 

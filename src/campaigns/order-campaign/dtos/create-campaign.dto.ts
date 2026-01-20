@@ -20,6 +20,7 @@ import {
   recurringCycle,
   recurringValidDays,
   userEligiblity,
+  CampaignStatus,
 } from '../entites/discount-campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
  import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
@@ -116,6 +117,10 @@ export class CreateCampaignDto {
   })
   description: string;
 
+  @ApiProperty({example: 'DRAFT'})
+  @IsEnum(CampaignStatus)
+  status: CampaignStatus;
+
   @ApiProperty({
     example: DiscountType.ORDER_DISCOUNT,
   })
@@ -141,8 +146,6 @@ export class CreateCampaignDto {
       message: 'Created on diwali etc etc',
     },
   })
-  @IsOptional()
-  metadata: Record<string, any>;
 
   @ApiProperty({
     example: 'ORDER',
@@ -158,11 +161,7 @@ export class CreateCampaignDto {
   @IsBoolean()
   useItAsCoupon: boolean;
 
-  @ApiProperty({
-    example: true,
-  })
-  @IsBoolean()
-  isActive: boolean;
+ 
 
   @ApiProperty({
     oneOf: [
