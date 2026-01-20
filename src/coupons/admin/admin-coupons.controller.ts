@@ -15,8 +15,7 @@ import { ApplyCouponDto } from '../dtos/apply-coupon.dto';
 import { UpdateCouponDto } from '../dtos/update-coupon.dto';
 import { CreateCouponDto } from '../dtos/create-coupon.dto';
 import { AdminGuard } from 'src/auth/guards/admin-guard';
-import { CouponAnalyticsService } from '../analytics/coupon-analytics.service';
-import { Req } from '@nestjs/common';
+ import { Req } from '@nestjs/common';
 
 @ApiTags('Admin Coupons')
 @ApiBearerAuth('access-token')
@@ -25,8 +24,7 @@ import { Req } from '@nestjs/common';
 export class AdminCouponsController {
   constructor(
     private readonly adminCouponsService: AdminCouponsService,
-    private readonly couponAnalyticsService: CouponAnalyticsService,
-  ) {}
+   ) {}
 
   // @Post()
   create(@Body() createCouponDto: CreateCouponDto, @Req() req: any) {
@@ -38,12 +36,5 @@ export class AdminCouponsController {
     return this.adminCouponsService.findAll();
   }
 
-  @ApiBody({
-    type: UpdateCouponDto,
-  })
 
-  // @Get(':id/analytics')
-  async getCouponAnalytics(@Param('id') id: number) {
-    return this.couponAnalyticsService.getCouponAnalytics(id);
-  }
 }

@@ -3,14 +3,11 @@ import { AdminCouponsService } from './admin-coupons.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Coupon } from '../coupon.entity';
 import { AdminCouponsController } from './admin-coupons.controller';
-import { CouponAnalyticsService } from '../analytics/coupon-analytics.service';
-import { CouponAnalyticsController } from '../analytics/coupon-analytics.controller';
-import { CouponRedemption } from '../redemptions/coupon-redemption.entity';
-
+   
 @Module({
-  imports: [TypeOrmModule.forFeature([Coupon, CouponRedemption])],
+  imports: [TypeOrmModule.forFeature([Coupon,  ])],
   controllers: [AdminCouponsController],
-  providers: [AdminCouponsService, CouponAnalyticsService],
+  providers: [AdminCouponsService,  ],
   exports: [AdminCouponsService],
 })
 export class AdminModule {}
