@@ -140,17 +140,6 @@ export class CreateCampaignDto {
   })
   @IsDateString()
   endAt: Date;
-
-  @ApiProperty({
-    example: {
-      message: 'Created on diwali etc etc',
-    },
-  })
-
-  @ApiProperty({
-    example: 'ORDER',
-    required: false,
-  })
   
 
   @ApiProperty({
