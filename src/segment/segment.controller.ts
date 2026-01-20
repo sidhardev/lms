@@ -11,7 +11,7 @@ export class SegmentController {
   create(@Body() createSegmentDto: CreateSegmentDto) {
     return this.segmentService.create(createSegmentDto);
   }
-  @Get('/all')
+  @Get('/get')
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   getAll(@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,

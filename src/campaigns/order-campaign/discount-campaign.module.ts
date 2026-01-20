@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { campaign } from './discount-campaign.entity';
+import { campaign } from './entites/discount-campaign.entity';
 import { CampaignsService } from './disocunt-campaign.service';
 import { CampaignsController } from './disocunt-campaign.controller';
 // import { ShippingCampaignController } from '../shipping_campaign/shipping_campaign.controller';

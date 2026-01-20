@@ -20,7 +20,7 @@ import {
   recurringCycle,
   recurringValidDays,
   userEligiblity,
-} from '../discount-campaign.entity';
+} from '../entites/discount-campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
  import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
 import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
@@ -148,9 +148,7 @@ export class CreateCampaignDto {
     example: 'ORDER',
     required: false,
   })
-  @IsOptional()
-  @IsEnum(CouponType)
-  couponType: CouponType;
+  
 
   @ApiProperty({
     example: true,

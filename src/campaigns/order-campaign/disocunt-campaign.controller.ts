@@ -11,13 +11,13 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AdminGuard } from 'src/auth/guards/admin-guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CampaignsService } from './disocunt-campaign.service';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { UpdateCampaignStatusDto } from './dtos/update-campaign-status.dto';
-import { CampaignStatus, DiscountType } from './discount-campaign.entity';
+import { CampaignStatus, DiscountType } from './entites/discount-campaign.entity';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 import { CreateFreeShippingDto } from '../shipping_campaign/free_shipping.dto';
 import { LoyaltyProgram } from '../loyalty-program/entities/loyalty-program.entity';
@@ -33,6 +33,7 @@ import { PointsPerRupeeDto } from '../loyalty-program/dtos/points-per-ruppee.dto
 import { FirstPurchasePointsDto } from '../loyalty-program/dtos/first_purchase.dto';
 import { DailyLoginStreakDto } from '../loyalty-program/dtos/daily-streak-login.dto';
 import { CategoryBasedDto } from '../loyalty-program/dtos/category-based.dto';
+import { updateCampaignDto } from './dtos/update-order-campaign.dto';
 
 @Controller()
 // @UseGuards(JwtAuthGuard, AdminGuard)
@@ -91,10 +92,11 @@ export class CampaignsController {
     return this.campaignService.findActive();
   }
 
-  @Patch('campaigns/discount-coupon/:id/status')
+  @Patch('campaigns/discount-coupon/:id/activate')
   updateStatus(@Param('id', ParseIntPipe) id: number) {
     return this.campaignService.UpdateStatus(id);
   }
+
 
   @Delete('campaigns/coupon/:id')
   deleteById(@Param('id') id: number) {

@@ -1,7 +1,7 @@
 // c:\Users\Moon Link\lms\src\campaigns\rules\entities\bulk-purchase.entity.ts
 
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
-import { campaign } from '../discount-campaign.entity';
+import { campaign } from './discount-campaign.entity';
 import { RuleType, DiscountMode } from '../rules/rules.enum';
 
 @Entity('bulk_purchase_discounts')

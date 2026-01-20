@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus, DiscountType } from './discount-campaign.entity';
+import { campaign, CampaignStatus, DiscountType } from './entites/discount-campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 
@@ -16,6 +16,7 @@ import { LoyaltyProgramService } from 'src/campaigns/loyalty-program/loyalty-pro
 import { Campaigns } from '../campaign.entity';
 import { campaignType } from '../enums/campaign-type.enum';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
+import { updateCampaignDto } from './dtos/update-order-campaign.dto';
 
 
 @Injectable()
@@ -50,8 +51,7 @@ export class CampaignsService {
       
       status: CampaignStatus.DRAFT,
       metadata: CreateCampaignDto.metadata,
-      couponType: CreateCampaignDto.couponType,
-      discountType: CreateCampaignDto.discountType,
+       discountType: CreateCampaignDto.discountType,
       isActive: CreateCampaignDto.isActive,
        maxUses: CreateCampaignDto.maxUses,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
@@ -143,5 +143,8 @@ return campaign;
      }
   
   }
+
+
+  
 }
   

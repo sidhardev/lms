@@ -13,12 +13,12 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { WholeCart } from './entites/whole-cart.entity';
-import { BulkPurchase } from './entites/bulk-purchase.entity';
-import { CategoryDiscount } from './entites/category-discount.entity';
-import { recurringCycle, recurringValidDays } from '../enums/campaign.enums';
-import { campaignType } from '../enums/campaign-type.enum';
-import { Campaigns } from '../campaign.entity';
+import { WholeCart } from './whole-cart.entity';
+import { BulkPurchase } from './bulk-purchase.entity';
+import { CategoryDiscount } from './category-discount.entity';
+import { recurringCycle, recurringValidDays } from '../../enums/campaign.enums';
+import { campaignType } from '../../enums/campaign-type.enum';
+import { Campaigns } from '../../campaign.entity';
 
 
 export enum DiscountType {
@@ -103,8 +103,6 @@ export class campaign {
 
 
 
-  @Column()
-  couponType: CouponType;
 
   @Column({ nullable: true })
   maxUses: number;
