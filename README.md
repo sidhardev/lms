@@ -1,41 +1,46 @@
-# 🚀 Next-Gen Learning Management System (LMS)
+# 🚀 Next-Gen Loyalty Management System (LMS)
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D16.0.0-green.svg)
 ![TypeScript](https://img.shields.io/badge/typescript-%5E5.0.0-blue)
+![NestJS](https://img.shields.io/badge/nestjs-%5E10.0.0-red.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 
 ## 📖 Overview
 
-Welcome to the **LMS Platform**, a robust, adaptive, and scalable solution designed to transform the educational experience. This project leverages modern web technologies to provide a seamless interface for administrators, instructors, and students.
+Welcome to the **Loyalty Management System (LMS)**, a comprehensive and flexible platform designed to boost customer retention and engagement. This project leverages the power of **NestJS** to provide a scalable backend for managing complex loyalty programs, marketing campaigns, and reward structures.
 
-Whether managing complex course structures or tracking granular student progress, this LMS is built for performance and reliability.
+From simple point accumulation to complex rule-based rewards (like daily streaks or category-specific bonuses), this system is built to handle diverse business needs with precision.
 
 ## ✨ Key Features
 
-*   **🎓 Adaptive Learning Engine:** Delivers personalized content and quizzes based on individual student performance and learning pace.
-*   **👥 Multi-Role Architecture:** Distinct, secure portals for **Admins**, **Instructors**, and **Students**.
-*   **📊 Advanced Analytics:** Real-time dashboards providing insights into course engagement, completion rates, and assessment scores.
-*   **📱 Fully Responsive:** An adaptive UI that provides a consistent experience across desktops, tablets, and mobile devices.
-*   **🛡️ Enterprise-Grade Security:** Implements industry-standard authentication and authorization protocols.
-*   **☁️ Cloud Ready:** Designed to scale effortlessly with cloud infrastructure (AWS/Azure/GCP).
+*   **🏆 Dynamic Loyalty Programs:** Create and configure loyalty schemes with custom validity periods and notifications.
+*   **📈 Flexible Accumulation Rules:**
+    *   **Points per Spend:** Award points based on transaction value (e.g., Points per Rupee).
+    *   **Behavioral Rewards:** Incentivize actions like **First Purchase** or **Daily Login Streaks**.
+    *   **Category-Based Rules:** Define specific multipliers or rewards for different product categories.
+*   **📢 Campaign Management:** Integrated management for broader marketing campaigns alongside loyalty specific programs.
+*   **📑 Automated Documentation:** Fully interactive API documentation generated via **Swagger/OpenAPI**.
+*   **🛡️ Enterprise-Grade Security:** Built on robust authentication standards (JWT Bearer Auth).
+*   **🧩 Modular Architecture:** Scalable and maintainable codebase using NestJS modules and TypeORM.
 
 ## 🛠️ Tech Stack
 
-*   **Runtime:** Node.js (NestJs)
+*   **Framework:** [NestJS](https://nestjs.com/)
 *   **Language:** TypeScript
-*   **Package Manager:** NPM 
-*   **Architecture:** Modular Service-Oriented Architecture
+*   **ORM:** TypeORM
+*   **Documentation:** Swagger UI
+*   **Package Manager:** NPM
 
 ## 🚀 Getting Started
 
-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+Follow these instructions to get the Loyalty Management System up and running on your local machine.
 
 ### Prerequisites
 
-Ensure you have the following installed:
-*   [Node.js](https://nodejs.org/) (v16 LTS or higher)
+*   [Node.js](https://nodejs.org/) (v16+ recommended)
 *   [Git](https://git-scm.com/)
+*   A database instance (PostgreSQL/MySQL as configured in TypeORM)
 
 ### Installation
 
@@ -51,43 +56,34 @@ Ensure you have the following installed:
     ```
 
 3.  **Environment Configuration:**
-    Create a `.env` file in the root directory based on the example:
+    Create a `.env` file in the root directory:
     ```bash
     cp .env.example .env
     ```
-    *Update the `.env` file with your database credentials and API keys.*
+    *Configure your database connection strings and JWT secrets here.*
 
 4.  **Run the application:**
     ```bash
     # Development mode
-    npm run dev
+    npm run start:dev
 
     # Production build
     npm run build
-    npm start
+    npm run start:prod
     ```
+
+5.  **Access Documentation:**
+    Once running, visit `http://localhost:3000/api` to view the Swagger API documentation.
 
 ## 🧪 Testing
 
-We use a comprehensive test suite to ensure system stability.
+Ensure system reliability with the integrated test suite.
 
 ```bash
 npm test
 ```
 
-## 📂 Project Structure
 
-```text
-lms/
-├── src/
-│   ├── config/         # Environment and app configuration
-│   ├── controllers/    # Request handlers
-│   ├── models/         # Database schemas and types
-│   ├── routes/         # API route definitions
-│   ├── services/       # Business logic
-│   └── utils/          # Helper functions
-├── tests/              # Unit and integration tests
-└── package.json
 ```
 
 ## 🤝 Contributing
