@@ -4,7 +4,7 @@ import {
   ValidatorConstraintInterface,
   validate,
 } from 'class-validator';
-import { AccumulationRuleType, PointsMode } from '../enums/points.enum';
+import { AccumulationRuleType, PointsMode } from '../../enums/points.enum';
 import { plainToClass } from 'class-transformer';
 import { PointsPerRupeeDto } from '../dtos/points-per-ruppee.dto';
 import { FirstPurchasePointsDto } from '../dtos/first_purchase.dto';

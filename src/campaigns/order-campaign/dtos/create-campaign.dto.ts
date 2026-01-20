@@ -22,8 +22,8 @@ import {
   userEligiblity,
 } from '../discount-campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
-import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
-import { CouponType } from 'src/coupons/admin/coupon-type.enum';
+import { CouponRuleType } from 'src/campaigns/enums/coupon-rule-type.enum';
+import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
 import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
 import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
@@ -33,7 +33,7 @@ import { plainToClass, Type } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
 import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
-import { ShippingMethod } from 'src/campaigns/shipping_campaign/shipping_method.enum';
+import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
 import { EligibleLocationDto } from 'src/campaigns/shipping_campaign/eligible_locations.dto';
 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })

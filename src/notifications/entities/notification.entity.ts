@@ -1,6 +1,6 @@
 import { campaign } from 'src/campaigns/order-campaign/discount-campaign.entity';
 import { LoyaltyProgram } from 'src/campaigns/loyalty-program/entities/loyalty-program.entity';
-import { Promotion } from 'src/promotion/promotion.entity';
+import { Promotion } from 'src/promotion/entites/promotion.entity';
 import {
   Column,
   CreateDateColumn,
@@ -10,7 +10,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { NotificationChannel } from './enums/notification-channel.enum';
+import { NotificationChannel } from '../enums/notification-channel.enum';
 
 
 

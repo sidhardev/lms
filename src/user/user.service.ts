@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { User } from './user.entity';
+import { User } from './entites/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { randomBytes, scrypt as _scrypt } from 'crypto';

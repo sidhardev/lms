@@ -1,11 +1,7 @@
-import { IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
-import { timestamp } from 'rxjs';
-import { CouponRuleType } from 'src/coupons/admin/coupon-rule-type.enum';
-import { CouponType } from 'src/coupons/admin/coupon-type.enum';
-import { Coupon } from 'src/coupons/coupon.entity';
-import { CampaignNotification } from 'src/notifications/notification.entity';
-import { EligibleLocationDto } from 'src/campaigns/shipping_campaign/eligible_locations.dto';
-import { ShippingMethod } from 'src/campaigns/shipping_campaign/shipping_method.enum';
+import { IsEnum, IsOptional, } from 'class-validator';
+  import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
+ import { CampaignNotification } from 'src/notifications/entities/notification.entity';
+ import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
 import {
   PrimaryGeneratedColumn,
   Column,
@@ -20,8 +16,8 @@ import {
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { CategoryDiscount } from './entites/category-discount.entity';
-import { recurringCycle, recurringValidDays } from './campaign.enums';
-import { campaignType } from '../campaign-type.enum';
+import { recurringCycle, recurringValidDays } from '../enums/campaign.enums';
+import { campaignType } from '../enums/campaign-type.enum';
 import { Campaigns } from '../campaign.entity';
 
 

@@ -3,9 +3,9 @@ import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { campaign, CampaignStatus } from 'src/campaigns/order-campaign/discount-campaign.entity';
 import { Repository } from 'typeorm';
  import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
-  import { campaignType } from '../campaign-type.enum';
+  import { campaignType } from '../enums/campaign-type.enum';
 import { Campaigns } from '../campaign.entity';
-import { CouponType } from 'src/coupons/admin/coupon-type.enum';
+import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
 
 @Injectable()
 export class ShippingCampaignService {

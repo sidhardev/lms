@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Promotion } from './promotion.entity';
+import { Promotion } from './entites/promotion.entity';
 import { PromotionController } from './promotion.controller';
 import { PromotionService } from './promotion.service';
 

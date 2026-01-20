@@ -1,5 +1,5 @@
 import { CreateLoyaltyProgramDto } from '../dtos/create-loyalty-program.dto';
-import { AccumulationRuleType, PointsMode } from '../enums/points.enum';
+import { AccumulationRuleType, PointsMode } from '../../enums/points.enum';
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 

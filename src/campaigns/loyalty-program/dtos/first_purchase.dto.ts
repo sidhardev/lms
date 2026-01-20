@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNumber, Min } from 'class-validator';
-import { AccumulationRuleType } from '../enums/points.enum';
+import { AccumulationRuleType } from '../../enums/points.enum';
 
 export class FirstPurchasePointsDto {
   @ApiProperty({

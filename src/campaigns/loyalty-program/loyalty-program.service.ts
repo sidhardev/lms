@@ -3,10 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LoyaltyProgram } from './entities/loyalty-program.entity';
 import { Repository } from 'typeorm';
 import { CreateLoyaltyProgramDto } from './dtos/create-loyalty-program.dto';
-import { AccumulationRuleType } from './enums/points.enum';
+import { AccumulationRuleType } from '../enums/points.enum';
 import { CategoryBasedDto } from './dtos/category-based.dto';
 import { Campaigns } from '../campaign.entity';
-import { campaignType } from '../campaign-type.enum';
+import { campaignType } from '../enums/campaign-type.enum';
 
 @Injectable()
 export class LoyaltyProgramService {

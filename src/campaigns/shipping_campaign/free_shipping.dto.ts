@@ -10,7 +10,7 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { ShippingMethod } from './shipping_method.enum';
+import { ShippingMethod } from '../enums/shipping_method.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { EligibleLocationDto } from './eligible_locations.dto';
 import { Type } from 'class-transformer';
@@ -21,7 +21,7 @@ import {
   recurringValidDays,
   userEligiblity,
 } from 'src/campaigns/order-campaign/discount-campaign.entity';
-import { CouponType } from 'src/coupons/admin/coupon-type.enum';
+import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
 
 export class CreateFreeShippingDto {
   @IsString()

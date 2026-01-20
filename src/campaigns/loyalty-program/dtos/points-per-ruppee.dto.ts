@@ -7,7 +7,7 @@ import {
   ValidateIf,
   IsDefined,
 } from 'class-validator';
-import { AccumulationRuleType, PointsMode } from '../enums/points.enum';
+import { AccumulationRuleType, PointsMode } from '../../enums/points.enum';
 
 export class PointsPerRupeeDto {
   @ApiProperty({

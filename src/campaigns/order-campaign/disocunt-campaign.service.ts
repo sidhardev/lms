@@ -14,7 +14,7 @@ import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { CategoryDiscount } from './entites/category-discount.entity';
 import { LoyaltyProgramService } from 'src/campaigns/loyalty-program/loyalty-program.service';
 import { Campaigns } from '../campaign.entity';
-import { campaignType } from '../campaign-type.enum';
+import { campaignType } from '../enums/campaign-type.enum';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 
 
