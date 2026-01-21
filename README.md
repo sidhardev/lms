@@ -32,8 +32,8 @@ The Loyalty Management System is a comprehensive backend API built with NestJS t
   - Email-based verification
 
 #### Use Cases:
-- New customers can securely register and verify their email
-- Existing customers can sign in and access loyalty programs
+- New users can securely register and verify their email
+- Existing users can sign in and access loyalty programs
 - Users can recover their accounts if they forget their passwords
 - Email verification adds an extra security layer to prevent unauthorized account creation
 
