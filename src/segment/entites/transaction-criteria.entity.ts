@@ -1,9 +1,4 @@
-import {
-  Column,
-  Entity,
-   ManyToOne,
-   PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { conditions } from '../enums/comparison.enum';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { UserSegment } from './user_segment.entity';

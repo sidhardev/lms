@@ -29,9 +29,9 @@ export class UserService {
       const salt = randomBytes(8).toString('hex');
       const hash = (await scrypt(createUserDto.password, salt, 32)) as Buffer;
       user.password = salt + '.' + hash.toString('hex');
-      user.role = 'USER';  
+      user.role = 'USER';
 
-      await this.userRepository.save(user);  
+      await this.userRepository.save(user);
       return {
         status: true,
         message: 'SignUp successful',
@@ -43,7 +43,7 @@ export class UserService {
     }
   }
   async sendOtp(email: string) {
-     await this.mailService.sendOtp(email);
+    await this.mailService.sendOtp(email);
     return {
       status: true,
       message: 'OTP sent successfully',

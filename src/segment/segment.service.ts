@@ -219,7 +219,7 @@ export class SegmentService {
     }
   }
 
-   deleteById(id: number) {
+  deleteById(id: number) {
     this.segmentRepository.delete(id);
     return {
       message: 'Segment Deleted Sucessfully!',

@@ -2,12 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-   OneToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { segmentType } from '../enums/segementType.enum';
- import { UserSegment } from './user_segment.entity';
+import { UserSegment } from './user_segment.entity';
 import { ProductSegment } from './product_segment.entity';
 
 @Entity()

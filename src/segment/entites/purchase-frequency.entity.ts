@@ -1,9 +1,4 @@
-import {
-  Column,
-  Entity,
-   ManyToOne,
-   PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductSegment } from './product_segment.entity';
 import { PurchaseFrequencyRule } from '../enums/purchase-frequency.enum';
 
