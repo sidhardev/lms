@@ -249,21 +249,7 @@ Segments based on inventory and product characteristics:
 
 ---
 
-### 5. **Shipping Campaign Management**
 
-**Purpose:** Manage free shipping and other shipping-related promotions
-
-**Features:**
-- **Free Shipping Campaigns**
-  - Define eligible locations (countries, states, cities)
-  - Minimum order thresholds
-  - Time-based validity
-
-**Use Cases:**
-- Offer free shipping for orders above $50 in specific regions
-- Regional free shipping promotions during holidays
-- Free shipping for specific customer segments or loyalty members
-- Restrict free shipping to certain geographic areas
 
 ---
 
