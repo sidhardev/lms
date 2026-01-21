@@ -11,15 +11,20 @@ import { CategoryDiscount } from './entites/category-discount.entity';
 import { LoyaltyProgramModule } from 'src/campaigns/loyalty-program/loyalty-program.module';
 import { Campaigns } from '../campaign.entity';
 
-
 @Module({
   imports: [
-    TypeOrmModule.forFeature([campaign, WholeCart, BulkPurchase, CategoryDiscount, Campaigns]),
-    ShippingCampaignModule, LoyaltyProgramModule
+    TypeOrmModule.forFeature([
+      campaign,
+      WholeCart,
+      BulkPurchase,
+      CategoryDiscount,
+      Campaigns,
+    ]),
+    ShippingCampaignModule,
+    LoyaltyProgramModule,
   ],
   providers: [CampaignsService],
   controllers: [CampaignsController /*, ShippingCampaignController */],
   exports: [CampaignsService],
-  
 })
 export class CampaignsModule {}

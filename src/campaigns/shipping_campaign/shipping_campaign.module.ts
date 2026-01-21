@@ -7,7 +7,10 @@ import { CampaignEntityModule } from '../campaigns.module';
 import { Campaigns } from '../campaign.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([campaign, Campaigns]), CampaignEntityModule],
+  imports: [
+    TypeOrmModule.forFeature([campaign, Campaigns]),
+    CampaignEntityModule,
+  ],
   providers: [ShippingCampaignService],
   controllers: [ShippingCampaignController],
   exports: [ShippingCampaignService],

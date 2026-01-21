@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEAN, IsEnum, IsNumber, IsString } from 'class-validator';
+import {  IsEnum, IsNumber, } from 'class-validator';
 import { PurchaseFrequencyRule } from '../enums/purchase-frequency.enum';
 
 export class CreatePurchaseFrequencyDto {

@@ -1,10 +1,6 @@
-import {
-  Injectable,
-  
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus,   } from './entites/discount-campaign.entity';
+import { campaign, CampaignStatus } from './entites/discount-campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 
@@ -12,9 +8,8 @@ import { RuleType } from './rules/rules.enum';
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { CategoryDiscount } from './entites/category-discount.entity';
- import { Campaigns } from '../campaign.entity';
+import { Campaigns } from '../campaign.entity';
 import { campaignType } from '../enums/campaign-type.enum';
- 
 
 @Injectable()
 export class CampaignsService {
@@ -23,33 +18,26 @@ export class CampaignsService {
     private readonly CampaignRepository: Repository<campaign>,
     @InjectRepository(Campaigns)
     private readonly parentCampaignRepository: Repository<Campaigns>,
- 
   ) {}
 
   async createDiscountCoupon(CreateCampaignDto: CreateCampaignDto) {
-
-
-
     const parentCampaign = this.parentCampaignRepository.create({
       name: (CreateCampaignDto as any).name,
       description: (CreateCampaignDto as any).description,
       type: campaignType.DISCOUNT_COUPON,
       startAt: CreateCampaignDto.startAt,
-            endAt: CreateCampaignDto.endAt,
-            status: CreateCampaignDto.status,
-
-
+      endAt: CreateCampaignDto.endAt,
+      status: CreateCampaignDto.status,
     });
-    const savedParent = await this.parentCampaignRepository.save(parentCampaign);
-
-    
+    const savedParent =
+      await this.parentCampaignRepository.save(parentCampaign);
 
     const campaign = this.CampaignRepository.create({
-       useItAsCoupon: CreateCampaignDto.useItAsCoupon,
-      
+      useItAsCoupon: CreateCampaignDto.useItAsCoupon,
+
       status: CampaignStatus.DRAFT,
-       discountType: CreateCampaignDto.discountType,
-        maxUses: CreateCampaignDto.maxUses,
+      discountType: CreateCampaignDto.discountType,
+      maxUses: CreateCampaignDto.maxUses,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
       redemptionType: CreateCampaignDto.redemptionType,
       userEligiblity: CreateCampaignDto.userEligiblity,
@@ -64,7 +52,7 @@ export class CampaignsService {
       notifications: (CreateCampaignDto as any).notifications
         ? (CreateCampaignDto as any).notifications.map((n: any) => ({ ...n }))
         : undefined,
-       campaign: savedParent,
+      campaign: savedParent,
     });
 
     const rules = CreateCampaignDto.rules as any;
@@ -81,7 +69,8 @@ export class CampaignsService {
         const bulkPurchase = new BulkPurchase();
         bulkPurchase.ruleType = rules.ruleType;
         bulkPurchase.discountMode = rules.discountMode;
-        bulkPurchase.discountPercent = rules.discoutPercent || rules.discountPercent;
+        bulkPurchase.discountPercent =
+          rules.discoutPercent || rules.discountPercent;
         bulkPurchase.discountAmount = rules.discountAmount;
         bulkPurchase.minQuantity = rules.minQuantity;
         campaign.bulkPurchase = bulkPurchase;
@@ -89,7 +78,8 @@ export class CampaignsService {
         const categoryDiscount = new CategoryDiscount();
         categoryDiscount.ruleType = rules.ruleType;
         categoryDiscount.discountMode = rules.discountMode;
-        categoryDiscount.discountPercent = rules.discoutPercent || rules.discountPercent;
+        categoryDiscount.discountPercent =
+          rules.discoutPercent || rules.discountPercent;
         categoryDiscount.discountAmount = rules.discountAmount;
         categoryDiscount.categoryId = rules.categoryId;
         campaign.categoryDiscount = categoryDiscount;
@@ -99,13 +89,13 @@ export class CampaignsService {
     return this.CampaignRepository.save(campaign);
   }
 
-   async findAll(page, limit) {
-    const campaign =  await this.parentCampaignRepository.find({
-skip: (page - 1) * limit,
+  async findAll(page, limit) {
+    const campaign = await this.parentCampaignRepository.find({
+      skip: (page - 1) * limit,
       take: limit,
-    })
+    });
 
-return campaign;
+    return campaign;
   }
 
   findOne(id: number) {
@@ -116,7 +106,7 @@ return campaign;
 
   async UpdateStatus(id: number, updateStatusDto) {
     const campaign = await this.parentCampaignRepository.findOne({
-      where: {id: id}
+      where: { id: id },
     });
     console.log(id);
     if (!campaign) {
@@ -134,15 +124,10 @@ return campaign;
   }
 
   deleteById(id: number) {
-     this.CampaignRepository.delete(id);
-     return {
+    this.CampaignRepository.delete(id);
+    return {
       message: 'Campaign deleted successfully',
-      status: true
-     }
-  
+      status: true,
+    };
   }
-
-
-  
 }
-  

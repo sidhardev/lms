@@ -1,10 +1,8 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
+   ManyToOne,
+   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductSegment } from './product_segment.entity';
 import { stockLevelRule } from '../enums/stock-level.enum';
@@ -21,7 +19,7 @@ export class StockLevel {
       onDelete: 'CASCADE',
     },
   )
-   ProductSegment: ProductSegment;
+  ProductSegment: ProductSegment;
 
   @Column()
   rule: stockLevelRule;

@@ -1,6 +1,12 @@
 // c:\Users\Moon Link\lms\src\campaigns\rules\entities\whole-cart.entity.ts
 
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { campaign } from './discount-campaign.entity';
 import { RuleType, DiscountMode } from '../rules/rules.enum';
 
@@ -31,7 +37,9 @@ export class WholeCart {
   @Column({ type: 'int', nullable: true })
   maxDiscount: number;
 
-  @OneToOne(() => campaign, (campaign) => campaign.wholeCart, { onDelete: 'CASCADE' })
+  @OneToOne(() => campaign, (campaign) => campaign.wholeCart, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   campaign: campaign;
 }

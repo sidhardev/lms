@@ -1,4 +1,14 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateSegmentDto } from './dtos/create-segment.dto';
 import { SegmentService } from './segment.service';
 import { ApiQuery } from '@nestjs/swagger';
@@ -14,24 +24,24 @@ export class SegmentController {
   @Get('/get')
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
-  getAll(@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,) {
+  getAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ) {
     return this.segmentService.getAll(page, limit);
   }
 
-@Get('/:id')
-findById(@Param('id') id: number) {
-  return this.segmentService.findById(id);
-}
-
+  @Get('/:id')
+  findById(@Param('id') id: number) {
+    return this.segmentService.findById(id);
+  }
 
   @Delete(':id')
-  deleteById(@Param('id') id: number) {
-     this.segmentService.deleteById(id);
-     return {
+  async deleteById(@Param('id') id: number) {
+    await this.segmentService.deleteById(id);
+    return {
       status: true,
-      message: 'Segment deleted successfully'
-     }
-  } 
-
+      message: 'Segment deleted successfully',
+    };
+  }
 }

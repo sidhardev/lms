@@ -12,6 +12,8 @@ export class CategoryBased {
   @Column()
   pointsEarned: number;
 
-  @ManyToOne(() => LoyaltyProgram, (program) => program.categoryBased, { onDelete: 'CASCADE' })
+  @ManyToOne(() => LoyaltyProgram, (program) => program.categoryBased, {
+    onDelete: 'CASCADE',
+  })
   loyaltyProgram: LoyaltyProgram;
 }

@@ -11,13 +11,24 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiExtraModels,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AdminGuard } from 'src/auth/guards/admin-guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CampaignsService } from './disocunt-campaign.service';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { UpdateCampaignStatusDto } from './dtos/update-campaign-status.dto';
-import { CampaignStatus, DiscountType } from './entites/discount-campaign.entity';
+import {
+  CampaignStatus,
+  DiscountType,
+} from './entites/discount-campaign.entity';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 import { CreateFreeShippingDto } from '../shipping_campaign/free_shipping.dto';
 import { LoyaltyProgram } from '../loyalty-program/entities/loyalty-program.entity';
@@ -39,30 +50,32 @@ import { updateCampaignDto } from './dtos/update-order-campaign.dto';
 // @UseGuards(JwtAuthGuard, AdminGuard)
 // @ApiBearerAuth('access-token')
 export class CampaignsController {
-  constructor(private readonly campaignService: CampaignsService, private readonly shippingService: ShippingCampaignService, private readonly loyaltyProgramService: LoyaltyProgramService ) {}
- 
- @ApiExtraModels(
-  wholeCartDto,
-  CartCustomTotalDto,
-  BulkPurchaseDto,
-  CategoryDiscountDto,
-  ProductDiscountDto,
-  BrandDiscountDto,
-  PointsPerRupeeDto,
-  FirstPurchasePointsDto,
-  DailyLoginStreakDto,
-  CategoryBasedDto
-)
- 
+  constructor(
+    private readonly campaignService: CampaignsService,
+    private readonly shippingService: ShippingCampaignService,
+    private readonly loyaltyProgramService: LoyaltyProgramService,
+  ) {}
+
+  @ApiExtraModels(
+    wholeCartDto,
+    CartCustomTotalDto,
+    BulkPurchaseDto,
+    CategoryDiscountDto,
+    ProductDiscountDto,
+    BrandDiscountDto,
+    PointsPerRupeeDto,
+    FirstPurchasePointsDto,
+    DailyLoginStreakDto,
+    CategoryBasedDto,
+  )
   @Post('campaigns/discount-coupon/create')
   create(@Body() dto: CreateCampaignDto) {
-    switch(dto.discountType) {
-      case DiscountType.FREE_SHIPPING :
+    switch (dto.discountType) {
+      case DiscountType.FREE_SHIPPING:
         return this.shippingService.create(dto);
-   
 
-    case DiscountType.ORDER_DISCOUNT :
-    return this.campaignService.createDiscountCoupon(dto);
+      case DiscountType.ORDER_DISCOUNT:
+        return this.campaignService.createDiscountCoupon(dto);
     }
   }
 
@@ -77,15 +90,14 @@ export class CampaignsController {
     return this.loyaltyProgramService.create(createLoyaltyProgramDto);
   }
   @Get('campaigns/get')
-    @ApiQuery({ name: 'page', required: false, type: Number })
-    @ApiQuery({ name: 'limit', required: false, type: Number })
-  
-    get(
-      @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-      @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-    ) {
-      return this.campaignService.findAll(page, limit);
-    }
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  get(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ) {
+    return this.campaignService.findAll(page, limit);
+  }
 
   @Get('campaigns/discount-coupon/active')
   findActive() {
@@ -95,10 +107,12 @@ export class CampaignsController {
   @Patch('campaigns/discount-coupon/:id/status')
   @ApiOperation({ summary: 'Change status of campaign' })
   @ApiParam({ name: 'id', type: Number })
-  updateStatus(@Param('id', ParseIntPipe) id: number, @Body() updateStatusDto: UpdateCampaignStatusDto) {
+  updateStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateStatusDto: UpdateCampaignStatusDto,
+  ) {
     return this.campaignService.UpdateStatus(id, updateStatusDto);
   }
-
 
   @Delete('campaigns/coupon/:id')
   deleteById(@Param('id') id: number) {

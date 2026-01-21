@@ -12,8 +12,6 @@ import {
 } from 'typeorm';
 import { NotificationChannel } from '../enums/notification-channel.enum';
 
-
-
 @Entity('campaign_notifications')
 export class CampaignNotification {
   @PrimaryGeneratedColumn()
@@ -30,8 +28,6 @@ export class CampaignNotification {
     nullable: true,
   })
   promotion?: Promotion;
-
-
 
   @OneToOne(
     () => LoyaltyProgram,

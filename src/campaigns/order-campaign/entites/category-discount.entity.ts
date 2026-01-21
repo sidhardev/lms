@@ -1,5 +1,10 @@
- 
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { campaign } from './discount-campaign.entity';
 import { RuleType, DiscountMode } from '../rules/rules.enum';
 
@@ -30,7 +35,9 @@ export class CategoryDiscount {
   @Column({ type: 'int' })
   categoryId: number;
 
-  @OneToOne(() => campaign, (campaign) => campaign.categoryDiscount, { onDelete: 'CASCADE' })
+  @OneToOne(() => campaign, (campaign) => campaign.categoryDiscount, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   campaign: campaign;
 }

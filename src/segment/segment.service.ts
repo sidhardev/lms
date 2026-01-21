@@ -56,7 +56,6 @@ export class SegmentService {
     private readonly priceBasedRepository: Repository<PriceBased>,
   ) {}
 
- 
   async create(dto: CreateSegmentDto) {
     this.validateSegmentType(dto);
     const segment = this.segmentRepository.create({
@@ -78,7 +77,6 @@ export class SegmentService {
     return savedSegment;
   }
 
- 
   private async createUserSegment(dto: CreateSegmentDto, segment: Segment) {
     const userSegment = await this.userSegmentRepository.save(
       this.userSegmentRepository.create({ segment }),
@@ -86,7 +84,7 @@ export class SegmentService {
 
     if (dto.membersCriteria?.length) {
       await this.membersCriteriaRepository.save(
-        dto.membersCriteria.map(c =>
+        dto.membersCriteria.map((c) =>
           this.membersCriteriaRepository.create({
             ...c,
             userSegment,
@@ -97,7 +95,7 @@ export class SegmentService {
 
     if (dto.engagementCriteria?.length) {
       await this.engagementCriteriaRepository.save(
-        dto.engagementCriteria.map(c =>
+        dto.engagementCriteria.map((c) =>
           this.engagementCriteriaRepository.create({
             ...c,
             userSegment,
@@ -108,7 +106,7 @@ export class SegmentService {
 
     if (dto.discountCriteria?.length) {
       await this.discountCriteriaRepository.save(
-        dto.discountCriteria.map(c =>
+        dto.discountCriteria.map((c) =>
           this.discountCriteriaRepository.create({
             ...c,
             userSegment,
@@ -119,10 +117,10 @@ export class SegmentService {
 
     if (dto.transactionCriteria?.length) {
       await this.transactionCriteriaRepository.save(
-        dto.transactionCriteria.map(c =>
+        dto.transactionCriteria.map((c) =>
           this.transactionCriteriaRepository.create({
             ...c,
-            rules: c.rule,  
+            rules: c.rule,
             userSegment,
           }),
         ),
@@ -130,7 +128,6 @@ export class SegmentService {
     }
   }
 
- 
   private async createProductSegment(dto: CreateSegmentDto, segment: Segment) {
     const productSegment = await this.productSegmentRepository.save(
       this.productSegmentRepository.create({ segment }),
@@ -138,7 +135,7 @@ export class SegmentService {
 
     if (dto.productInteraction?.length) {
       await this.productInteractionRepository.save(
-        dto.productInteraction.map(c =>
+        dto.productInteraction.map((c) =>
           this.productInteractionRepository.create({
             ...c,
             ProductSegment: productSegment,
@@ -149,7 +146,7 @@ export class SegmentService {
 
     if (dto.stockLevel?.length) {
       await this.stockLevelRepository.save(
-        dto.stockLevel.map(c =>
+        dto.stockLevel.map((c) =>
           this.stockLevelRepository.create({
             ...c,
             ProductSegment: productSegment,
@@ -160,7 +157,7 @@ export class SegmentService {
 
     if (dto.purchaseFrequency?.length) {
       await this.purchaseFrequencyRepository.save(
-        dto.purchaseFrequency.map(c =>
+        dto.purchaseFrequency.map((c) =>
           this.purchaseFrequencyRepository.create({
             ...c,
             ProductSegment: productSegment,
@@ -171,7 +168,7 @@ export class SegmentService {
 
     if (dto.priceBased?.length) {
       await this.priceBasedRepository.save(
-        dto.priceBased.map(c =>
+        dto.priceBased.map((c) =>
           this.priceBasedRepository.create({
             ...c,
             ProductSegment: productSegment,
@@ -181,63 +178,59 @@ export class SegmentService {
     }
   }
 
- 
-  getAll(page, limit) {
+  getAll(page: number, limit: number) {
     return this.segmentRepository.find({
       order: {
         id: 'ASC',
       },
-      
+
       skip: (page - 1) * limit,
       take: limit,
     });
   }
 
-
   private validateSegmentType(dto: CreateSegmentDto) {
-  const hasUserCriteria =
-    !!dto.membersCriteria?.length ||
-    !!dto.engagementCriteria?.length ||
-    !!dto.discountCriteria?.length ||
-    !!dto.transactionCriteria?.length;
+    const hasUserCriteria =
+      !!dto.membersCriteria?.length ||
+      !!dto.engagementCriteria?.length ||
+      !!dto.discountCriteria?.length ||
+      !!dto.transactionCriteria?.length;
 
-  const hasProductCriteria =
-    !!dto.productInteraction?.length ||
-    !!dto.stockLevel?.length ||
-    !!dto.purchaseFrequency?.length ||
-    !!dto.priceBased?.length;
+    const hasProductCriteria =
+      !!dto.productInteraction?.length ||
+      !!dto.stockLevel?.length ||
+      !!dto.purchaseFrequency?.length ||
+      !!dto.priceBased?.length;
 
-  if (dto.segmentType === segmentType.USER_SEGMENT && hasProductCriteria) {
-    throw new BadRequestException(
-      'USER_SEGMENT cannot contain product criteria',
-    );
+    if (dto.segmentType === segmentType.USER_SEGMENT && hasProductCriteria) {
+      throw new BadRequestException(
+        'USER_SEGMENT cannot contain product criteria',
+      );
+    }
+
+    if (dto.segmentType === segmentType.PRODUCT_SEGMENT && hasUserCriteria) {
+      throw new BadRequestException(
+        'PRODUCT_SEGMENT cannot contain user criteria',
+      );
+    }
+
+    if (!hasUserCriteria && !hasProductCriteria) {
+      throw new BadRequestException('At least one criteria must be provided');
+    }
   }
 
-  if (dto.segmentType === segmentType.PRODUCT_SEGMENT && hasUserCriteria) {
-    throw new BadRequestException(
-      'PRODUCT_SEGMENT cannot contain user criteria',
-    );
+   deleteById(id: number) {
+    this.segmentRepository.delete(id);
+    return {
+      message: 'Segment Deleted Sucessfully!',
+    };
   }
 
-  if (!hasUserCriteria && !hasProductCriteria) {
-    throw new BadRequestException(
-      'At least one criteria must be provided',
-    );
-  }
-}
-
-async deleteById(id: number) {
-  this.segmentRepository.delete(id);
-  return {
-    message: 'Segment Deleted Sucessfully!'
-  } 
-}
-
-findById(id: number) {
- return this.segmentRepository.find({
-  where: {
-    id,
-  },
+  findById(id: number) {
+    return this.segmentRepository.find({
+      where: {
+        id,
+      },
       relations: {
         UserSegment: {
           membersCriteria: true,
@@ -256,6 +249,5 @@ findById(id: number) {
         id: 'ASC',
       },
     });
-}
-
+  }
 }

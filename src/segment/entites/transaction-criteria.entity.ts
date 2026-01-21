@@ -1,10 +1,8 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
+   ManyToOne,
+   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { conditions } from '../enums/comparison.enum';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
@@ -19,7 +17,7 @@ export class TransactionCriteria {
   @ManyToOne(() => UserSegment, (userSegment) => userSegment.membersCriteria, {
     onDelete: 'CASCADE',
   })
-   userSegment: UserSegment;
+  userSegment: UserSegment;
 
   @Column()
   rules: TransactionRules;

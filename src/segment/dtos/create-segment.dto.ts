@@ -45,7 +45,6 @@ export class CreateSegmentDto {
   @IsEnum(segmentType)
   segmentType: segmentType;
 
- 
   @ApiProperty({
     type: [CreateMembersCriteriaDto],
     required: false,
@@ -86,7 +85,6 @@ export class CreateSegmentDto {
   @Type(() => CreateTransactionCriteriaDto)
   transactionCriteria: CreateTransactionCriteriaDto[];
 
- 
   @ApiProperty({
     type: [CreateProductInteractionDto],
     required: false,

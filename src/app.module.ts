@@ -6,9 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './user/user.module';
- import { MailModule } from './mail/mail.module';
+import { MailModule } from './mail/mail.module';
 import { ConfigService } from '@nestjs/config';
- import { NotificationsController } from './notifications/notifications.controller';
+import { NotificationsController } from './notifications/notifications.controller';
 import { NotificationsService } from './notifications/notifications.service';
 import { NotificationsModule } from './notifications/notifications.module';
 import { SegmentModule } from './segment/segment.module';
@@ -45,22 +45,20 @@ import { ShippingCampaignModule } from './campaigns/shipping_campaign/shipping_c
     UserModule,
     AuthModule,
     MailModule,
-      CampaignsModule,
-     CampaignEntityModule,
+    CampaignsModule,
+    CampaignEntityModule,
     LoyaltyProgramModule,
     NotificationsModule,
     SegmentModule,
     PromotionModule,
-    ShippingCampaignModule
+    ShippingCampaignModule,
   ],
   controllers: [
     AppController,
     CampaignsController,
-        LoyaltyProgramController,
+    LoyaltyProgramController,
     NotificationsController,
-    
-    
   ],
-  providers: [AppService, NotificationsService,],
+  providers: [AppService, NotificationsService],
 })
 export class AppModule {}

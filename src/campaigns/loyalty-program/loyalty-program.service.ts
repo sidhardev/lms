@@ -23,14 +23,14 @@ export class LoyaltyProgramService {
       name: dto.name,
       description: dto.description,
       type: campaignType.LOYALTY_PROGRAM,
-       startAt: new Date(dto.startAt),
+      startAt: new Date(dto.startAt),
       endAt: new Date(dto.endAt),
       status: dto.status,
     });
-    const savedParent = await this.parentCampaignRepository.save(parentCampaign);
+    const savedParent =
+      await this.parentCampaignRepository.save(parentCampaign);
 
     const loyaltyProgram = this.loyaltyRepository.create({
-      
       validDays: dto.validDays,
       validityStartTime: dto.validityStartTime,
       validityEndTime: dto.validityEndTime,
@@ -61,16 +61,15 @@ export class LoyaltyProgramService {
 
   async findAll(page: number, limit: number) {
     return await this.parentCampaignRepository.find({
-
       skip: (page - 1) * limit,
       take: limit,
-     });
+    });
   }
   async deleteById(id: number) {
     await this.loyaltyRepository.delete(id);
     return {
       message: 'Loyalty Program deleted successfully',
-      status: true
-    }
+      status: true,
+    };
   }
 }

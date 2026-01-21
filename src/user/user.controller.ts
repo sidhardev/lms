@@ -4,21 +4,17 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from './user.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { MailService } from 'src/mail/mail.service';
+ import { MailService } from 'src/mail/mail.service';
 import { VerifyOtpDto } from 'src/mail/dtos/verify-otp.dto';
 import { SendMailDto } from 'src/mail/dtos/send-mail.dto';
-import { ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { access } from 'fs';
-import { UnauthorizedException } from '@nestjs/common';
+ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+ import { UnauthorizedException } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly mailService: MailService,
-  ) {}
+   ) {}
 
   @Post('/send-otp')
   async sendOtp(@Body() body: SendMailDto) {

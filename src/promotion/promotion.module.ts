@@ -5,10 +5,9 @@ import { PromotionController } from './promotion.controller';
 import { PromotionService } from './promotion.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Promotion])],
-    controllers: [PromotionController],
-    providers: [PromotionService],
-    exports: [PromotionService],
-    
+  imports: [TypeOrmModule.forFeature([Promotion])],
+  controllers: [PromotionController],
+  providers: [PromotionService],
+  exports: [PromotionService],
 })
 export class PromotionModule {}

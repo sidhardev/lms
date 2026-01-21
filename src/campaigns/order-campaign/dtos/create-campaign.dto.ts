@@ -23,7 +23,7 @@ import {
   CampaignStatus,
 } from '../entites/discount-campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
- import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
+import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
 import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
 import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
@@ -34,7 +34,7 @@ import { RuleType } from '../rules/rules.enum';
 import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
- 
+
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
   async validate(_: any, args: ValidationArguments): Promise<boolean> {
@@ -74,7 +74,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
 
     const errors = await validate(rulesInstance as object);
 
-     if (errors.length > 0) {
+    if (errors.length > 0) {
       (args as any).validationErrors = errors;
     }
 
@@ -117,7 +117,7 @@ export class CreateCampaignDto {
   })
   description: string;
 
-  @ApiProperty({example: 'DRAFT'})
+  @ApiProperty({ example: 'DRAFT' })
   @IsEnum(CampaignStatus)
   status: CampaignStatus;
 
@@ -140,7 +140,6 @@ export class CreateCampaignDto {
   })
   @IsDateString()
   endAt: Date;
-  
 
   @ApiProperty({
     example: true,
@@ -149,8 +148,6 @@ export class CreateCampaignDto {
   @IsOptional()
   @IsBoolean()
   useItAsCoupon: boolean;
-
- 
 
   @ApiProperty({
     oneOf: [
@@ -276,17 +273,14 @@ export class CreateCampaignDto {
   @Type(() => CreateCampaignNotificationDto)
   notification: CreateCampaignNotificationDto;
 
-  
   @IsOptional()
   @IsEnum(ShippingMethod)
   shippingMethod: ShippingMethod;
 
-  
   @IsOptional()
   @IsNumber()
   minOrderValue?: number;
 
-  
   @IsOptional()
   @IsNumber()
   maxDiscount?: number;

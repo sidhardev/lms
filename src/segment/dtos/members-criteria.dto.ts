@@ -4,15 +4,13 @@ import {
   IsEnum,
   IsOptional,
   IsString,
-  IsNumber,
+   
 } from 'class-validator';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { conditions } from '../enums/comparison.enum';
 import { membersCriteria } from '../enums/members.enum';
 
 export class CreateMembersCriteriaDto {
-   
-
   @ApiProperty({ example: membersCriteria.BIRTHDAY })
   @IsEnum(membersCriteria)
   rules: membersCriteria;

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNumber, } from 'class-validator';
 import { ProductInteractionRule } from '../enums/product-interaction.enum';
 
 export class CreateProductInteractionDto {

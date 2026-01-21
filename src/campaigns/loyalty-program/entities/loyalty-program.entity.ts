@@ -18,13 +18,14 @@ import { DailyLoginStreak } from './daily-login-streak.entity';
 import { CategoryBased } from './category-based.entity';
 import { Campaigns } from '../../campaign.entity';
 
-
 @Entity('loyalty-program')
 export class LoyaltyProgram {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Campaigns, (campaigns) => campaigns.loyaltyPrograms, {onDelete: 'CASCADE'})
+  @ManyToOne(() => Campaigns, (campaigns) => campaigns.loyaltyPrograms, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'campaignId' })
   campaign: Campaigns;
 
@@ -48,13 +49,12 @@ export class LoyaltyProgram {
   updatedAt: Date;
 
   @Column({
-  type: 'enum',
-  enum: recurringValidDays,
-   array: true,
-  nullable: true,
-})
-validDays: recurringValidDays[];
-
+    type: 'enum',
+    enum: recurringValidDays,
+    array: true,
+    nullable: true,
+  })
+  validDays: recurringValidDays[];
 
   @Column()
   validityStartTime: string;

@@ -5,8 +5,6 @@ import { conditions } from '../enums/comparison.enum';
 import { EngagementRuleType } from '../enums/engagement-rule.enum';
 
 export class CreateEngagementCriteriaDto {
-   
-
   @ApiPropertyOptional({ example: EngagementRuleType.ANY_EMAIL })
   @IsEnum(EngagementRuleType)
   @IsOptional()

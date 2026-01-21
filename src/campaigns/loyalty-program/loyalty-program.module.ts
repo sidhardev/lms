@@ -9,18 +9,19 @@ import { CategoryBased } from './entities/category-based.entity';
 import { CampaignEntityModule } from '../campaigns.module';
 import { Campaigns } from '../campaign.entity';
 
-
 @Module({
   providers: [LoyaltyProgramService],
-  imports: [TypeOrmModule.forFeature([
-    LoyaltyProgram,
-    PointsPerRupee,
-    FirstPurchase,
-    DailyLoginStreak,
-    CategoryBased,
-    Campaigns
-
-  ]), CampaignEntityModule],
+  imports: [
+    TypeOrmModule.forFeature([
+      LoyaltyProgram,
+      PointsPerRupee,
+      FirstPurchase,
+      DailyLoginStreak,
+      CategoryBased,
+      Campaigns,
+    ]),
+    CampaignEntityModule,
+  ],
   exports: [LoyaltyProgramService],
 })
 export class LoyaltyProgramModule {}

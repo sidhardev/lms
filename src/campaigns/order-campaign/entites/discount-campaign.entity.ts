@@ -1,7 +1,7 @@
-import { IsEnum, IsOptional, } from 'class-validator';
-  import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
- import { CampaignNotification } from 'src/notifications/entities/notification.entity';
- import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
+import { IsEnum, IsOptional } from 'class-validator';
+import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
+import { CampaignNotification } from 'src/notifications/entities/notification.entity';
+import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
 import {
   PrimaryGeneratedColumn,
   Column,
@@ -19,7 +19,6 @@ import { CategoryDiscount } from './category-discount.entity';
 import { recurringCycle, recurringValidDays } from '../../enums/campaign.enums';
 import { campaignType } from '../../enums/campaign-type.enum';
 import { Campaigns } from '../../campaign.entity';
-
 
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
@@ -52,12 +51,11 @@ export class campaign {
   @PrimaryGeneratedColumn()
   id: number;
 
-   
-
-@ManyToOne(() => Campaigns, (campaigns) => campaigns.discountCoupons, {onDelete: 'CASCADE'})
-    @JoinColumn({ name: 'campaignId' })  
-    campaign: Campaigns;
-  
+  @ManyToOne(() => Campaigns, (campaigns) => campaigns.discountCoupons, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'campaignId' })
+  campaign: Campaigns;
 
   @Column({
     type: 'enum',
@@ -72,8 +70,6 @@ export class campaign {
   })
   status: CampaignStatus;
 
-  
-
   @Column({
     type: 'boolean',
     nullable: true,
@@ -82,15 +78,11 @@ export class campaign {
   @IsOptional()
   useItAsCoupon: boolean;
 
-
-
-
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-
 
   @OneToMany(
     () => CampaignNotification,
@@ -98,10 +90,6 @@ export class campaign {
     { cascade: true, eager: true },
   )
   notifications: CampaignNotification[];
-
-
-
-
 
   @Column({ nullable: true })
   maxUses: number;
@@ -135,7 +123,6 @@ export class campaign {
   @Column({ nullable: true })
   recurringEndTime: string;
 
-
   @OneToOne(() => WholeCart, (wholeCart) => wholeCart.campaign, {
     cascade: true,
     eager: true,
@@ -148,15 +135,15 @@ export class campaign {
   })
   bulkPurchase: BulkPurchase;
 
-  @OneToOne(() => CategoryDiscount, (categoryDiscount) => categoryDiscount.campaign, {
-    cascade: true,
-    eager: true,
-  })
+  @OneToOne(
+    () => CategoryDiscount,
+    (categoryDiscount) => categoryDiscount.campaign,
+    {
+      cascade: true,
+      eager: true,
+    },
+  )
   categoryDiscount: CategoryDiscount;
-
-
-
-
 
   @Column({ default: ShippingMethod.NONE })
   shippingMethod: ShippingMethod;

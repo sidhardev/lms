@@ -2,38 +2,36 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { campaign } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
 import { Repository } from 'typeorm';
- import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
-  import { campaignType } from '../enums/campaign-type.enum';
+import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
+import { campaignType } from '../enums/campaign-type.enum';
 import { Campaigns } from '../campaign.entity';
- 
+
 @Injectable()
 export class ShippingCampaignService {
   constructor(
     @InjectRepository(campaign)
     private readonly CampaignRepository: Repository<campaign>,
-    @InjectRepository(Campaigns) private parentCampaignRepository: Repository<Campaigns>
+    @InjectRepository(Campaigns)
+    private parentCampaignRepository: Repository<Campaigns>,
   ) {}
 
   async create(CreateCampaignDto: CreateCampaignDto) {
-
     const parentCampaign = this.parentCampaignRepository.create({
       name: (CreateCampaignDto as any).name,
       description: (CreateCampaignDto as any).description,
       type: campaignType.DISCOUNT_COUPON,
       startAt: CreateCampaignDto.startAt,
-            endAt: CreateCampaignDto.endAt,
-                   status: CreateCampaignDto.status, 
-
-
-
+      endAt: CreateCampaignDto.endAt,
+      status: CreateCampaignDto.status,
     });
-    const savedParent = await this.parentCampaignRepository.save(parentCampaign);
+    const savedParent =
+      await this.parentCampaignRepository.save(parentCampaign);
     const campaign = this.CampaignRepository.create({
-       discountType: CreateCampaignDto.discountType,
-       shippingMethod: CreateCampaignDto.shippingMethod,
+      discountType: CreateCampaignDto.discountType,
+      shippingMethod: CreateCampaignDto.shippingMethod,
       minOrderValue: CreateCampaignDto.minOrderValue,
       maxDiscount: CreateCampaignDto.maxDiscount,
-       countries: CreateCampaignDto.countries,
+      countries: CreateCampaignDto.countries,
       states: CreateCampaignDto.states,
       cities: CreateCampaignDto.cities,
       maxUses: CreateCampaignDto.maxUses,
@@ -45,8 +43,7 @@ export class ShippingCampaignService {
       recurringValidDays: CreateCampaignDto.recurringValidDays,
       recurringStartTime: CreateCampaignDto.recurringStartTime,
       recurringEndTime: CreateCampaignDto.recurringEndTime,
-            campaign: savedParent,
-
+      campaign: savedParent,
     });
     return this.CampaignRepository.save(campaign);
   }

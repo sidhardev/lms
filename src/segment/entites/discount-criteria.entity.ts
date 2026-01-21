@@ -1,16 +1,13 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
+   ManyToOne,
+   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserSegment } from './user_segment.entity';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { conditions } from '../enums/comparison.enum';
-import { DiscountType } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
-import { DiscountRule } from '../enums/discount-criteria.enum';
+ import { DiscountRule } from '../enums/discount-criteria.enum';
 
 @Entity('disocunt_criteria')
 export class discountCriteria {
@@ -20,7 +17,7 @@ export class discountCriteria {
   @ManyToOne(() => UserSegment, (userSegment) => userSegment.membersCriteria, {
     onDelete: 'CASCADE',
   })
-   userSegment: UserSegment;
+  userSegment: UserSegment;
 
   @Column()
   rules: DiscountRule;

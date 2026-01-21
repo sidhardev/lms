@@ -1,4 +1,10 @@
-import { Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Segment } from './segment.enity';
 import { MembersCriteria } from './members-criteria.entity';
 import { discountCriteria } from './discount-criteria.entity';

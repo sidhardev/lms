@@ -74,14 +74,13 @@ export class CreatePromotionDto {
   @IsNumber()
   maxDiscount: number;
 
-
-   @ApiProperty({
-      type: [CreateCampaignNotificationDto],
-      description: 'Notification configurations for this campaign',
-    })
-    @IsOptional()
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => CreateCampaignNotificationDto)
-    notifications: CreateCampaignNotificationDto[];
+  @ApiProperty({
+    type: [CreateCampaignNotificationDto],
+    description: 'Notification configurations for this campaign',
+  })
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateCampaignNotificationDto)
+  notifications: CreateCampaignNotificationDto[];
 }

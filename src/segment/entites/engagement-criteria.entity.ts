@@ -1,10 +1,8 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
+   ManyToOne,
+   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserSegment } from './user_segment.entity';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';

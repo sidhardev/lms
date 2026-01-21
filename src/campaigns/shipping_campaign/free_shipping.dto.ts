@@ -38,7 +38,7 @@ export class CreateFreeShippingDto {
   })
   description: string;
 
-  @ApiProperty({example: 'DRAFT'})
+  @ApiProperty({ example: 'DRAFT' })
   @IsEnum(CampaignStatus)
   status: CampaignStatus;
 
@@ -68,8 +68,6 @@ export class CreateFreeShippingDto {
   })
   @IsOptional()
   metadata: Record<string, any>;
-
-
 
   @ApiProperty({
     example: ShippingMethod.STANDARD_SHIPPING,

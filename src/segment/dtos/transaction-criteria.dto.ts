@@ -4,15 +4,12 @@ import {
   IsEnum,
   IsNumber,
   IsOptional,
-  IsString,
-} from 'class-validator';
+ } from 'class-validator';
 import { ComparisonOperator } from '../enums/segment-opretaors.enum';
 import { conditions } from '../enums/comparison.enum';
 import { TransactionRules } from '../enums/transaction-rule.enum';
 
 export class CreateTransactionCriteriaDto {
-   
-
   @ApiPropertyOptional({ example: TransactionRules.TOTAL_AMOUNT_SPEND })
   @IsEnum(TransactionRules)
   rule: TransactionRules;

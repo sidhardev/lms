@@ -1,11 +1,8 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
+   ManyToOne,
+    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductSegment } from './product_segment.entity';
 import { ProductInteractionRule } from '../enums/product-interaction.enum';
@@ -22,7 +19,7 @@ export class ProductInteraction {
       onDelete: 'CASCADE',
     },
   )
-   ProductSegment: ProductSegment;
+  ProductSegment: ProductSegment;
 
   @Column()
   rule: ProductInteractionRule;

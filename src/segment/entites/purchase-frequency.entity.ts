@@ -1,11 +1,8 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
+   ManyToOne,
+   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductSegment } from './product_segment.entity';
 import { PurchaseFrequencyRule } from '../enums/purchase-frequency.enum';
@@ -22,7 +19,7 @@ export class PurchaseFrequency {
       onDelete: 'CASCADE',
     },
   )
-   ProductSegment: ProductSegment;
+  ProductSegment: ProductSegment;
 
   @Column()
   rule: PurchaseFrequencyRule;
