@@ -174,30 +174,6 @@ Segments based on inventory and product characteristics:
 - Promotions
 - General campaign communications
 
-#### Use Cases:
-- Alert customers when a new promotion is available
-- Send push notifications about loyalty points expiration
-- Email reminders for ongoing campaigns
-- In-app notifications for real-time campaign updates
-- Personalized notifications based on segment eligibility
-
----
-
-### 5. **Shipping Campaign Management**
-
-**Purpose:** Manage free shipping and other shipping-related promotions
-
-**Features:**
-- **Free Shipping Campaigns**
-  - Define eligible locations (countries, states, cities)
-  - Minimum order thresholds
-  - Time-based validity
-
-**Use Cases:**
-- Offer free shipping for orders above $50 in specific regions
-- Regional free shipping promotions during holidays
-- Free shipping for specific customer segments or loyalty members
-- Restrict free shipping to certain geographic areas
 
 ---
 
@@ -350,21 +326,5 @@ This LMS system is designed to integrate with:
 - **Analytics Platform:** For tracking campaign performance and ROI
 
 ---
-
-## 📚 Key Concepts for Non-Technical Users
-
-- **Campaign:** A marketing initiative with specific rules and rewards
-- **Loyalty Program:** A rewards system where customers earn points and redeem them
-- **Segment:** A group of customers with similar characteristics or behaviors
-- **Promotion:** A limited-time offer targeting specific customer groups
-- **Discount:** A price reduction offered to customers
-- **Coupon:** A code that customers use to apply a discount
-- **Free Shipping:** Offering to deliver products without additional shipping charges
-- **Notification:** A message sent to customers about campaigns or updates
-- **JWT Token:** A secure pass that proves a user is authenticated
-- **OTP:** A temporary security code sent to verify someone's email
-
----
-
 **Version:** 1.0  
-**Last Updated:** January 21, 2026
+**Last Updated:** January 22, 2026
