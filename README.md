@@ -326,21 +326,5 @@ This LMS system is designed to integrate with:
 - **Analytics Platform:** For tracking campaign performance and ROI
 
 ---
-
-## 📚 Key Concepts for Non-Technical Users
-
-- **Campaign:** A marketing initiative with specific rules and rewards
-- **Loyalty Program:** A rewards system where customers earn points and redeem them
-- **Segment:** A group of customers with similar characteristics or behaviors
-- **Promotion:** A limited-time offer targeting specific customer groups
-- **Discount:** A price reduction offered to customers
-- **Coupon:** A code that customers use to apply a discount
-- **Free Shipping:** Offering to deliver products without additional shipping charges
-- **Notification:** A message sent to customers about campaigns or updates
-- **JWT Token:** A secure pass that proves a user is authenticated
-- **OTP:** A temporary security code sent to verify someone's email
-
----
-
 **Version:** 1.0  
-**Last Updated:** January 21, 2026
+**Last Updated:** January 22, 2026
