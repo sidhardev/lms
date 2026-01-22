@@ -174,6 +174,30 @@ Segments based on inventory and product characteristics:
 - Promotions
 - General campaign communications
 
+#### Use Cases:
+- Alert customers when a new promotion is available
+- Send push notifications about loyalty points expiration
+- Email reminders for ongoing campaigns
+- In-app notifications for real-time campaign updates
+- Personalized notifications based on segment eligibility
+
+---
+
+### 5. **Shipping Campaign Management**
+
+**Purpose:** Manage free shipping and other shipping-related promotions
+
+**Features:**
+- **Free Shipping Campaigns**
+  - Define eligible locations (countries, states, cities)
+  - Minimum order thresholds
+  - Time-based validity
+
+**Use Cases:**
+- Offer free shipping for orders above $50 in specific regions
+- Regional free shipping promotions during holidays
+- Free shipping for specific customer segments or loyalty members
+- Restrict free shipping to certain geographic areas
 
 ---
 
