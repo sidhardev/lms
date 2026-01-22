@@ -55,7 +55,6 @@ import { ShippingCampaignModule } from './campaigns/shipping_campaign/shipping_c
   ],
   controllers: [
     AppController,
-    CampaignsController,
     LoyaltyProgramController,
     NotificationsController,
   ],

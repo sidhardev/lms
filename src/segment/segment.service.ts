@@ -183,6 +183,11 @@ export class SegmentService {
       order: {
         id: 'ASC',
       },
+      relations: {
+        UserSegment: {
+          membersCriteria: true
+        }
+      },
 
       skip: (page - 1) * limit,
       take: limit,

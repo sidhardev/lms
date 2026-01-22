@@ -24,7 +24,7 @@ import { Campaigns } from '../campaign.entity';
     LoyaltyProgramModule,
   ],
   providers: [CampaignsService],
-  controllers: [CampaignsController /*, ShippingCampaignController */],
+  controllers: [CampaignsController],
   exports: [CampaignsService],
 })
 export class CampaignsModule {}
