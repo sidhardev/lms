@@ -41,28 +41,28 @@ The Loyalty Management System is a comprehensive backend API built with NestJS t
 
 ### 2. **Campaign Management**
 
-The system supports three main types of campaigns:
+The system supports two main types of campaigns:
 
 #### **A. Discount Coupon Campaigns**
 
 **Purpose:** Provide discounts on customer orders using coupon codes or automatic rules
 
 **Sub-types:**
-1. **Order Discounts** - Apply discounts to entire orders based on specific rules
-2. **Free Shipping** - Offer free shipping for qualifying orders
+1. **Order Discounts** 
+2. **Free Shipping** 
 
 **Discount Rules Available:**
-- **Whole Cart Discount** - Apply discount to the entire cart value
-- **Bulk Purchase Discount** - Offer discounts when customers buy a minimum quantity
-- **Category-Based Discount** - Discount specific product categories
-- **Product Discount** - Discount specific products
-- **Brand Discount** - Discount specific brands
-- **Custom Cart Total** - Apply discount based on custom cart total thresholds
+- **Whole Cart Discount** 
+- **Bulk Purchase Discount** 
+- **Category-Based Discount** 
+- **Product Discount** 
+- **Brand Discount** 
+- **Custom Cart Total** 
 
 **Configuration Options:**
-- **Discount Type:** Percentage-based or Fixed Amount
-- **Maximum Uses:** Limited or unlimited redemptions
-- **Redemption Type:** Apply instantly or on next order
+- **Discount Type:** 
+- **Maximum Uses:** 
+- **Redemption Type:** 
 - **User Eligibility:** 
   - New users only
   - Existing/old users
@@ -75,16 +75,8 @@ The system supports three main types of campaigns:
 - **Geographic Restrictions:** Target by country, state, or city
 - **Notifications:** Send campaign notifications via multiple channels
 
-**Status Management:** Draft → Active → Paused → Expired
+**Status Management:** Active or Inactive
 
-#### Use Cases:
-- Run Black Friday/Cyber Monday sales with percentage-off coupons
-- Encourage bulk purchases with tiered discounts ("Buy 5+ items, get 20% off")
-- Offer free shipping on orders above a certain amount
-- Target specific customer segments with personalized discounts
-- Test campaigns in draft mode before activation
-- Pause campaigns during holidays or when stock is low
-- Restrict discounts to specific regions or only new customers
 
 ---
 
@@ -119,102 +111,44 @@ The system supports three main types of campaigns:
 - Campaign start and end dates
 - Notifications about program status and changes
 
-#### Use Cases:
-- Create a tiered loyalty program where customers earn more points for purchases in premium categories
-- Encourage daily app engagement through login-streak rewards
-- Offer first-purchase bonus points to new customers
-- Set different earning rates for different product categories to boost sales of specific items
-- Maintain customer engagement through daily login incentives
 
 ---
 
-#### **C. Promotions**
-
-**Purpose:** Time-limited promotional offers targeted to specific customer segments
-
-**Features:**
-- **Campaign Duration:** Define start and end dates
-- **Target Segments:** Apply to specific customer segments
-- **Discount Options:**
-  - Percentage discount (0-100%)
-  - Fixed amount discount
-  - Maximum discount cap
-- **Notifications:** Send notification alerts when promotions start/end or have status changes
-- **Segment-Specific Targeting:** Different promotions for different customer groups
-
-#### Use Cases:
-- VIP customers get exclusive promotions before general public
-- Different promotions for high-value vs. budget-conscious customers
-- Seasonal promotions targeting specific customer segments
-- Flash sales with limited-time high discounts to specific segments
-
----
 
 ### 3. **Customer Segmentation**
 
 **Purpose:** Group customers based on specific criteria for targeted marketing
 
-#### **User Segments**
+#### **User Segments and Product Segments**
 
 Segments based on customer behavior and characteristics:
 
+#### **User Segments**
+
 **Membership Criteria:**
-- Registration date ranges
-- Membership tier/level
-- Total lifetime value
-- Account status
 
 **Engagement Criteria:**
-- Purchase frequency
-- Last purchase date
-- Email open rates
-- Click-through rates
-- App usage metrics
 
 **Discount Criteria:**
-- Average discount per transaction
-- Total discounts used
-- Coupon redemption frequency
 
 **Transaction Criteria:**
-- Average order value
-- Total orders placed
-- Average transaction frequency
-- Cart abandonment rate
-- Return frequency
+
+---
 
 #### **Product Segments**
 
 Segments based on inventory and product characteristics:
 
 **Stock Level Categories:**
-- High stock items
-- Low stock items (for promotional clearance)
-- Out of stock items
+
 
 **Purchase Frequency by Product:**
-- Best sellers
-- Slow-moving products
-- Seasonal items
+
 
 **Price-Based Categories:**
-- Budget products
-- Mid-range products
-- Premium products
 
 **Product Interaction:**
-- Most viewed products
-- Most wishlisted products
-- High conversion items
 
-#### Use Cases:
-- Identify high-value customers and offer them exclusive loyalty programs
-- Target customers who haven't purchased in 90 days with win-back discounts
-- Segment by average order value to apply appropriate discounts
-- Identify at-risk customers (declining purchase frequency) for retention campaigns
-- Create promotions for slow-moving inventory
-- Target budget-conscious customers with deals on affordable items
-- Encourage repeat purchases from occasional buyers with tiered discounts
 
 ---
 
@@ -239,16 +173,6 @@ Segments based on inventory and product characteristics:
 - Loyalty programs
 - Promotions
 - General campaign communications
-
-#### Use Cases:
-- Alert customers when a new promotion is available
-- Send push notifications about loyalty points expiration
-- Email reminders for ongoing campaigns
-- In-app notifications for real-time campaign updates
-- Personalized notifications based on segment eligibility
-
----
-
 
 
 ---
@@ -286,11 +210,6 @@ Segments based on inventory and product characteristics:
 ### Notifications
 - `GET /notifications` - Get notification endpoints
 
-### Shipping
-- `GET /shipping-campaign` - Get shipping campaigns
-- `PATCH /shipping-campaign/:id/status` - Update shipping campaign status
-- `DELETE /shipping-campaign/:id` - Delete shipping campaign
-
 ---
 
 ## 🔧 Technical Stack
@@ -300,7 +219,7 @@ Segments based on inventory and product characteristics:
 - **Authentication:** JWT (JSON Web Tokens) with Passport.js
 - **Email Service:** Nodemailer (for sending OTPs and password reset emails)
 - **Validation:** class-validator and class-transformer
-- **API Documentation:** Swagger/OpenAPI
+- **API Documentation:** Swagger
 - **Password Encryption:** Crypto library with scrypt hashing
 
 ---
@@ -325,33 +244,6 @@ src/
 
 ---
 
-## 💡 Business Use Cases
-
-### 1. **E-Commerce Platform**
-- Create discount campaigns to drive sales during peak seasons
-- Build customer loyalty programs to increase repeat purchases
-- Segment customers by purchase history to send targeted promotions
-- Offer free shipping to incentivize higher order values
-
-### 2. **Retail Business**
-- Category-specific discounts to promote specific products
-- VIP loyalty program with higher point redemption rates
-- Segment-based flash sales for different customer types
-- Regional promotions with geographic restrictions
-
-### 3. **Subscription Service**
-- First-purchase bonus points to encourage sign-ups
-- Daily login streak rewards to increase platform engagement
-- Tier-based promotions for different subscription levels
-- Win-back campaigns for inactive subscribers
-
-### 4. **Marketplace**
-- Seller-specific discount campaigns
-- Seasonal promotions tied to festivals or holidays
-- Customer segments based on product category preferences
-- Multi-segment promotions reaching different buyer personas
-
----
 
 ## 🚀 Getting Started
 
@@ -397,30 +289,6 @@ Once the server is running, access the Swagger API documentation at:
 http://localhost:3000/api
 ```
 
----
-
-## 📊 Data Models
-
-### User
-- ID, First Name, Last Name, Email, Password, Role, Reset Token (for password recovery)
-
-### Campaign
-- Campaign ID, Name, Description, Type (Loyalty/Discount/Free Shipping), Status, Start Date, End Date
-
-### Discount Campaign
-- Campaign ID, Discount Type, Discount Amount/Percentage, Max Discount, Max Uses, Redemption Type, User Eligibility, Geographic Restrictions
-
-### Loyalty Program
-- Campaign ID, Valid Days, Validity Hours, Accumulation Rules, Point Values
-
-### Promotion
-- Promotion ID, Name, Date Range, Target Segments, Discount Details, Notifications
-
-### Segment
-- Segment ID, Name, Description, Type (User/Product), Criteria (Members/Engagement/Discount/Transaction)
-
-### Notification
-- Notification ID, Channel (Email/SMS/Push), Title, Body, CTA Details, Associated Campaign
 
 ---
 
