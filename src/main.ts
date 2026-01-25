@@ -6,6 +6,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { TransformInterceptor } from './interceptors/transform-interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -13,7 +14,7 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
-   app.useGlobalPipes(
+  app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
@@ -21,7 +22,9 @@ async function bootstrap() {
     }),
   );
 
-   const config = new DocumentBuilder()
+  app.useGlobalInterceptors(new TransformInterceptor());
+
+  const config = new DocumentBuilder()
     .setTitle('Loyalty Management System API')
     .setDescription('API documentation for Loyalty Management System')
     .setVersion('1.0')
@@ -39,7 +42,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-   app.enableCors();
+  app.enableCors();
 
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
