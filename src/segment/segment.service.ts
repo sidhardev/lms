@@ -185,8 +185,8 @@ export class SegmentService {
       },
       relations: {
         UserSegment: {
-          membersCriteria: true,
-        },
+          membersCriteria: true
+        }
       },
 
       skip: (page - 1) * limit,
