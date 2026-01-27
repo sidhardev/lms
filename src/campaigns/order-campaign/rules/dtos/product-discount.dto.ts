@@ -22,7 +22,7 @@ export class ProductDiscountValidation implements ValidatorConstraintInterface {
     return true;
   }
 
-  defaultMessage(args: ValidationArguments): string {
+  defaultMessage(): string {
     return 'segments field is required and must contain at least one product segment with discount details (segmentName, percentage, minOrderValue, maxDiscount)';
   }
 }

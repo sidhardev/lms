@@ -1,5 +1,4 @@
-import { IsEnum, IsOptional } from 'class-validator';
-import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
+import { IsOptional } from 'class-validator';
 import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
 import {
@@ -17,7 +16,6 @@ import { WholeCart } from './whole-cart.entity';
 import { BulkPurchase } from './bulk-purchase.entity';
 import { CategoryDiscount } from './category-discount.entity';
 import { recurringCycle, recurringValidDays } from '../../enums/campaign.enums';
-import { campaignType } from '../../enums/campaign-type.enum';
 import { Campaigns } from '../../campaign.entity';
 
 export enum DiscountType {

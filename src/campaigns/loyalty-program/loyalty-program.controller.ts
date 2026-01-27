@@ -18,7 +18,7 @@ import { LoyaltyProgram } from './entities/loyalty-program.entity';
 export class LoyaltyProgramController {
   constructor(private readonly loyaltyProgramService: LoyaltyProgramService) {}
 
-  @Post('create')
+  // @Post('create')
   @ApiCreatedResponse({
     description: 'Loyalty program created successfully',
     type: LoyaltyProgram,
@@ -29,7 +29,7 @@ export class LoyaltyProgramController {
     return this.loyaltyProgramService.create(createLoyaltyProgramDto);
   }
 
-  @Get()
+  // @Get()
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   findAll(
@@ -39,7 +39,7 @@ export class LoyaltyProgramController {
     return this.loyaltyProgramService.findAll(page, limit);
   }
 
-  @Delete(':id')
+  // @Delete(':id')
   deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.loyaltyProgramService.deleteById(id);
   }

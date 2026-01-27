@@ -4,7 +4,6 @@ import * as nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import * as dotenv from 'dotenv';
 import { JwtService } from '@nestjs/jwt';
-import { JwtModule } from '@nestjs/jwt';
 dotenv.config();
 
 @Injectable()

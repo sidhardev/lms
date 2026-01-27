@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Body } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { SendMailDto } from './dtos/send-mail.dto';
 import { VerifyOtpDto } from './dtos/verify-otp.dto';

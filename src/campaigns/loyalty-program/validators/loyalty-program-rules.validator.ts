@@ -14,7 +14,7 @@ import { CategoryBasedDto } from '../dtos/category-based.dto';
 @ValidatorConstraint({ name: 'isLoyaltyProgramRule', async: true })
 export class IsLoyaltyProgramRule implements ValidatorConstraintInterface {
   private message: string;
-  async validate(rule: any, args: ValidationArguments) {
+  async validate(rule: any) {
     this.message = '';
     if (!rule || typeof rule !== 'object' || !rule.ruleType) {
       return false;

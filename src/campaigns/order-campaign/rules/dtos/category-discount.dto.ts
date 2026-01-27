@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsArray,
   IsBoolean,
-  IsNumber,
   IsEnum,
   IsNotEmpty,
   ValidatorConstraint,
@@ -24,7 +22,7 @@ export class CategoryDiscountValidation implements ValidatorConstraintInterface 
     return true;
   }
 
-  defaultMessage(args: ValidationArguments): string {
+  defaultMessage(): string {
     return 'categories field is required and must contain at least one category with discount details (categoryName, percentage, minOrderValue, maxDiscount)';
   }
 }

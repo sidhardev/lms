@@ -13,7 +13,7 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
-   app.useGlobalPipes(
+  app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
 
-   const config = new DocumentBuilder()
+  const config = new DocumentBuilder()
     .setTitle('Loyalty Management System API')
     .setDescription('API documentation for Loyalty Management System')
     .setVersion('1.0')
@@ -34,12 +34,17 @@ async function bootstrap() {
       },
       'access-token',
     )
+
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      tagsSorter: 'alpha',
+    },
+  });
 
-   app.enableCors();
+  app.enableCors();
 
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }

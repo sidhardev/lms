@@ -3,14 +3,12 @@ import {
   IsBoolean,
   IsEnum,
   IsNotEmpty,
-  ValidateNested,
   ValidatorConstraint,
   ValidatorConstraintInterface,
   ValidationArguments,
   Validate,
 } from 'class-validator';
 import { DiscountMode, RuleType } from '../rules.enum';
-import { Type } from 'class-transformer';
 
 @ValidatorConstraint({ name: 'brandDiscountValidation', async: false })
 export class BrandDiscountValidation implements ValidatorConstraintInterface {
@@ -24,7 +22,7 @@ export class BrandDiscountValidation implements ValidatorConstraintInterface {
     return true;
   }
 
-  defaultMessage(args: ValidationArguments): string {
+  defaultMessage(): string {
     return 'brands field is required and must contain at least one brand with discount details (brandName, percentage, minOrderValue, maxDiscount)';
   }
 }

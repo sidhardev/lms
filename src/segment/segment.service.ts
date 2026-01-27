@@ -178,15 +178,15 @@ export class SegmentService {
     }
   }
 
-  getAll(page: number, limit: number) {
-    return this.segmentRepository.find({
+  async getAll(page: number, limit: number) {
+    return await this.segmentRepository.find({
       order: {
         id: 'ASC',
       },
       relations: {
         UserSegment: {
-          membersCriteria: true
-        }
+          membersCriteria: true,
+        },
       },
 
       skip: (page - 1) * limit,

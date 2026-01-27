@@ -9,28 +9,19 @@ import {
   Patch,
   Post,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 import {
-  ApiBearerAuth,
   ApiCreatedResponse,
   ApiExtraModels,
   ApiOperation,
   ApiParam,
   ApiQuery,
-  ApiTags,
 } from '@nestjs/swagger';
-import { AdminGuard } from 'src/auth/guards/admin-guard';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CampaignsService } from './disocunt-campaign.service';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { UpdateCampaignStatusDto } from './dtos/update-campaign-status.dto';
-import {
-  CampaignStatus,
-  DiscountType,
-} from './entites/discount-campaign.entity';
+import { DiscountType } from './entites/discount-campaign.entity';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
-import { CreateFreeShippingDto } from '../shipping_campaign/free_shipping.dto';
 import { LoyaltyProgram } from '../loyalty-program/entities/loyalty-program.entity';
 import { CreateLoyaltyProgramDto } from '../loyalty-program/dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from '../loyalty-program/loyalty-program.service';
@@ -44,7 +35,6 @@ import { PointsPerRupeeDto } from '../loyalty-program/dtos/points-per-ruppee.dto
 import { FirstPurchasePointsDto } from '../loyalty-program/dtos/first_purchase.dto';
 import { DailyLoginStreakDto } from '../loyalty-program/dtos/daily-streak-login.dto';
 import { CategoryBasedDto } from '../loyalty-program/dtos/category-based.dto';
-import { updateCampaignDto } from './dtos/update-order-campaign.dto';
 
 @Controller()
 // @UseGuards(JwtAuthGuard, AdminGuard)

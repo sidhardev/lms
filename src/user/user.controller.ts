@@ -4,7 +4,6 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from './user.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UseGuards } from '@nestjs/common';
-import { MailService } from 'src/mail/mail.service';
 import { VerifyOtpDto } from 'src/mail/dtos/verify-otp.dto';
 import { SendMailDto } from 'src/mail/dtos/send-mail.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -48,7 +47,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Post('/signup')
   async createUser(@Body() createUserDto: CreateUserDto, @Req() req: any) {
-    const otpVerified = req.user?.otpVerified;
+    const otpVerified: boolean = req.user?.otpVerified;
     if (!otpVerified) {
       throw new UnauthorizedException('OTP not verified');
     }

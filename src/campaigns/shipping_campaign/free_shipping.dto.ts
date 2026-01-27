@@ -3,17 +3,13 @@ import {
   IsBoolean,
   IsDateString,
   IsEnum,
-  IsJSON,
   IsNumber,
   IsOptional,
   IsString,
   Min,
-  ValidateNested,
 } from 'class-validator';
 import { ShippingMethod } from '../enums/shipping_method.enum';
 import { ApiProperty } from '@nestjs/swagger';
-import { EligibleLocationDto } from './eligible_locations.dto';
-import { Type } from 'class-transformer';
 import {
   DiscountType,
   redemptionType,
@@ -22,7 +18,6 @@ import {
   userEligiblity,
   CampaignStatus,
 } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
-import { CouponType } from 'src/campaigns/enums/coupon-type.enum';
 
 export class CreateFreeShippingDto {
   @IsString()
