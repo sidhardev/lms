@@ -237,18 +237,8 @@ export class SegmentService {
         id,
       },
       relations: {
-        UserSegment: {
-          membersCriteria: true,
-          engagementCriteria: true,
-          discountCriteria: true,
-          transactionCriteria: true,
-        },
-        ProductSegment: {
-          productInteraction: true,
-          stockLevel: true,
-          purchaseFrequency: true,
-          priceBased: true,
-        },
+        UserSegment: true,
+        ProductSegment: true,
       },
       order: {
         id: 'ASC',

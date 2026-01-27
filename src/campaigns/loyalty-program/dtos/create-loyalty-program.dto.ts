@@ -12,7 +12,6 @@ import {
   CampaignStatus,
   recurringValidDays,
 } from '../../order-campaign/entites/discount-campaign.entity';
-import { AccumulationRuleType } from '../../enums/points.enum';
 import { CategoryBasedDto } from './category-based.dto';
 import { DailyLoginStreakDto } from './daily-streak-login.dto';
 import { FirstPurchasePointsDto } from './first_purchase.dto';

@@ -11,7 +11,6 @@ export class MailService {
   private transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
 
   constructor(
-    private configService: ConfigService,
     private jwtService: JwtService,
   ) {
     this.transporter = nodemailer.createTransport(
@@ -28,7 +27,7 @@ export class MailService {
   }
 
   private storeOTP = new Map<string, number>();
-  private verifiedEmails = new Set<string>(); // Add this line
+  private verifiedEmails = new Set<string>();
 
   async sendOtp(email: string) {
     const otp = Math.floor(100000 + Math.random() * 900000);
@@ -270,7 +269,6 @@ export class MailService {
     });
   }
 
-  // Add this new method
   isOtpVerified(email: string): boolean {
     return this.verifiedEmails.has(email);
   }

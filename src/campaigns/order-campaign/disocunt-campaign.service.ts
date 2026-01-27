@@ -89,7 +89,7 @@ export class CampaignsService {
     return this.CampaignRepository.save(campaign);
   }
 
-  async findAll(page, limit) {
+  async findAll(page:number, limit:number) {
     const campaign = await this.parentCampaignRepository.find({
       skip: (page - 1) * limit,
       take: limit,
@@ -117,7 +117,6 @@ export class CampaignsService {
     return this.CampaignRepository.save(campaign);
   }
   async findActive() {
-    const now = new Date();
     return this.CampaignRepository.find({
       where: { status: CampaignStatus.ACTIVE },
     });
