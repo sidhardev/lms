@@ -220,6 +220,13 @@ export class CreateCampaignDto {
   userEligiblity?: userEligiblity;
 
   @ApiProperty({
+    example: [1, 3, 4],
+  })
+  @IsOptional()
+  segments: number[];
+
+
+  @ApiProperty({
     example: true,
     description: 'Whether the campaign has recurring validity',
     required: false,

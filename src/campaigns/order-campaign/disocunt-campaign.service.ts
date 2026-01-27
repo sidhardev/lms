@@ -34,13 +34,13 @@ export class CampaignsService {
 
     const campaign = this.CampaignRepository.create({
       useItAsCoupon: CreateCampaignDto.useItAsCoupon,
-
       status: CampaignStatus.DRAFT,
       discountType: CreateCampaignDto.discountType,
       maxUses: CreateCampaignDto.maxUses,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
       redemptionType: CreateCampaignDto.redemptionType,
       userEligiblity: CreateCampaignDto.userEligiblity,
+      segments: CreateCampaignDto.segments,
       recurringValidity: CreateCampaignDto.recurringValidity,
       recurringCycle: CreateCampaignDto.recurringCycle,
       recurringValidDays: CreateCampaignDto.recurringValidDays,
