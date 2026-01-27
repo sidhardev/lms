@@ -103,11 +103,6 @@ export class campaign {
   @Column()
   userEligiblity: userEligiblity;
 
-  @Column({nullable: true,
-    type: 'simple-array'
-  })
-  segments: number[];
-
   @Column({ nullable: true })
   recurringValidity: boolean;
 

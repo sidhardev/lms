@@ -146,13 +146,6 @@ export class CreateFreeShippingDto {
   @IsEnum(userEligiblity)
   userEligiblity?: userEligiblity;
 
-
-  @ApiProperty({
-    example: [1,5,6]
-  })
-  @IsOptional()
-  segments: number[]
-
   @ApiProperty({
     example: true,
     description: 'Whether the campaign has recurring validity',

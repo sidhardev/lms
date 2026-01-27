@@ -38,7 +38,6 @@ export class ShippingCampaignService {
       unlimitedUses: CreateCampaignDto.unlimitedUses,
       redemptionType: CreateCampaignDto.redemptionType,
       userEligiblity: CreateCampaignDto.userEligiblity,
-      segments: CreateCampaignDto.segments,
       recurringValidity: CreateCampaignDto.recurringValidity,
       recurringCycle: CreateCampaignDto.recurringCycle,
       recurringValidDays: CreateCampaignDto.recurringValidDays,
