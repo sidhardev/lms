@@ -14,6 +14,7 @@ import { ProductInteraction } from './entites/product-interaction.entity';
 import { PurchaseFrequency } from './entites/purchase-frequency.entity';
 import { StockLevel } from './entites/stock-level.entity';
 import { ParentSegment } from './entites/segment.entity';
+import { AdvancedSegment } from './entites/advance-segment.entity';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { ParentSegment } from './entites/segment.entity';
       ProductInteraction,
       PurchaseFrequency,
       StockLevel,
-      ParentSegment
+      ParentSegment,
+      AdvancedSegment
     ]),
   ],
   controllers: [SegmentController],

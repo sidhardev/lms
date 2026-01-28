@@ -15,7 +15,9 @@ export class AdvancedSegment {
     @Column()
     inclusion_status: inclusion_status;
 
-    @Column()
-    selectedSegment: string[];
+    @Column({
+        type: 'simple-array'
+    })
+    selectedSegment: number[];
     
 }

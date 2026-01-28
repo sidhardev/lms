@@ -21,6 +21,7 @@ import { CreateStockLevelDto } from './stock-level.dto';
 import { CreatePurchaseFrequencyDto } from './purchase-frequency.dto';
 import { CreatePriceBasedDto } from './price-based.dto';
 import { SegmentType } from '../enums/segment-type.enum';
+import { inclusion_status } from '../enums/inclusion_status.enum';
 
 export class CreateSegmentDto {
   @ApiProperty({
@@ -43,6 +44,7 @@ export class CreateSegmentDto {
     example: SegmentType
   }
   )
+  @IsEnum(SegmentType)
   segmentType: SegmentType
 
 
@@ -51,6 +53,7 @@ export class CreateSegmentDto {
     example: BasicSegmentType,
   })
   @IsEnum(BasicSegmentType)
+  @IsOptional()
   BasicSegmentType: BasicSegmentType;
 
   @ApiProperty({
@@ -132,4 +135,13 @@ export class CreateSegmentDto {
   @ValidateNested({ each: true })
   @Type(() => CreatePriceBasedDto)
   priceBased: CreatePriceBasedDto[];
+
+
+   @IsEnum(inclusion_status)
+    @IsOptional()
+      inclusion_status: inclusion_status;
+  
+       @IsOptional()
+      selectedSegment: number[];
+
 }

@@ -12,7 +12,6 @@ import {
 import { CreateSegmentDto } from './dtos/create-basic-segment.dto';
 import { SegmentService } from './segment.service';
 import { ApiQuery } from '@nestjs/swagger';
-import { CreateParentSegmentDto } from './dtos/create-parent-segment.dto';
 
 @Controller('segment')
 export class SegmentController {
@@ -23,10 +22,6 @@ export class SegmentController {
     return this.segmentService.create(createSegmentDto);
   }
 
-  @Post('/create-parent')
-  createParent(@Body() createParentSegmentDto: CreateParentSegmentDto) {
-    return this.segmentService.createParentSegment(createParentSegmentDto);
-  }
 
   @Get('/get')
   @ApiQuery({ name: 'page', required: false, type: Number })

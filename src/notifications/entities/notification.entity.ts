@@ -21,12 +21,14 @@ export class CampaignNotification {
     onDelete: 'CASCADE',
     nullable: true,
   })
+  @JoinColumn()
   campaign?: campaign;
 
   @ManyToOne(() => Promotion, (promotion) => promotion.notifications, {
     onDelete: 'CASCADE',
     nullable: true,
   })
+  @JoinColumn()
   promotion?: Promotion;
 
   @OneToOne(

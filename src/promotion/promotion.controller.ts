@@ -19,7 +19,7 @@ import { ApiQuery } from '@nestjs/swagger';
 export class PromotionController {
   constructor(private readonly promotionService: PromotionService) {}
 
-  @Post()
+  @Post('/create')
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() createPromotionDto: CreatePromotionDto) {
     return this.promotionService.create(createPromotionDto);

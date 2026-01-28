@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { Segment } from './entites/basic-segment.enity';
 import { UserSegment } from './entites/user_segment.entity';
@@ -17,11 +17,9 @@ import { PurchaseFrequency } from './entites/purchase-frequency.entity';
 import { PriceBased } from './entites/price-based.entity';
 
 import { CreateSegmentDto } from './dtos/create-basic-segment.dto';
-import { CreateAdvancedSegmentDto } from './dtos/creat-advance-segment.dto';
 import { AdvancedSegment } from './entites/advance-segment.entity';
 import { BasicSegmentType } from './enums/segementType.enum';
 import { ParentSegment } from './entites/segment.entity';
-import { CreateParentSegmentDto } from './dtos/create-parent-segment.dto';
 import { SegmentType } from './enums/segment-type.enum';
 
 @Injectable()
@@ -32,6 +30,9 @@ export class SegmentService {
 
     @InjectRepository(ParentSegment)
     private readonly parentSegmentRepo: Repository<ParentSegment>,
+
+    @InjectRepository(AdvancedSegment)
+    private readonly AdvancedSegmentRepo: Repository<AdvancedSegment>,
 
     @InjectRepository(UserSegment)
     private readonly userSegmentRepository: Repository<UserSegment>,
@@ -65,9 +66,10 @@ export class SegmentService {
   ) {}
 
   async create(dto: CreateSegmentDto) {
+
+    if (dto.segmentType !== SegmentType.BASIC_SEGMENT) {return this.CreateAdvancedSegment(dto)}
     this.validateSegmentType(dto);
 
-    // Create parent segment first
     const parentSegment = this.parentSegmentRepo.create({
       name: dto.name,
       descriptiton: dto.description,
@@ -76,7 +78,6 @@ export class SegmentService {
 
     const savedParentSegment = await this.parentSegmentRepo.save(parentSegment);
 
-    // Create basic segment linked to parent
     const segment = this.segmentRepository.create({
       segmentType: dto.BasicSegmentType,
       ParentSegment: savedParentSegment,
@@ -94,19 +95,9 @@ export class SegmentService {
 
     return {
       parentSegment: savedParentSegment,
-      basicSegment: savedSegment,
     };
   }
 
-  async createParentSegment(dto: CreateParentSegmentDto) {
-    const parentSegment = this.parentSegmentRepo.create({
-      name: dto.name,
-      descriptiton: dto.description,
-      segmentType: SegmentType.BASIC_SEGMENT,
-    });
-
-    return await this.parentSegmentRepo.save(parentSegment);
-  }
 
   private async createUserSegment(dto: CreateSegmentDto, segment: Segment) {
     const userSegment = await this.userSegmentRepository.save(
@@ -209,14 +200,28 @@ export class SegmentService {
     }
   }
 
-  createAdvanceSegment(dto: CreateAdvancedSegmentDto) {
-     const AdvanceSegment = new AdvancedSegment();
-     AdvanceSegment.inclusion_status = dto.inclusion_status;
-     AdvanceSegment.selectedSegment = dto.selectedSegment;
+  async CreateAdvancedSegment(dto: CreateSegmentDto) {
+    const parentSegment = this.parentSegmentRepo.create({
+      name: dto.name,
+      descriptiton: dto.description,
+      segmentType: SegmentType.ADVANCED_SEGMENT,
+    });
 
-    
-     
+    const savedParentSegment = await this.parentSegmentRepo.save(parentSegment);
+
+    await this.AdvancedSegmentRepo.save(
+      this.AdvancedSegmentRepo.create({
+        inclusion_status: dto.inclusion_status,
+        selectedSegment: dto.selectedSegment,
+        ParentSegment: savedParentSegment,
+      })
+    );
+
+    return {
+      savedParentSegment
+    }
   }
+
 
   async getAll(page: number, limit: number) {
     return await this.parentSegmentRepo.find({
