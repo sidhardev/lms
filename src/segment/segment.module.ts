@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Segment } from './entites/segment.enity';
+import { Segment } from './entites/basic-segment.enity';
 import { SegmentService } from './segment.service';
 import { SegmentController } from './segment.controller';
 import { discountCriteria } from './entites/discount-criteria.entity';
@@ -13,6 +13,7 @@ import { PriceBased } from './entites/price-based.entity';
 import { ProductInteraction } from './entites/product-interaction.entity';
 import { PurchaseFrequency } from './entites/purchase-frequency.entity';
 import { StockLevel } from './entites/stock-level.entity';
+import { ParentSegment } from './entites/segment.entity';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { StockLevel } from './entites/stock-level.entity';
       ProductInteraction,
       PurchaseFrequency,
       StockLevel,
+      ParentSegment
     ]),
   ],
   controllers: [SegmentController],

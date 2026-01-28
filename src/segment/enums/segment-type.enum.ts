@@ -1,0 +1,4 @@
+export enum SegmentType {
+    BASIC_SEGMENT = 'BASIC_SEGMENT',
+    ADVANCED_SEGMENT = "ADVANCED_SEGMENT"
+}

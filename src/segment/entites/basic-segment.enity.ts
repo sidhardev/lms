@@ -2,30 +2,31 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { segmentType } from '../enums/segementType.enum';
 import { UserSegment } from './user_segment.entity';
 import { ProductSegment } from './product_segment.entity';
+import { BasicSegmentType } from '../enums/segementType.enum';
+import { ParentSegment } from './segment.entity';
 
-@Entity()
+@Entity('basic-segment')
 export class Segment {
-  @PrimaryGeneratedColumn()
-  id: number;
+@PrimaryGeneratedColumn()
+id: number;
 
-  @Column()
-  name: string;
-
-  @Column()
-  description: string;
+@OneToOne(()=> ParentSegment, (ParentSegment) => ParentSegment.basicSegment)
+@JoinColumn()
+ParentSegment: ParentSegment;
 
   @OneToOne(() => UserSegment, (userSegment) => userSegment.segment, {
     cascade: true,
     eager: true,
   })
   UserSegment: UserSegment;
+
 
   @OneToOne(() => ProductSegment, (productSegment) => productSegment.segment, {
     cascade: true,
@@ -34,7 +35,7 @@ export class Segment {
   ProductSegment: ProductSegment;
 
   @Column()
-  segmentType: segmentType;
+  segmentType: BasicSegmentType;
 
   @CreateDateColumn()
   createdAt: Date;

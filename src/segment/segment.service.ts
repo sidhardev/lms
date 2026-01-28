@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Segment } from './entites/segment.enity';
+import { Segment } from './entites/basic-segment.enity';
 import { UserSegment } from './entites/user_segment.entity';
 import { ProductSegment } from './entites/product_segment.entity';
 
@@ -16,14 +16,22 @@ import { StockLevel } from './entites/stock-level.entity';
 import { PurchaseFrequency } from './entites/purchase-frequency.entity';
 import { PriceBased } from './entites/price-based.entity';
 
-import { CreateSegmentDto } from './dtos/create-segment.dto';
-import { segmentType } from './enums/segementType.enum';
+import { CreateSegmentDto } from './dtos/create-basic-segment.dto';
+import { CreateAdvancedSegmentDto } from './dtos/creat-advance-segment.dto';
+import { AdvancedSegment } from './entites/advance-segment.entity';
+import { BasicSegmentType } from './enums/segementType.enum';
+import { ParentSegment } from './entites/segment.entity';
+import { CreateParentSegmentDto } from './dtos/create-parent-segment.dto';
+import { SegmentType } from './enums/segment-type.enum';
 
 @Injectable()
 export class SegmentService {
   constructor(
     @InjectRepository(Segment)
     private readonly segmentRepository: Repository<Segment>,
+
+    @InjectRepository(ParentSegment)
+    private readonly parentSegmentRepo: Repository<ParentSegment>,
 
     @InjectRepository(UserSegment)
     private readonly userSegmentRepository: Repository<UserSegment>,
@@ -58,23 +66,46 @@ export class SegmentService {
 
   async create(dto: CreateSegmentDto) {
     this.validateSegmentType(dto);
-    const segment = this.segmentRepository.create({
+
+    // Create parent segment first
+    const parentSegment = this.parentSegmentRepo.create({
       name: dto.name,
-      description: dto.description,
-      segmentType: dto.segmentType,
+      descriptiton: dto.description,
+      segmentType: SegmentType.BASIC_SEGMENT,
+    });
+
+    const savedParentSegment = await this.parentSegmentRepo.save(parentSegment);
+
+    // Create basic segment linked to parent
+    const segment = this.segmentRepository.create({
+      segmentType: dto.BasicSegmentType,
+      ParentSegment: savedParentSegment,
     });
 
     const savedSegment = await this.segmentRepository.save(segment);
 
-    if (dto.segmentType === segmentType.USER_SEGMENT) {
+    if (dto.BasicSegmentType === BasicSegmentType.USER_SEGMENT) {
       await this.createUserSegment(dto, savedSegment);
     }
 
-    if (dto.segmentType === segmentType.PRODUCT_SEGMENT) {
+    if (dto.BasicSegmentType === BasicSegmentType.PRODUCT_SEGMENT) {
       await this.createProductSegment(dto, savedSegment);
     }
 
-    return savedSegment;
+    return {
+      parentSegment: savedParentSegment,
+      basicSegment: savedSegment,
+    };
+  }
+
+  async createParentSegment(dto: CreateParentSegmentDto) {
+    const parentSegment = this.parentSegmentRepo.create({
+      name: dto.name,
+      descriptiton: dto.description,
+      segmentType: SegmentType.BASIC_SEGMENT,
+    });
+
+    return await this.parentSegmentRepo.save(parentSegment);
   }
 
   private async createUserSegment(dto: CreateSegmentDto, segment: Segment) {
@@ -178,17 +209,21 @@ export class SegmentService {
     }
   }
 
+  createAdvanceSegment(dto: CreateAdvancedSegmentDto) {
+     const AdvanceSegment = new AdvancedSegment();
+     AdvanceSegment.inclusion_status = dto.inclusion_status;
+     AdvanceSegment.selectedSegment = dto.selectedSegment;
+
+    
+     
+  }
+
   async getAll(page: number, limit: number) {
-    return await this.segmentRepository.find({
+    return await this.parentSegmentRepo.find({
+      relations: ['basicSegment', 'advanceSegment'],
       order: {
         id: 'ASC',
       },
-      relations: {
-        UserSegment: {
-          membersCriteria: true,
-        },
-      },
-
       skip: (page - 1) * limit,
       take: limit,
     });
@@ -207,13 +242,13 @@ export class SegmentService {
       !!dto.purchaseFrequency?.length ||
       !!dto.priceBased?.length;
 
-    if (dto.segmentType === segmentType.USER_SEGMENT && hasProductCriteria) {
+    if (dto.BasicSegmentType === BasicSegmentType.USER_SEGMENT && hasProductCriteria) {
       throw new BadRequestException(
         'USER_SEGMENT cannot contain product criteria',
       );
     }
 
-    if (dto.segmentType === segmentType.PRODUCT_SEGMENT && hasUserCriteria) {
+    if (dto.BasicSegmentType === BasicSegmentType.PRODUCT_SEGMENT && hasUserCriteria) {
       throw new BadRequestException(
         'PRODUCT_SEGMENT cannot contain user criteria',
       );
@@ -224,25 +259,19 @@ export class SegmentService {
     }
   }
 
-  deleteById(id: number) {
-    this.segmentRepository.delete(id);
+  async deleteById(id: number) {
+    await this.parentSegmentRepo.delete(id);
     return {
       message: 'Segment Deleted Sucessfully!',
     };
   }
 
-  findById(id: number) {
-    return this.segmentRepository.find({
+  async findById(id: number) {
+    return await this.parentSegmentRepo.findOne({
       where: {
         id,
       },
-      relations: {
-        UserSegment: true,
-        ProductSegment: true,
-      },
-      order: {
-        id: 'ASC',
-      },
+      relations: ['basicSegment', 'advanceSegment'],
     });
   }
 }

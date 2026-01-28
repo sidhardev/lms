@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-import { segmentType } from '../enums/segementType.enum';
+import { BasicSegmentType } from '../enums/segementType.enum';
 
 import { CreateMembersCriteriaDto } from './members-criteria.dto';
 import { CreateEngagementCriteriaDto } from './engagement-criteria.dto';
@@ -20,6 +20,7 @@ import { CreateProductInteractionDto } from './product-interaction.dto';
 import { CreateStockLevelDto } from './stock-level.dto';
 import { CreatePurchaseFrequencyDto } from './purchase-frequency.dto';
 import { CreatePriceBasedDto } from './price-based.dto';
+import { SegmentType } from '../enums/segment-type.enum';
 
 export class CreateSegmentDto {
   @ApiProperty({
@@ -39,11 +40,18 @@ export class CreateSegmentDto {
   description: string;
 
   @ApiProperty({
-    enum: segmentType,
-    example: segmentType.USER_SEGMENT,
+    example: SegmentType
+  }
+  )
+  segmentType: SegmentType
+
+
+  @ApiProperty({
+    enum: BasicSegmentType,
+    example: BasicSegmentType,
   })
-  @IsEnum(segmentType)
-  segmentType: segmentType;
+  @IsEnum(BasicSegmentType)
+  BasicSegmentType: BasicSegmentType;
 
   @ApiProperty({
     type: [CreateMembersCriteriaDto],

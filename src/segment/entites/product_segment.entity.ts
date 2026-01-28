@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Segment } from './segment.enity';
+import { Segment } from './basic-segment.enity';
 import { ProductInteraction } from './product-interaction.entity';
 import { StockLevel } from './stock-level.entity';
 import { PriceBased } from './price-based.entity';

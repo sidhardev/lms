@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Segment } from './segment.enity';
+import { Segment } from './basic-segment.enity';
 import { MembersCriteria } from './members-criteria.entity';
 import { discountCriteria } from './discount-criteria.entity';
 import { EngagementCriteria } from './engagement-criteria.entity';

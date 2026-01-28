@@ -1,4 +1,4 @@
-export enum segmentType {
+export enum BasicSegmentType {
   USER_SEGMENT = 'USER_SEGMENT',
   PRODUCT_SEGMENT = 'PRODUCT_SEGMENT',
 }
