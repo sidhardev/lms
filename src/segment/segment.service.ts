@@ -66,8 +66,9 @@ export class SegmentService {
   ) {}
 
   async create(dto: CreateSegmentDto) {
-
-    if (dto.segmentType !== SegmentType.BASIC_SEGMENT) {return this.CreateAdvancedSegment(dto)}
+    if (dto.segmentType !== SegmentType.BASIC_SEGMENT) {
+      return this.CreateAdvancedSegment(dto);
+    }
     this.validateSegmentType(dto);
 
     const parentSegment = this.parentSegmentRepo.create({
@@ -97,7 +98,6 @@ export class SegmentService {
       parentSegment: savedParentSegment,
     };
   }
-
 
   private async createUserSegment(dto: CreateSegmentDto, segment: Segment) {
     const userSegment = await this.userSegmentRepository.save(
@@ -214,14 +214,13 @@ export class SegmentService {
         inclusion_status: dto.inclusion_status,
         selectedSegment: dto.selectedSegment,
         ParentSegment: savedParentSegment,
-      })
+      }),
     );
 
     return {
-      savedParentSegment
-    }
+      savedParentSegment,
+    };
   }
-
 
   async getAll(page: number, limit: number) {
     return await this.parentSegmentRepo.find({
@@ -247,13 +246,19 @@ export class SegmentService {
       !!dto.purchaseFrequency?.length ||
       !!dto.priceBased?.length;
 
-    if (dto.BasicSegmentType === BasicSegmentType.USER_SEGMENT && hasProductCriteria) {
+    if (
+      dto.BasicSegmentType === BasicSegmentType.USER_SEGMENT &&
+      hasProductCriteria
+    ) {
       throw new BadRequestException(
         'USER_SEGMENT cannot contain product criteria',
       );
     }
 
-    if (dto.BasicSegmentType === BasicSegmentType.PRODUCT_SEGMENT && hasUserCriteria) {
+    if (
+      dto.BasicSegmentType === BasicSegmentType.PRODUCT_SEGMENT &&
+      hasUserCriteria
+    ) {
       throw new BadRequestException(
         'PRODUCT_SEGMENT cannot contain user criteria',
       );

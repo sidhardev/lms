@@ -22,7 +22,6 @@ export class SegmentController {
     return this.segmentService.create(createSegmentDto);
   }
 
-
   @Get('/get')
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })

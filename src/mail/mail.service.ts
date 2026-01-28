@@ -10,9 +10,7 @@ dotenv.config();
 export class MailService {
   private transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
 
-  constructor(
-    private jwtService: JwtService,
-  ) {
+  constructor(private jwtService: JwtService) {
     this.transporter = nodemailer.createTransport(
       new SMTPTransport({
         host: process.env.MAIL_HOST,

@@ -89,7 +89,7 @@ export class CampaignsService {
     return this.CampaignRepository.save(campaign);
   }
 
-  async findAll(page:number, limit:number) {
+  async findAll(page: number, limit: number) {
     const campaign = await this.parentCampaignRepository.find({
       skip: (page - 1) * limit,
       take: limit,

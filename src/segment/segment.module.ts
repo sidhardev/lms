@@ -31,7 +31,7 @@ import { AdvancedSegment } from './entites/advance-segment.entity';
       PurchaseFrequency,
       StockLevel,
       ParentSegment,
-      AdvancedSegment
+      AdvancedSegment,
     ]),
   ],
   controllers: [SegmentController],

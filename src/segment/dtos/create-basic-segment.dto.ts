@@ -41,12 +41,10 @@ export class CreateSegmentDto {
   description: string;
 
   @ApiProperty({
-    example: SegmentType
-  }
-  )
+    example: SegmentType,
+  })
   @IsEnum(SegmentType)
-  segmentType: SegmentType
-
+  segmentType: SegmentType;
 
   @ApiProperty({
     enum: BasicSegmentType,
@@ -136,12 +134,10 @@ export class CreateSegmentDto {
   @Type(() => CreatePriceBasedDto)
   priceBased: CreatePriceBasedDto[];
 
+  @IsEnum(inclusion_status)
+  @IsOptional()
+  inclusion_status: inclusion_status;
 
-   @IsEnum(inclusion_status)
-    @IsOptional()
-      inclusion_status: inclusion_status;
-  
-       @IsOptional()
-      selectedSegment: number[];
-
+  @IsOptional()
+  selectedSegment: number[];
 }

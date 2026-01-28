@@ -14,19 +14,18 @@ import { ParentSegment } from './segment.entity';
 
 @Entity('basic-segment')
 export class Segment {
-@PrimaryGeneratedColumn()
-id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-@OneToOne(()=> ParentSegment, (ParentSegment) => ParentSegment.basicSegment)
-@JoinColumn()
-ParentSegment: ParentSegment;
+  @OneToOne(() => ParentSegment, (ParentSegment) => ParentSegment.basicSegment)
+  @JoinColumn()
+  ParentSegment: ParentSegment;
 
   @OneToOne(() => UserSegment, (userSegment) => userSegment.segment, {
     cascade: true,
     eager: true,
   })
   UserSegment: UserSegment;
-
 
   @OneToOne(() => ProductSegment, (productSegment) => productSegment.segment, {
     cascade: true,

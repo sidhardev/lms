@@ -9,13 +9,13 @@ import { UserModule } from './user/user.module';
 import { MailModule } from './mail/mail.module';
 import { ConfigService } from '@nestjs/config';
 import { NotificationsController } from './notifications/notifications.controller';
- import { NotificationsModule } from './notifications/notifications.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { SegmentModule } from './segment/segment.module';
 import { PromotionModule } from './promotion/promotion.module';
 import { CampaignsModule } from './campaigns/order-campaign/discount-campaign.module';
 import { LoyaltyProgramModule } from './campaigns/loyalty-program/loyalty-program.module';
 import { CampaignEntityModule } from './campaigns/campaigns.module';
- import { LoyaltyProgramController } from './campaigns/loyalty-program/loyalty-program.controller';
+import { LoyaltyProgramController } from './campaigns/loyalty-program/loyalty-program.controller';
 import { ShippingCampaignModule } from './campaigns/shipping_campaign/shipping_campaign.module';
 
 @Module({

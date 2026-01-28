@@ -1,4 +1,4 @@
 export enum inclusion_status {
-    INCLUDE = "INCLUDE",
-    EXCLUDE = "EXCLUDE"
+  INCLUDE = 'INCLUDE',
+  EXCLUDE = 'EXCLUDE',
 }
