@@ -13,19 +13,21 @@ import {
 } from '@nestjs/common';
 import { PromotionService } from './promotion.service';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
-import { ApiQuery } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery } from '@nestjs/swagger';
 
 @Controller('promotion')
 export class PromotionController {
   constructor(private readonly promotionService: PromotionService) {}
 
   @Post('/create')
+   @ApiOperation({ summary: 'Create promotions' })
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() createPromotionDto: CreatePromotionDto) {
     return this.promotionService.create(createPromotionDto);
   }
 
   @Get('/get')
+    @ApiOperation({ summary: 'Get all promotions' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   findAll(
@@ -34,7 +36,7 @@ export class PromotionController {
   ) {
     return this.promotionService.findAll(page, limit);
   }
-
+  @ApiOperation({ summary: 'Delete promotion' })
   @Delete('delete/:id')
   delete(@Param('id') id: number) {
     return this.promotionService.delete(id);

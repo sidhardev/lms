@@ -2,7 +2,7 @@ import { Controller, Req } from '@nestjs/common';
 import { Post, Body } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from './user.service';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { UseGuards } from '@nestjs/common';
 import { VerifyOtpDto } from 'src/mail/dtos/verify-otp.dto';
 import { SendMailDto } from 'src/mail/dtos/send-mail.dto';
@@ -14,11 +14,13 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('/send-otp')
+   @ApiOperation({ summary: 'Send OTP to user to signup' })
   async sendOtp(@Body() body: SendMailDto) {
     const user = await this.userService.sendOtp(body.email);
     return user;
   }
   @Post('/verify-otp')
+   @ApiOperation({ summary: 'Verify User OTP' })
   async verifyOtp(@Body() body: VerifyOtpDto) {
     const { email, otp } = body;
     if (!email || !otp) {
@@ -46,6 +48,7 @@ export class UserController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Post('/signup')
+   @ApiOperation({ summary: 'Signup the user' })
   async createUser(@Body() createUserDto: CreateUserDto, @Req() req: any) {
     const otpVerified: boolean = req.user?.otpVerified;
     if (!otpVerified) {

@@ -20,7 +20,7 @@ import {
 import { CampaignsService } from './disocunt-campaign.service';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { UpdateCampaignStatusDto } from './dtos/update-campaign-status.dto';
-import { DiscountType } from './entites/discount-campaign.entity';
+import { CampaignStatus, DiscountType } from './entites/discount-campaign.entity';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 import { LoyaltyProgram } from '../loyalty-program/entities/loyalty-program.entity';
 import { CreateLoyaltyProgramDto } from '../loyalty-program/dtos/create-loyalty-program.dto';
@@ -59,6 +59,7 @@ export class CampaignsController {
     CategoryBasedDto,
   )
   @Post('campaigns/discount-coupon/create')
+    @ApiOperation({ summary: 'Create discount Coupon campaign' })
   create(@Body() dto: CreateCampaignDto) {
     switch (dto.discountType) {
       case DiscountType.FREE_SHIPPING:
@@ -70,6 +71,7 @@ export class CampaignsController {
   }
 
   @Post('campaigns/loyaltyprogram/create')
+    @ApiOperation({ summary: 'Create loyalty program' })
   @ApiCreatedResponse({
     description: 'Loyalty program created successfully',
     type: LoyaltyProgram,
@@ -80,6 +82,7 @@ export class CampaignsController {
     return this.loyaltyProgramService.create(createLoyaltyProgramDto);
   }
   @Get('campaigns/get')
+    @ApiOperation({ summary: 'Get all campaigns' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   get(
@@ -90,6 +93,7 @@ export class CampaignsController {
   }
 
   @Get('campaigns/discount-coupon/active')
+    @ApiOperation({ summary: 'Get active campaigns' })
   findActive() {
     return this.campaignService.findActive();
   }
@@ -99,9 +103,9 @@ export class CampaignsController {
   @ApiParam({ name: 'id', type: Number })
   updateStatus(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateStatusDto: UpdateCampaignStatusDto,
+    @Query('status') status: CampaignStatus
   ) {
-    return this.campaignService.UpdateStatus(id, updateStatusDto);
+    return this.campaignService.UpdateStatus(id, status);
   }
 
   @Delete('campaigns/coupon/:id')
