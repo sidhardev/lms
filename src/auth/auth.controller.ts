@@ -22,14 +22,15 @@ export class AuthController {
     return result;
   }
   @Get('reset-password')
-  verifyResetToken(@Query('token') token: string) {
-    return this.authService.verifyResetToken(token);
+  verifyResetToken(@Query('token') token: string, @Query('email') email: string) {
+    return this.authService.verifyResetToken(token, email);
   }
   @Post('reset-password')
   async resetPassword(@Body() body: ResetPasswordDto) {
     const result = await this.authService.resetPassword(
       body.token,
       body.newPassword,
+      body.email
     );
     return result;
   }

@@ -72,9 +72,9 @@ export class AuthService {
       message: 'Password reset email sent',
     };
   }
-  async verifyResetToken(token: string) {
-    const user = await this.userService.findByToken({
-      where: { resetPasswordToken: token },
+  async verifyResetToken(token: string, email: string) {
+    const user = await this.userService.findBy({
+      where: { resetPasswordToken: token, email: email },
     });
     if (!user) {
       throw new BadRequestException('Invalid or expired token');
@@ -90,9 +90,9 @@ export class AuthService {
 
     return { message: 'Token valid', isValid: true };
   }
-  async resetPassword(token: string, newPassword: string) {
-    const user = await this.userService.findByToken({
-      where: { resetPasswordToken: token },
+  async resetPassword(token: string, newPassword: string, email: string) {
+    const user = await this.userService.findBy({
+      where: { resetPasswordToken: token, email: email },
     });
     if (
       !user ||

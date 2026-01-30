@@ -78,7 +78,7 @@ export class UserService {
   updateUser(user: User) {
     return this.userRepository.save(user);
   }
-  findByToken(options: any) {
+  findBy(options: any) {
     return this.userRepository.findOne(options);
   }
 }
