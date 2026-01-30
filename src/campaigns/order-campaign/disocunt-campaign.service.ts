@@ -27,7 +27,7 @@ export class CampaignsService {
       type: campaignType.DISCOUNT_COUPON,
       startAt: CreateCampaignDto.startAt,
       endAt: CreateCampaignDto.endAt,
-      status: CreateCampaignDto.status,
+      status: CampaignStatus.ACTIVE,
     });
     const savedParent =
       await this.parentCampaignRepository.save(parentCampaign);
@@ -35,7 +35,6 @@ export class CampaignsService {
     const campaign = this.CampaignRepository.create({
       useItAsCoupon: CreateCampaignDto.useItAsCoupon,
 
-      status: CampaignStatus.DRAFT,
       discountType: CreateCampaignDto.discountType,
       maxUses: CreateCampaignDto.maxUses,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
@@ -117,7 +116,7 @@ export class CampaignsService {
     return this.CampaignRepository.save(campaign);
   }
   async findActive() {
-    return this.CampaignRepository.find({
+    return this.parentCampaignRepository.find({
       where: { status: CampaignStatus.ACTIVE },
     });
   }

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
+import { campaign, CampaignStatus } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
 import { campaignType } from '../enums/campaign-type.enum';
@@ -22,7 +22,7 @@ export class ShippingCampaignService {
       type: campaignType.DISCOUNT_COUPON,
       startAt: CreateCampaignDto.startAt,
       endAt: CreateCampaignDto.endAt,
-      status: CreateCampaignDto.status,
+      status: CampaignStatus.ACTIVE,
     });
     const savedParent =
       await this.parentCampaignRepository.save(parentCampaign);

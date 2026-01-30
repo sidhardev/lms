@@ -101,6 +101,11 @@ export class CampaignsController {
   @Patch('campaigns/discount-coupon/:id/status')
   @ApiOperation({ summary: 'Change status of campaign' })
   @ApiParam({ name: 'id', type: Number })
+  @ApiQuery({ 
+  name: 'status', 
+  enum: CampaignStatus,
+  description: 'Choose the new status for the campaign' 
+})
   updateStatus(
     @Param('id', ParseIntPipe) id: number,
     @Query('status') status: CampaignStatus

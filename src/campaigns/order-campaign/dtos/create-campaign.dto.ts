@@ -116,10 +116,6 @@ export class CreateCampaignDto {
   })
   description: string;
 
-  @ApiProperty({ example: 'DRAFT' })
-  @IsEnum(CampaignStatus)
-  status: CampaignStatus;
-
   @ApiProperty({
     example: DiscountType.ORDER_DISCOUNT,
   })

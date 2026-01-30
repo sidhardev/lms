@@ -61,12 +61,7 @@ export class campaign {
   })
   discountType: DiscountType;
 
-  @Column({
-    type: 'enum',
-    enum: CampaignStatus,
-    default: CampaignStatus.DRAFT,
-  })
-  status: CampaignStatus;
+ 
 
   @Column({
     type: 'boolean',

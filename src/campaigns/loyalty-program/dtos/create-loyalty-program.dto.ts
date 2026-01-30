@@ -35,9 +35,7 @@ export class CreateLoyaltyProgramDto {
   @IsString()
   description: string;
 
-  @ApiProperty({ example: 'DRAFT' })
-  @IsEnum(CampaignStatus)
-  status: CampaignStatus;
+
 
   @ApiProperty({ example: '2026-01-01T00:00:00Z' })
   @IsDateString()
