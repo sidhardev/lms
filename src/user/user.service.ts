@@ -15,7 +15,7 @@ export class UserService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly mailService: MailService,
   ) {}
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto, req) {
     const existingUser = await this.userRepository.findOne({
       where: { email: createUserDto.email },
     });
@@ -24,7 +24,17 @@ export class UserService {
         status: false,
         message: 'User already exists',
       };
-    } else {
+    }
+    if (req.user.email !== createUserDto.email) {
+      console.log(req.user.email);
+      return {
+        status: false,
+        message: "PLEASE ENTER CORRECT EMAIL THAT YOU VERIFIED"
+      }
+    }
+    
+    
+    else {
       const user = this.userRepository.create(createUserDto);
       const salt = randomBytes(8).toString('hex');
       const hash = (await scrypt(createUserDto.password, salt, 32)) as Buffer;

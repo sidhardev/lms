@@ -1,7 +1,7 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -20,6 +20,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(new Reflector()))
 
   const config = new DocumentBuilder()
     .setTitle('Loyalty Management System API')

@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const result = {
       id: payload.sub || payload.id,
       email: payload.email,
-      otpVerified: payload.otpVerified ?? true,
+      otpVerified: payload.otpVerified || false,
       role: payload.role || 'USER',
     };
 

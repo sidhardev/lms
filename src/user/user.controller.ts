@@ -51,7 +51,7 @@ export class UserController {
     if (!otpVerified) {
       throw new UnauthorizedException('OTP not verified');
     }
-    const user = await this.userService.create(createUserDto);
+    const user = await this.userService.create(createUserDto, req);
     return user;
   }
 }

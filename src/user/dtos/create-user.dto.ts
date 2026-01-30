@@ -26,6 +26,5 @@ export class CreateUserDto {
   })
   @IsString()
   @MinLength(6)
-  @Exclude()
   password: string;
 }
