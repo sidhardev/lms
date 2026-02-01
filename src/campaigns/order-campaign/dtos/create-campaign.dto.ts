@@ -23,14 +23,11 @@ import {
   CampaignStatus,
 } from '../entites/discount-campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
-import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
 import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
-import { CategoryDiscountDto } from '../rules/dtos/category-discount.dto';
 import { wholeCartDto } from '../rules/dtos/whole-cart.dto';
 import { plainToClass, Type } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
-import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
 
@@ -56,15 +53,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
       case RuleType.BULK_PURCHASE:
         dtoClass = BulkPurchaseDto;
         break;
-      case RuleType.CATEGORY:
-        dtoClass = CategoryDiscountDto;
-        break;
-      case RuleType.PRODUCT:
-        dtoClass = ProductDiscountDto;
-        break;
-      case RuleType.BRAND:
-        dtoClass = BrandDiscountDto;
-        break;
+      
       default:
         return false;
     }
@@ -149,9 +138,6 @@ export class CreateCampaignDto {
       { $ref: getSchemaPath(wholeCartDto) },
       { $ref: getSchemaPath(CartCustomTotalDto) },
       { $ref: getSchemaPath(BulkPurchaseDto) },
-      { $ref: getSchemaPath(CategoryDiscountDto) },
-      { $ref: getSchemaPath(ProductDiscountDto) },
-      { $ref: getSchemaPath(BrandDiscountDto) },
     ],
     discriminator: {
       propertyName: 'ruleType',
@@ -159,9 +145,6 @@ export class CreateCampaignDto {
         WHOLE_CART: getSchemaPath(wholeCartDto),
         CART_TOTAL: getSchemaPath(CartCustomTotalDto),
         BULK: getSchemaPath(BulkPurchaseDto),
-        CATEGORY: getSchemaPath(CategoryDiscountDto),
-        PRODUCT: getSchemaPath(ProductDiscountDto),
-        BRAND: getSchemaPath(BrandDiscountDto),
       },
     },
   })
@@ -171,9 +154,6 @@ export class CreateCampaignDto {
     | wholeCartDto
     | CartCustomTotalDto
     | BulkPurchaseDto
-    | CategoryDiscountDto
-    | ProductDiscountDto
-    | BrandDiscountDto;
 
   @ApiProperty({
     example: 100,
@@ -260,13 +240,15 @@ export class CreateCampaignDto {
   @IsString()
   recurringEndTime?: string;
 
-  @ApiProperty({
-    type: CreateCampaignNotificationDto,
-    description: 'Single notification configuration for this campaign',
+ @ApiProperty({
+    type: [CreateCampaignNotificationDto],
+    description: 'Notification configurations for this campaign',
   })
-  @ValidateNested()
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
   @Type(() => CreateCampaignNotificationDto)
-  notification: CreateCampaignNotificationDto;
+  notifications: CreateCampaignNotificationDto[];
 
   @IsOptional()
   @IsEnum(ShippingMethod)

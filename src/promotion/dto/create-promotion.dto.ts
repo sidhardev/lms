@@ -56,7 +56,8 @@ export class CreatePromotionDto {
     description: 'Discount percentage',
   })
   @IsNumber()
-  disocuntPercent: number;
+  @IsOptional()
+  discountPercent: number;
 
   @ApiProperty({
     example: 500,

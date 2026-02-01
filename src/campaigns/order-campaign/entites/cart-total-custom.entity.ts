@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { DiscountMode, RuleType } from '../rules/rules.enum';
+import { campaign } from './discount-campaign.entity';
 
-@Entity('cart_custom_totals')
+@Entity('cart_custom_total')
 export class CartCustomTotal {
   @PrimaryGeneratedColumn()
   id: number;
@@ -52,4 +53,10 @@ export class CartCustomTotal {
     nullable: true,
   })
   maxAmount?: number;
+
+    @OneToOne(() => campaign, (campaign) => campaign.cartTotalCustom, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+  campaign: campaign;
 }

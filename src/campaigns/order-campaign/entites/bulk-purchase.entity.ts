@@ -1,4 +1,3 @@
-// c:\Users\Moon Link\lms\src\campaigns\rules\entities\bulk-purchase.entity.ts
 
 import {
   Entity,
@@ -35,7 +34,10 @@ export class BulkPurchase {
   discountAmount: number;
 
   @Column({ type: 'int' })
-  minQuantity: number;
+  minOrderValue: number;
+
+  @Column()
+  minItems: number;
 
   @OneToOne(() => campaign, (campaign) => campaign.bulkPurchase, {
     onDelete: 'CASCADE',

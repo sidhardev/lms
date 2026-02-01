@@ -8,6 +8,7 @@ import { CategoryBasedDto } from './dtos/category-based.dto';
 import { Campaigns } from '../campaign.entity';
 import { campaignType } from '../enums/campaign-type.enum';
 import { CampaignStatus } from '../order-campaign/entites/discount-campaign.entity';
+import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 
 @Injectable()
 export class LoyaltyProgramService {
@@ -16,6 +17,8 @@ export class LoyaltyProgramService {
     private readonly loyaltyRepository: Repository<LoyaltyProgram>,
     @InjectRepository(Campaigns)
     private readonly parentCampaignRepository: Repository<Campaigns>,
+    @InjectRepository(CampaignNotification)
+    private readonly notificationRepository: Repository<CampaignNotification>,
   ) {}
 
   async create(dto: CreateLoyaltyProgramDto): Promise<LoyaltyProgram> {
@@ -34,9 +37,15 @@ export class LoyaltyProgramService {
       validDays: dto.validDays,
       validityStartTime: dto.validityStartTime,
       validityEndTime: dto.validityEndTime,
-      notification: dto.notification ? { ...dto.notification } : undefined,
       campaign: savedParent,
     });
+
+    if (dto.notification) {
+      const savedNotification = await this.notificationRepository.save(
+        this.notificationRepository.create(dto.notification),
+      );
+      loyaltyProgram.notification = savedNotification;
+    }
 
     if (dto.rules) {
       switch (dto.rules.ruleType) {

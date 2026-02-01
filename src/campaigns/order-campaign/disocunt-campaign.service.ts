@@ -7,9 +7,10 @@ import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import { RuleType } from './rules/rules.enum';
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
-import { CategoryDiscount } from './entites/category-discount.entity';
 import { Campaigns } from '../campaign.entity';
 import { campaignType } from '../enums/campaign-type.enum';
+import { CampaignNotification } from 'src/notifications/entities/notification.entity';
+import { CartCustomTotal } from './entites/cart-total-custom.entity';
 
 @Injectable()
 export class CampaignsService {
@@ -18,6 +19,7 @@ export class CampaignsService {
     private readonly CampaignRepository: Repository<campaign>,
     @InjectRepository(Campaigns)
     private readonly parentCampaignRepository: Repository<Campaigns>,
+
   ) {}
 
   async createDiscountCoupon(CreateCampaignDto: CreateCampaignDto) {
@@ -29,12 +31,19 @@ export class CampaignsService {
       endAt: CreateCampaignDto.endAt,
       status: CampaignStatus.ACTIVE,
     });
+    
+   if (CreateCampaignDto.notifications) {
+      parentCampaign.notifications = CreateCampaignDto.notifications.map((n) => {
+        const notification = new CampaignNotification();
+        Object.assign(notification, n);
+        return notification;
+      });
+    }
     const savedParent =
       await this.parentCampaignRepository.save(parentCampaign);
 
     const campaign = this.CampaignRepository.create({
       useItAsCoupon: CreateCampaignDto.useItAsCoupon,
-
       discountType: CreateCampaignDto.discountType,
       maxUses: CreateCampaignDto.maxUses,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
@@ -48,11 +57,9 @@ export class CampaignsService {
       countries: CreateCampaignDto.countries,
       states: CreateCampaignDto.states,
       cities: CreateCampaignDto.cities,
-      notifications: (CreateCampaignDto as any).notifications
-        ? (CreateCampaignDto as any).notifications.map((n: any) => ({ ...n }))
-        : undefined,
       campaign: savedParent,
     });
+
 
     const rules = CreateCampaignDto.rules as any;
     if (rules) {
@@ -69,19 +76,24 @@ export class CampaignsService {
         bulkPurchase.ruleType = rules.ruleType;
         bulkPurchase.discountMode = rules.discountMode;
         bulkPurchase.discountPercent =
-          rules.discoutPercent || rules.discountPercent;
+          rules.discoutPercent;
         bulkPurchase.discountAmount = rules.discountAmount;
-        bulkPurchase.minQuantity = rules.minQuantity;
+        bulkPurchase.minOrderValue = rules.minOrderValue;
+        bulkPurchase.minItems = rules.minItems;
         campaign.bulkPurchase = bulkPurchase;
-      } else if (rules.ruleType === RuleType.CATEGORY) {
-        const categoryDiscount = new CategoryDiscount();
-        categoryDiscount.ruleType = rules.ruleType;
-        categoryDiscount.discountMode = rules.discountMode;
-        categoryDiscount.discountPercent =
-          rules.discoutPercent || rules.discountPercent;
-        categoryDiscount.discountAmount = rules.discountAmount;
-        categoryDiscount.categoryId = rules.categoryId;
-        campaign.categoryDiscount = categoryDiscount;
+      } 
+      else if (rules.ruleType === RuleType.CART_TOTAL_CUSTOM) {
+        const cartTotal = new CartCustomTotal();
+        cartTotal.ruleType = rules.ruleType;
+        cartTotal.mode = rules.mode;
+        cartTotal.minOrderValue = rules.minOrderValue;
+        cartTotal.MinPercent = rules.MinPercent;
+        cartTotal.MaxPercent = rules.MaxPercent;
+        cartTotal.MaxDiscount = rules.MaxDiscount;
+        cartTotal.minAmount = rules.minAmount;
+        cartTotal.maxAmount = rules.maxAmount;
+        
+
       }
     }
 
@@ -113,7 +125,7 @@ export class CampaignsService {
     }
 
     campaign.status = updateStatusDto.status;
-    return this.CampaignRepository.save(campaign);
+return this.parentCampaignRepository.save(campaign);
   }
   async findActive() {
     return this.parentCampaignRepository.find({

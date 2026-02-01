@@ -22,7 +22,7 @@ export class PromotionService {
     promotion.endDate = dto.endDate;
     promotion.selectedSegments = dto.selectedSegments;
     promotion.discountType = dto.discountType;
-    promotion.disocuntPercent = dto.disocuntPercent;
+    promotion.discountPercent = dto.discountPercent;
     promotion.discountAmount = dto.discountAmount;
     promotion.maxDiscount = dto.maxDiscount;
 
@@ -34,7 +34,7 @@ export class PromotionService {
       });
     }
 
-    if (dto.discountAmount && dto.disocuntPercent) {
+if (dto.discountAmount && dto.discountPercent) {
       throw new BadRequestException(
         'Cannot specify both discountAmount and disocuntPercent',
       );
@@ -51,8 +51,8 @@ export class PromotionService {
     }
 
     if (
-      dto.disocuntPercent &&
-      (dto.disocuntPercent < 0 || dto.disocuntPercent > 100)
+      dto.discountPercent &&
+      (dto.discountPercent < 0 || dto.discountPercent > 100)
     ) {
       throw new BadRequestException(
         'disocuntPercent must be between 0 and 100',

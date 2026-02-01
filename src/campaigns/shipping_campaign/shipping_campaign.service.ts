@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
 import { campaignType } from '../enums/campaign-type.enum';
 import { Campaigns } from '../campaign.entity';
+import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 
 @Injectable()
 export class ShippingCampaignService {
@@ -13,6 +14,8 @@ export class ShippingCampaignService {
     private readonly CampaignRepository: Repository<campaign>,
     @InjectRepository(Campaigns)
     private parentCampaignRepository: Repository<Campaigns>,
+    @InjectRepository(CampaignNotification)
+    private readonly notificationRepository: Repository<CampaignNotification>,
   ) {}
 
   async create(CreateCampaignDto: CreateCampaignDto) {
@@ -45,6 +48,18 @@ export class ShippingCampaignService {
       recurringEndTime: CreateCampaignDto.recurringEndTime,
       campaign: savedParent,
     });
+
+    if ((CreateCampaignDto as any).notifications && 
+        (CreateCampaignDto as any).notifications.length > 0) {
+      const notifications = await this.notificationRepository.save(
+        (CreateCampaignDto as any).notifications.map((n: any) => ({
+          ...n,
+          campaign: null,
+        })),
+      );
+      parentCampaign.notifications = notifications;
+    }
+
     return this.CampaignRepository.save(campaign);
   }
 

@@ -19,16 +19,12 @@ import {
 } from '@nestjs/swagger';
 import { CampaignsService } from './disocunt-campaign.service';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
-import { UpdateCampaignStatusDto } from './dtos/update-campaign-status.dto';
 import { CampaignStatus, DiscountType } from './entites/discount-campaign.entity';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 import { LoyaltyProgram } from '../loyalty-program/entities/loyalty-program.entity';
 import { CreateLoyaltyProgramDto } from '../loyalty-program/dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from '../loyalty-program/loyalty-program.service';
-import { BrandDiscountDto } from './rules/dtos/brand-discount.dto';
-import { ProductDiscountDto } from './rules/dtos/product-discount.dto';
-import { CategoryDiscountDto } from './rules/dtos/category-discount.dto';
-import { BulkPurchaseDto } from './rules/dtos/bulk-purchase.dto';
+ import { BulkPurchaseDto } from './rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from './rules/dtos/cart-total-custom.dto';
 import { wholeCartDto } from './rules/dtos/whole-cart.dto';
 import { PointsPerRupeeDto } from '../loyalty-program/dtos/points-per-ruppee.dto';
@@ -50,9 +46,6 @@ export class CampaignsController {
     wholeCartDto,
     CartCustomTotalDto,
     BulkPurchaseDto,
-    CategoryDiscountDto,
-    ProductDiscountDto,
-    BrandDiscountDto,
     PointsPerRupeeDto,
     FirstPurchasePointsDto,
     DailyLoginStreakDto,

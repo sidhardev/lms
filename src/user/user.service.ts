@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { User } from './entites/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -27,10 +27,7 @@ export class UserService {
     }
     if (req.user.email !== createUserDto.email) {
       console.log(req.user.email);
-      return {
-        status: false,
-        message: "PLEASE ENTER CORRECT EMAIL THAT YOU VERIFIED"
-      }
+      throw new BadRequestException("Please enter the verified email.")
     }
     
     

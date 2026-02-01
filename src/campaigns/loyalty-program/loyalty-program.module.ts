@@ -8,6 +8,7 @@ import { DailyLoginStreak } from './entities/daily-login-streak.entity';
 import { CategoryBased } from './entities/category-based.entity';
 import { CampaignEntityModule } from '../campaigns.module';
 import { Campaigns } from '../campaign.entity';
+import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 
 @Module({
   providers: [LoyaltyProgramService],
@@ -19,6 +20,7 @@ import { Campaigns } from '../campaign.entity';
       DailyLoginStreak,
       CategoryBased,
       Campaigns,
+      CampaignNotification,
     ]),
     CampaignEntityModule,
   ],

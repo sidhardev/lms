@@ -11,13 +11,14 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { NotificationChannel } from '../enums/notification-channel.enum';
+import { Campaigns } from 'src/campaigns/campaign.entity';
 
 @Entity('campaign_notifications')
 export class CampaignNotification {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => campaign, (campaign) => campaign.notifications, {
+  @ManyToOne(() => Campaigns, (campaign) => campaign.notifications, {
     onDelete: 'CASCADE',
     nullable: true,
   })
@@ -39,7 +40,7 @@ export class CampaignNotification {
       nullable: true,
     },
   )
-  @JoinColumn()
+  @JoinColumn({ name: 'loyaltyProgramId' })
   loyaltyProgram?: LoyaltyProgram;
 
   @Column({ type: 'enum', enum: NotificationChannel })

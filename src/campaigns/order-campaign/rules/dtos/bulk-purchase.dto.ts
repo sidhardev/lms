@@ -11,7 +11,6 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { DiscountMode, RuleType } from '../rules.enum';
 
-/* -------------------- CUSTOM VALIDATOR -------------------- */
 
 @ValidatorConstraint({ name: 'bulkPurchaseValidation', async: false })
 export class BulkPurchaseValidation implements ValidatorConstraintInterface {
@@ -21,10 +20,8 @@ export class BulkPurchaseValidation implements ValidatorConstraintInterface {
     const hasAmount = obj.discountAmount !== undefined;
     const hasPercent = obj.discountPercent !== undefined;
 
-    // ❌ both provided
     if (hasAmount && hasPercent) return false;
 
-    // ❌ none provided
     if (!hasAmount && !hasPercent) return false;
 
     return true;
@@ -47,7 +44,6 @@ export class BulkPurchaseValidation implements ValidatorConstraintInterface {
   }
 }
 
-/* -------------------- DTO -------------------- */
 
 export class BulkPurchaseDto {
   @ApiProperty({
@@ -64,7 +60,7 @@ export class BulkPurchaseDto {
     description: 'Discount mode for bulk purchase',
   })
   @IsEnum(DiscountMode)
-  mode: DiscountMode;
+  discountMode: DiscountMode;
 
   @ApiProperty({
     example: 1000,
@@ -100,7 +96,6 @@ export class BulkPurchaseDto {
   @IsOptional()
   discountPercent?: number;
 
-  /* -------- Cross-field validation -------- */
   @Validate(BulkPurchaseValidation)
   private readonly _bulkValidation!: any;
 }

@@ -14,9 +14,9 @@ import {
 } from 'typeorm';
 import { WholeCart } from './whole-cart.entity';
 import { BulkPurchase } from './bulk-purchase.entity';
-import { CategoryDiscount } from './category-discount.entity';
 import { recurringCycle, recurringValidDays } from '../../enums/campaign.enums';
 import { Campaigns } from '../../campaign.entity';
+import { CartCustomTotal } from './cart-total-custom.entity';
 
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
@@ -77,12 +77,6 @@ export class campaign {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(
-    () => CampaignNotification,
-    (notification) => notification.campaign,
-    { cascade: true, eager: true },
-  )
-  notifications: CampaignNotification[];
 
   @Column({ nullable: true })
   maxUses: number;
@@ -128,15 +122,13 @@ export class campaign {
   })
   bulkPurchase: BulkPurchase;
 
-  @OneToOne(
-    () => CategoryDiscount,
-    (categoryDiscount) => categoryDiscount.campaign,
-    {
-      cascade: true,
-      eager: true,
-    },
-  )
-  categoryDiscount: CategoryDiscount;
+    @OneToOne(() => CartCustomTotal, (cartTotal) => cartTotal.campaign, {
+    cascade: true,
+    eager: true,
+  })
+  cartTotalCustom: BulkPurchase;
+
+
 
   @Column({ default: ShippingMethod.NONE })
   shippingMethod: ShippingMethod;

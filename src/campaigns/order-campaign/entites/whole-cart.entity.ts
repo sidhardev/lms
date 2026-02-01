@@ -1,5 +1,3 @@
-// c:\Users\Moon Link\lms\src\campaigns\rules\entities\whole-cart.entity.ts
-
 import {
   Entity,
   PrimaryGeneratedColumn,

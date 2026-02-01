@@ -6,6 +6,7 @@ import {
   campaign,
   CampaignStatus,
 } from './order-campaign/entites/discount-campaign.entity';
+import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 
 @Entity('campaign')
 export class Campaigns {
@@ -42,4 +43,11 @@ export class Campaigns {
 
   @Column({ nullable: true })
   endAt: Date;
+
+    @OneToMany(
+    () => CampaignNotification,
+    (notification) => notification.campaign,
+    { cascade: true, eager: true },
+  )
+  notifications: CampaignNotification[];
 }
