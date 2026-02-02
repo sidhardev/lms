@@ -24,7 +24,12 @@ export class CampaignsService {
   ) {}
 
   async createDiscountCoupon(CreateCampaignDto: CreateCampaignDto) {
-    const parentCampaign = this.parentCampaignRepository.create({
+
+
+  
+
+
+      const parentCampaign = this.parentCampaignRepository.create({
       name: (CreateCampaignDto as any).name,
       description: (CreateCampaignDto as any).description,
       type: campaignType.DISCOUNT_COUPON,
@@ -47,6 +52,7 @@ export class CampaignsService {
       useItAsCoupon: CreateCampaignDto.useItAsCoupon,
       discountType: CreateCampaignDto.discountType,
       maxUses: CreateCampaignDto.maxUses,
+      ruleType: CreateCampaignDto.ruleType,
       unlimitedUses: CreateCampaignDto.unlimitedUses,
       redemptionType: CreateCampaignDto.redemptionType,
       userEligiblity: CreateCampaignDto.userEligiblity,
@@ -62,44 +68,59 @@ export class CampaignsService {
     });
 
 
-    const rules = CreateCampaignDto as any;
-    if (rules) {
-      if (rules.ruleType === RuleType.WHOLE_CART) {
+    const dto = CreateCampaignDto;
+    if (dto) {
+      if (dto.ruleType === RuleType.WHOLE_CART) {
         const wholeCart = new WholeCart();
-        wholeCart.ruleType = rules.ruleType;
-        wholeCart.discountMode = rules.discountMode;
-        wholeCart.discountPercent = rules.discoutPercent;
-        wholeCart.discountAmount = rules.discountAmount;
-        wholeCart.maxDiscount = rules.MaxDiscount;
+         wholeCart.discountMode = dto.wholeCart.discountMode;
+        wholeCart.discountPercent = dto.wholeCart.discoutPercent;
+        wholeCart.discountAmount = dto.wholeCart.discountAmount;
+        wholeCart.maxDiscount = dto.wholeCart.MaxDiscount;
         campaign.wholeCart = wholeCart;
-      } else if (rules.ruleType === RuleType.BULK_PURCHASE) {
+      } else if (dto.ruleType === RuleType.BULK_PURCHASE) {
         const bulkPurchase = new BulkPurchase();
-        bulkPurchase.ruleType = rules.ruleType;
-        bulkPurchase.discountMode = rules.discountMode;
+         bulkPurchase.discountMode = dto.bulkPurchase.discountMode;
         bulkPurchase.discountPercent =
-          rules.discoutPercent;
-        bulkPurchase.discountAmount = rules.discountAmount;
-        bulkPurchase.minOrderValue = rules.minOrderValue;
-        bulkPurchase.minItems = rules.minItems;
+          dto.bulkPurchase.discountPercent;
+        bulkPurchase.discountAmount = dto.bulkPurchase.discountAmount;
+        bulkPurchase.minOrderValue = dto.bulkPurchase.minOrderValue;
+        bulkPurchase.minItems = dto.bulkPurchase.minItems;
         campaign.bulkPurchase = bulkPurchase;
       } 
-      else if (rules.ruleType === RuleType.CART_TOTAL_CUSTOM) {
+      else if (dto.ruleType === RuleType.CART_TOTAL_CUSTOM) {
         const cartTotal = new CartCustomTotal();
-        cartTotal.ruleType = rules.ruleType;
-        cartTotal.mode = rules.mode;
-        cartTotal.minOrderValue = rules.minOrderValue;
-        cartTotal.MinPercent = rules.MinPercent;
-        cartTotal.MaxPercent = rules.MaxPercent;
-        cartTotal.MaxDiscount = rules.MaxDiscount;
-        cartTotal.minAmount = rules.minAmount;
-        cartTotal.maxAmount = rules.maxAmount;
+         cartTotal.mode = dto.cartTotalCustom.mode;
+        cartTotal.minOrderValue = dto.cartTotalCustom.minOrderValue;
+        cartTotal.MinPercent = dto.cartTotalCustom.MinPercent;
+        cartTotal.MaxPercent = dto.cartTotalCustom.MaxPercent;
+        cartTotal.MaxDiscount = dto.cartTotalCustom.MaxDiscount;
+        cartTotal.minAmount = dto.cartTotalCustom.minAmount;
+        cartTotal.maxAmount = dto.cartTotalCustom.maxAmount;
         
 
+      }
+      else if (dto.ruleType === RuleType.CATEGORY_DISCOUNT) {
+        if (Array.isArray(dto.categoryDiscount)) {
+          campaign.categoryDiscount = dto.categoryDiscount.map(rule => {
+            const categoryDiscountRule = new categoryDiscount();
+            categoryDiscountRule.name = rule.name;
+            categoryDiscountRule.discountPercent = rule.discountPercent;
+            categoryDiscountRule.discountAmount = rule.discountAmount;
+            categoryDiscountRule.minOrderValue = rule.minOrderValue;
+            categoryDiscountRule.maxDiscount = rule.maxDiscount;
+             return categoryDiscountRule;
+          });
+        }
       }
      
     }
 
-    return this.CampaignRepository.save(campaign);
+    await this.CampaignRepository.save(campaign);
+    return {
+      status: true,
+      message: "Campaign created Sucessfully",
+      parentCampaign
+    }
   }
 
   async findAll(page: number, limit: number) {

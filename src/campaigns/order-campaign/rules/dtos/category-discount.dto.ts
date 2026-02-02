@@ -1,25 +1,44 @@
-import { IsBoolean, IsNumber, IsOptional, IsString } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
+import { RuleType } from "../rules.enum";
 
 export class categoryDiscountDto {
+ 
+
+
 @IsString()
+@ApiProperty({
+    example: "Jeans"
+})
 name: string;
 
 @IsNumber()
 @IsOptional()
+@ApiProperty({
+    example: 3
+})
 discountPercent: number;
 
 @IsNumber()
 @IsOptional()
+@ApiProperty({
+    example: 3
+})
 discountAmount: number;
 
-@IsNumber()
+@IsNumber()     
+@ApiProperty({
+    example: 3
+})
 minOrderValue: number;
 
 @IsNumber()
-upto: number;
+@ApiProperty({
+    example: 233
+})
+maxDiscount: number;
 
-@IsBoolean()
-keepSameForAll: boolean;
+ 
 
 
 }

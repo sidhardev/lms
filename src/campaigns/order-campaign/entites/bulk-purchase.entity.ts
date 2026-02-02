@@ -14,12 +14,7 @@ export class BulkPurchase {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    type: 'enum',
-    enum: RuleType,
-    default: RuleType.BULK_PURCHASE,
-  })
-  ruleType: RuleType;
+ 
 
   @Column({
     type: 'enum',

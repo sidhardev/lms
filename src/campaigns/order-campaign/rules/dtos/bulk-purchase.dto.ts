@@ -46,13 +46,7 @@ export class BulkPurchaseValidation implements ValidatorConstraintInterface {
 
 
 export class BulkPurchaseDto {
-  @ApiProperty({
-    enum: RuleType,
-    example: RuleType.BULK_PURCHASE,
-    description: 'Rule type for bulk purchase discount',
-  })
-  @IsEnum(RuleType)
-  ruleType: RuleType.BULK_PURCHASE;
+ 
 
   @ApiProperty({
     enum: DiscountMode,
@@ -85,7 +79,7 @@ export class BulkPurchaseDto {
   @IsNumber()
   @Min(1)
   @IsOptional()
-  discountAmount?: number;
+  discountAmount: number;
 
   @ApiPropertyOptional({
     example: 10,
@@ -94,7 +88,7 @@ export class BulkPurchaseDto {
   @IsNumber()
   @Min(1)
   @IsOptional()
-  discountPercent?: number;
+  discountPercent: number;
 
   @Validate(BulkPurchaseValidation)
   private readonly _bulkValidation!: any;

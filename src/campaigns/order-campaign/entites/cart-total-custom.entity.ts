@@ -7,11 +7,7 @@ export class CartCustomTotal {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    type: 'enum',
-    enum: RuleType,
-  })
-  ruleType: RuleType.CART_TOTAL_CUSTOM;
+
 
   @Column({
     type: 'enum',

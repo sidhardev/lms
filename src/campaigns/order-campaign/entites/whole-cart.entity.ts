@@ -13,12 +13,7 @@ export class WholeCart {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    type: 'enum',
-    enum: RuleType,
-    default: RuleType.WHOLE_CART,
-  })
-  ruleType: RuleType;
+ 
 
   @Column({
     type: 'enum',

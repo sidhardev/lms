@@ -30,12 +30,13 @@ import { plainToClass, Type } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
+import { categoryDiscountDto } from '../rules/dtos/category-discount.dto';
 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
   async validate(_: any, args: ValidationArguments): Promise<boolean> {
     const obj = args.object as CreateCampaignDto;
-    const rulesData = obj.rules;
+    const rulesData = obj;
     const ruleType = rulesData?.ruleType;
 
     if (!rulesData) return false;
@@ -53,6 +54,8 @@ export class RulesValidation implements ValidatorConstraintInterface {
       case RuleType.BULK_PURCHASE:
         dtoClass = BulkPurchaseDto;
         break;
+        case RuleType.CATEGORY_DISCOUNT: 
+        dtoClass = categoryDiscountDto;
       
       default:
         return false;
@@ -70,8 +73,8 @@ export class RulesValidation implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args: ValidationArguments): string {
-    const rulesData = (args.object as CreateCampaignDto).rules;
-    const ruleType = rulesData?.ruleType;
+    const rulesData = (args.object as CreateCampaignDto);
+    const ruleType = rulesData.ruleType;
     const validationErrors = (args as any).validationErrors;
 
     if (!validationErrors || validationErrors.length === 0) {
@@ -88,6 +91,62 @@ export class RulesValidation implements ValidatorConstraintInterface {
       .join('; ');
 
     return `Rules validation failed for ${ruleType}. Details: ${fieldErrors}`;
+  }
+}
+
+@ValidatorConstraint({ name: 'IsOnlyOneRuleProvided', async: false })
+export class IsOnlyOneRuleProvided implements ValidatorConstraintInterface {
+  validate(value: any, args: ValidationArguments) {
+    const obj = args.object as CreateCampaignDto;
+    const { ruleType } = obj;
+
+    const ruleMapping = {
+      [RuleType.WHOLE_CART]: 'wholeCart',
+      [RuleType.BULK_PURCHASE]: 'bulkPurchase',
+      [RuleType.CART_TOTAL_CUSTOM]: 'cartTotalCustom',
+      [RuleType.CATEGORY_DISCOUNT]: 'categoryDiscount',
+    };
+
+    const allRuleProperties = Object.values(ruleMapping);
+    const expectedProperty = ruleMapping[ruleType];
+
+    if (!expectedProperty) {
+      return false;
+    }
+
+    const providedRules = allRuleProperties.filter(
+      (prop) => obj[prop] !== undefined && obj[prop] !== null,
+    );
+
+    return providedRules.length === 1 && providedRules[0] === expectedProperty;
+  }
+
+  defaultMessage(args: ValidationArguments) {
+    const obj = args.object as CreateCampaignDto;
+    const { ruleType } = obj;
+
+    const ruleMapping = {
+      [RuleType.WHOLE_CART]: 'wholeCart',
+      [RuleType.BULK_PURCHASE]: 'bulkPurchase',
+      [RuleType.CART_TOTAL_CUSTOM]: 'cartTotalCustom',
+      [RuleType.CATEGORY_DISCOUNT]: 'categoryDiscount',
+    };
+
+    const expectedProperty = ruleMapping[ruleType];
+
+    if (!ruleType || !expectedProperty) {
+      return `A valid ruleType must be provided.`;
+    }
+
+    const providedRules = Object.values(ruleMapping).filter(
+      (prop) => obj[prop] !== undefined && obj[prop] !== null,
+    );
+
+    if (providedRules.length !== 1 || providedRules[0] !== expectedProperty) {
+      return `For ruleType '${ruleType}', exactly one rule property ('${expectedProperty}') must be provided. Received: ${providedRules.join(', ') || 'none'}.`;
+    }
+
+    return 'Invalid rule configuration.';
   }
 }
 
@@ -134,26 +193,55 @@ export class CreateCampaignDto {
   useItAsCoupon: boolean;
 
   @ApiProperty({
-    oneOf: [
-      { $ref: getSchemaPath(wholeCartDto) },
-      { $ref: getSchemaPath(CartCustomTotalDto) },
-      { $ref: getSchemaPath(BulkPurchaseDto) },
-    ],
-    discriminator: {
-      propertyName: 'ruleType',
-      mapping: {
-        WHOLE_CART: getSchemaPath(wholeCartDto),
-        CART_TOTAL: getSchemaPath(CartCustomTotalDto),
-        BULK: getSchemaPath(BulkPurchaseDto),
-      },
-    },
+    example: RuleType.CATEGORY_DISCOUNT
+  })
+  @IsEnum(RuleType)
+  ruleType: RuleType;
+
+  @ApiProperty({
   })
   @IsOptional()
-  @Validate(RulesValidation)
-  rules:
-    | wholeCartDto
-    | CartCustomTotalDto
-    | BulkPurchaseDto
+  @ValidateNested()
+  @Type(() => wholeCartDto)
+  wholeCart: wholeCartDto;
+
+
+  @ApiProperty()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => BulkPurchaseDto)
+  bulkPurchase: BulkPurchaseDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @ApiProperty()
+  @Type(() => CartCustomTotalDto)
+  cartTotalCustom: CartCustomTotalDto;
+
+  @IsOptional()
+  @IsArray()
+  @ApiProperty({
+    type: [categoryDiscountDto],
+    example: [
+      {
+        name: 'Jeans',
+        discountPercent: 10,
+        minOrderValue: 500,
+        maxDiscount: 100,
+       },
+      {
+        name: 'Shirts',
+        discountAmount: 50,
+        minOrderValue: 1000,
+        maxDiscount: 50,
+       },
+    ],
+  })
+  @ValidateNested({ each: true })
+  @Type(() => categoryDiscountDto)
+  categoryDiscount: categoryDiscountDto[];
+
+ 
 
   @ApiProperty({
     example: 100,
@@ -276,4 +364,7 @@ export class CreateCampaignDto {
   @IsArray()
   @IsString({ each: true })
   cities?: string[];
+
+  @Validate(IsOnlyOneRuleProvided)
+  private readonly _ruleValidation: any;
 }

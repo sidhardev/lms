@@ -17,6 +17,8 @@ import { recurringCycle, recurringValidDays } from '../../enums/campaign.enums';
 import { Campaigns } from '../../campaign.entity';
 import { CartCustomTotal } from './cart-total-custom.entity';
 import { categoryDiscount } from './category-discount.entity';
+import { RuleType } from '../rules/rules.enum';
+import { ProductDiscount } from './product-discount.entity';
 
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
@@ -96,6 +98,9 @@ export class campaign {
   @Column({ nullable: true })
   recurringCycle: recurringCycle;
 
+  @Column({nullable: true})
+  ruleType: RuleType;
+
   @Column({
     type: 'enum',
     enum: recurringValidDays,
@@ -116,8 +121,15 @@ export class campaign {
   })
   wholeCart: WholeCart;
 
-  @OneToMany(()=> categoryDiscount, (categoryDiscount) => categoryDiscount.discountCampaign)
+  @OneToMany(()=> categoryDiscount, (categoryDiscount) => categoryDiscount.discountCampaign, {
+    cascade: true,
+  })
   categoryDiscount: categoryDiscount[];
+
+   @OneToMany(()=> ProductDiscount, (ProductDiscount) => ProductDiscount.discountCampaign, {
+    cascade: true,
+  })
+  productDiscount: ProductDiscount[];
 
   @OneToOne(() => BulkPurchase, (bulkPurchase) => bulkPurchase.campaign, {
     cascade: true,

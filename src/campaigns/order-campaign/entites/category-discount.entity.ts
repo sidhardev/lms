@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { campaign } from "./discount-campaign.entity";
+import { RuleType } from "../rules/rules.enum";
 
 @Entity('category-discount')
 export class categoryDiscount {
@@ -11,9 +12,12 @@ export class categoryDiscount {
     name: string;
 
     @Column({
+
         nullable: true
     })
     discountPercent: number;
+
+  
 
     @Column({nullable: true})
     discountAmount: number;
@@ -22,10 +26,9 @@ export class categoryDiscount {
     minOrderValue: number;
 
     @Column() 
-    upto: number;
+    maxDiscount: number;
 
-    @Column()
-    keepSameForAll: boolean;
+ 
 
     @ManyToOne(()=> campaign, (campaign) => campaign.categoryDiscount)
     discountCampaign: campaign;

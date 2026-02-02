@@ -47,13 +47,7 @@ export class WholeCartValidation implements ValidatorConstraintInterface {
 }
 
 export class wholeCartDto {
-  @ApiProperty({
-    enum: RuleType,
-    example: RuleType.WHOLE_CART,
-    description: 'Rule type for whole cart discount',
-  })
-  @IsEnum(RuleType)
-  ruleType: RuleType.WHOLE_CART;
+  
 
   @ApiProperty({
     example: DiscountMode.AMOUNT,
