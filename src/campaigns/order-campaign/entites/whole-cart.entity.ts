@@ -13,8 +13,6 @@ export class WholeCart {
   @PrimaryGeneratedColumn()
   id: number;
 
- 
-
   @Column({
     type: 'enum',
     enum: DiscountMode,

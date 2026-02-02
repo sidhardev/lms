@@ -27,11 +27,8 @@ export class UserService {
     }
     if (req.user.email !== createUserDto.email) {
       console.log(req.user.email);
-      throw new BadRequestException("Please enter the verified email.")
-    }
-    
-    
-    else {
+      throw new BadRequestException('Please enter the verified email.');
+    } else {
       const user = this.userRepository.create(createUserDto);
       const salt = randomBytes(8).toString('hex');
       const hash = (await scrypt(createUserDto.password, salt, 32)) as Buffer;

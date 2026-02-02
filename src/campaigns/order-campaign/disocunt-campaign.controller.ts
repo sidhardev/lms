@@ -19,12 +19,15 @@ import {
 } from '@nestjs/swagger';
 import { CampaignsService } from './disocunt-campaign.service';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
-import { CampaignStatus, DiscountType } from './entites/discount-campaign.entity';
+import {
+  CampaignStatus,
+  DiscountType,
+} from './entites/discount-campaign.entity';
 import { ShippingCampaignService } from '../shipping_campaign/shipping_campaign.service';
 import { LoyaltyProgram } from '../loyalty-program/entities/loyalty-program.entity';
 import { CreateLoyaltyProgramDto } from '../loyalty-program/dtos/create-loyalty-program.dto';
 import { LoyaltyProgramService } from '../loyalty-program/loyalty-program.service';
- import { BulkPurchaseDto } from './rules/dtos/bulk-purchase.dto';
+import { BulkPurchaseDto } from './rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from './rules/dtos/cart-total-custom.dto';
 import { wholeCartDto } from './rules/dtos/whole-cart.dto';
 import { PointsPerRupeeDto } from '../loyalty-program/dtos/points-per-ruppee.dto';
@@ -52,7 +55,7 @@ export class CampaignsController {
     CategoryBasedDto,
   )
   @Post('campaigns/discount-coupon/create')
-    @ApiOperation({ summary: 'Create discount Coupon campaign' })
+  @ApiOperation({ summary: 'Create discount Coupon campaign' })
   create(@Body() dto: CreateCampaignDto) {
     switch (dto.discountType) {
       case DiscountType.FREE_SHIPPING:
@@ -64,7 +67,7 @@ export class CampaignsController {
   }
 
   @Post('campaigns/loyaltyprogram/create')
-    @ApiOperation({ summary: 'Create loyalty program' })
+  @ApiOperation({ summary: 'Create loyalty program' })
   @ApiCreatedResponse({
     description: 'Loyalty program created successfully',
     type: LoyaltyProgram,
@@ -75,7 +78,7 @@ export class CampaignsController {
     return this.loyaltyProgramService.create(createLoyaltyProgramDto);
   }
   @Get('campaigns/get')
-    @ApiOperation({ summary: 'Get all campaigns' })
+  @ApiOperation({ summary: 'Get all campaigns' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   get(
@@ -86,7 +89,7 @@ export class CampaignsController {
   }
 
   @Get('campaigns/discount-coupon/active')
-    @ApiOperation({ summary: 'Get active campaigns' })
+  @ApiOperation({ summary: 'Get active campaigns' })
   findActive() {
     return this.campaignService.findActive();
   }
@@ -94,14 +97,14 @@ export class CampaignsController {
   @Patch('campaigns/discount-coupon/:id/status')
   @ApiOperation({ summary: 'Change status of campaign' })
   @ApiParam({ name: 'id', type: Number })
-  @ApiQuery({ 
-  name: 'status', 
-  enum: CampaignStatus,
-  description: 'Choose the new status for the campaign' 
-})
+  @ApiQuery({
+    name: 'status',
+    enum: CampaignStatus,
+    description: 'Choose the new status for the campaign',
+  })
   updateStatus(
     @Param('id', ParseIntPipe) id: number,
-    @Query('status') status: CampaignStatus
+    @Query('status') status: CampaignStatus,
   ) {
     return this.campaignService.UpdateStatus(id, status);
   }

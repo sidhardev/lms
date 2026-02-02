@@ -55,12 +55,12 @@ export class RulesValidation implements ValidatorConstraintInterface {
       case RuleType.BULK_PURCHASE:
         dtoClass = BulkPurchaseDto;
         break;
-        case RuleType.CATEGORY_DISCOUNT: 
+      case RuleType.CATEGORY_DISCOUNT:
         dtoClass = categoryDiscountDto;
         break;
       case RuleType.PRODUCT_DISCOUNT:
         dtoClass = ProductDiscountDto;
-      
+
       default:
         return false;
     }
@@ -77,7 +77,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args: ValidationArguments): string {
-    const rulesData = (args.object as CreateCampaignDto);
+    const rulesData = args.object as CreateCampaignDto;
     const ruleType = rulesData.ruleType;
     const validationErrors = (args as any).validationErrors;
 
@@ -111,7 +111,6 @@ export class IsOnlyOneRuleProvided implements ValidatorConstraintInterface {
       [RuleType.CATEGORY_DISCOUNT]: 'categoryDiscount',
       [RuleType.PRODUCT_DISCOUNT]: 'productDiscount',
       [RuleType.BRAND_DISCOUNT]: 'brandDiscount',
-
     };
 
     const allRuleProperties = Object.values(ruleMapping);
@@ -139,7 +138,6 @@ export class IsOnlyOneRuleProvided implements ValidatorConstraintInterface {
       [RuleType.CATEGORY_DISCOUNT]: 'categoryDiscount',
       [RuleType.PRODUCT_DISCOUNT]: 'productDiscount',
       [RuleType.BRAND_DISCOUNT]: 'brandDiscount',
-
     };
 
     const expectedProperty = ruleMapping[ruleType];
@@ -203,18 +201,16 @@ export class CreateCampaignDto {
   useItAsCoupon: boolean;
 
   @ApiProperty({
-    example: RuleType.CATEGORY_DISCOUNT
+    example: RuleType.CATEGORY_DISCOUNT,
   })
   @IsEnum(RuleType)
   ruleType: RuleType;
 
-  @ApiProperty({
-  })
+  @ApiProperty({})
   @IsOptional()
   @ValidateNested()
   @Type(() => wholeCartDto)
   wholeCart: wholeCartDto;
-
 
   @ApiProperty()
   @IsOptional()
@@ -238,19 +234,18 @@ export class CreateCampaignDto {
         discountPercent: 10,
         minOrderValue: 500,
         maxDiscount: 100,
-       },
+      },
       {
         name: 'Shirts',
         discountAmount: 50,
         minOrderValue: 1000,
         maxDiscount: 50,
-       },
+      },
     ],
   })
   @ValidateNested({ each: true })
   @Type(() => categoryDiscountDto)
   categoryDiscount: categoryDiscountDto[];
-
 
   @IsOptional()
   @IsArray()
@@ -262,22 +257,20 @@ export class CreateCampaignDto {
         discountPercent: 10,
         minOrderValue: 500,
         maxDiscount: 100,
-       },
+      },
       {
         name: 'NOT_SOLD',
         discountAmount: 50,
         minOrderValue: 1000,
         maxDiscount: 50,
-       },
+      },
     ],
   })
   @ValidateNested({ each: true })
   @Type(() => ProductDiscountDto)
   productDiscount: ProductDiscountDto[];
 
-
-
-   @IsOptional()
+  @IsOptional()
   @IsArray()
   @ApiProperty({
     type: [BrandDiscountDto],
@@ -287,20 +280,18 @@ export class CreateCampaignDto {
         discountPercent: 10,
         minOrderValue: 500,
         maxDiscount: 100,
-       },
+      },
       {
         name: 'ADIDAS',
         discountAmount: 50,
         minOrderValue: 1000,
         maxDiscount: 50,
-       },
+      },
     ],
   })
   @ValidateNested({ each: true })
   @Type(() => BrandDiscountDto)
   brandDiscount: BrandDiscountDto[];
-
- 
 
   @ApiProperty({
     example: 100,
@@ -387,7 +378,7 @@ export class CreateCampaignDto {
   @IsString()
   recurringEndTime?: string;
 
- @ApiProperty({
+  @ApiProperty({
     type: [CreateCampaignNotificationDto],
     description: 'Notification configurations for this campaign',
   })

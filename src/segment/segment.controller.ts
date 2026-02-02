@@ -18,13 +18,13 @@ export class SegmentController {
   constructor(private readonly segmentService: SegmentService) {}
 
   @Post('/create')
-   @ApiOperation({ summary: 'Create Segments' })
+  @ApiOperation({ summary: 'Create Segments' })
   create(@Body() createSegmentDto: CreateSegmentDto) {
     return this.segmentService.create(createSegmentDto);
   }
 
   @Get('/get')
-   @ApiOperation({ summary: 'Get all segments' })
+  @ApiOperation({ summary: 'Get all segments' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   getAll(
@@ -35,13 +35,13 @@ export class SegmentController {
   }
 
   @Get('/:id')
-   @ApiOperation({ summary: 'Get segments by ID' })
+  @ApiOperation({ summary: 'Get segments by ID' })
   findById(@Param('id') id: number) {
     return this.segmentService.findById(id);
   }
 
   @Delete(':id')
- @ApiOperation({ summary: 'Delete segments by ID' })
+  @ApiOperation({ summary: 'Delete segments by ID' })
   async deleteById(@Param('id') id: number) {
     await this.segmentService.deleteById(id);
     return {

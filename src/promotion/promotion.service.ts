@@ -34,7 +34,7 @@ export class PromotionService {
       });
     }
 
-if (dto.discountAmount && dto.discountPercent) {
+    if (dto.discountAmount && dto.discountPercent) {
       throw new BadRequestException(
         'Cannot specify both discountAmount and disocuntPercent',
       );

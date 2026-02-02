@@ -1,4 +1,3 @@
-
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -13,8 +12,6 @@ import { RuleType, DiscountMode } from '../rules/rules.enum';
 export class BulkPurchase {
   @PrimaryGeneratedColumn()
   id: number;
-
- 
 
   @Column({
     type: 'enum',

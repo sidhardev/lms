@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
 
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(new Reflector()))
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(new Reflector()));
 
   const config = new DocumentBuilder()
     .setTitle('Loyalty Management System API')

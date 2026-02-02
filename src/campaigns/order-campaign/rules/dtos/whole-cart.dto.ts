@@ -47,8 +47,6 @@ export class WholeCartValidation implements ValidatorConstraintInterface {
 }
 
 export class wholeCartDto {
-  
-
   @ApiProperty({
     example: DiscountMode.AMOUNT,
   })

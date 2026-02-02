@@ -44,7 +44,7 @@ export class Campaigns {
   @Column({ nullable: true })
   endAt: Date;
 
-    @OneToMany(
+  @OneToMany(
     () => CampaignNotification,
     (notification) => notification.campaign,
     { cascade: true, eager: true },

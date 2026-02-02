@@ -14,13 +14,13 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('/send-otp')
-   @ApiOperation({ summary: 'Send OTP to user to signup' })
+  @ApiOperation({ summary: 'Send OTP to user to signup' })
   async sendOtp(@Body() body: SendMailDto) {
     const user = await this.userService.sendOtp(body.email);
     return user;
   }
   @Post('/verify-otp')
-   @ApiOperation({ summary: 'Verify User OTP' })
+  @ApiOperation({ summary: 'Verify User OTP' })
   async verifyOtp(@Body() body: VerifyOtpDto) {
     const { email, otp } = body;
     if (!email || !otp) {
@@ -48,7 +48,7 @@ export class UserController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Post('/signup')
-   @ApiOperation({ summary: 'Signup the user' })
+  @ApiOperation({ summary: 'Signup the user' })
   async createUser(@Body() createUserDto: CreateUserDto, @Req() req: any) {
     const otpVerified: boolean = req.user?.otpVerified;
     if (!otpVerified) {

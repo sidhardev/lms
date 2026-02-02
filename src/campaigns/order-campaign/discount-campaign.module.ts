@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { campaign } from './entites/discount-campaign.entity';
 import { CampaignsService } from './disocunt-campaign.service';
 import { CampaignsController } from './disocunt-campaign.controller';
- import { ShippingCampaignModule } from '../shipping_campaign/shipping_campaign.module';
+import { ShippingCampaignModule } from '../shipping_campaign/shipping_campaign.module';
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';
 import { LoyaltyProgramModule } from 'src/campaigns/loyalty-program/loyalty-program.module';
@@ -25,7 +25,7 @@ import { BrandDiscount } from './entites/brand-discount.entity';
       CartCustomTotal,
       categoryDiscount,
       ProductDiscount,
-      BrandDiscount
+      BrandDiscount,
     ]),
     ShippingCampaignModule,
     LoyaltyProgramModule,

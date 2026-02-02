@@ -271,10 +271,10 @@ export class SegmentService {
 
   async deleteById(id: number) {
     const repo = this.parentSegmentRepo.find({
-      where: {id: id}
-    })
+      where: { id: id },
+    });
     if (!repo) {
-      throw new BadRequestException("Segment not found for this id.")
+      throw new BadRequestException('Segment not found for this id.');
     }
     await this.parentSegmentRepo.delete(id);
     return {
@@ -290,7 +290,7 @@ export class SegmentService {
       relations: ['basicSegment', 'advanceSegment'],
     });
     if (!repo) {
-      throw new BadRequestException("Segment not found for this id")
+      throw new BadRequestException('Segment not found for this id');
     }
     return repo;
   }

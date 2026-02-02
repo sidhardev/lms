@@ -11,7 +11,6 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { DiscountMode, RuleType } from '../rules.enum';
 
-
 @ValidatorConstraint({ name: 'bulkPurchaseValidation', async: false })
 export class BulkPurchaseValidation implements ValidatorConstraintInterface {
   validate(_: any, args: ValidationArguments): boolean {
@@ -44,10 +43,7 @@ export class BulkPurchaseValidation implements ValidatorConstraintInterface {
   }
 }
 
-
 export class BulkPurchaseDto {
- 
-
   @ApiProperty({
     enum: DiscountMode,
     example: DiscountMode.AMOUNT,

@@ -65,8 +65,6 @@ export class campaign {
   })
   discountType: DiscountType;
 
- 
-
   @Column({
     type: 'boolean',
     nullable: true,
@@ -80,7 +78,6 @@ export class campaign {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
 
   @Column({ nullable: true })
   maxUses: number;
@@ -100,7 +97,7 @@ export class campaign {
   @Column({ nullable: true })
   recurringCycle: recurringCycle;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   ruleType: RuleType;
 
   @Column({
@@ -123,20 +120,31 @@ export class campaign {
   })
   wholeCart: WholeCart;
 
-  @OneToMany(()=> categoryDiscount, (categoryDiscount) => categoryDiscount.discountCampaign, {
-    cascade: true,
-  })
+  @OneToMany(
+    () => categoryDiscount,
+    (categoryDiscount) => categoryDiscount.discountCampaign,
+    {
+      cascade: true,
+    },
+  )
   categoryDiscount: categoryDiscount[];
 
-    @OneToMany(()=> BrandDiscount, (brandDiscount) => brandDiscount.discountCampaign, {
-    cascade: true,
-  })
+  @OneToMany(
+    () => BrandDiscount,
+    (brandDiscount) => brandDiscount.discountCampaign,
+    {
+      cascade: true,
+    },
+  )
   brandDiscount: BrandDiscountDto[];
 
-
-   @OneToMany(()=> ProductDiscount, (ProductDiscount) => ProductDiscount.discountCampaign, {
-    cascade: true,
-  })
+  @OneToMany(
+    () => ProductDiscount,
+    (ProductDiscount) => ProductDiscount.discountCampaign,
+    {
+      cascade: true,
+    },
+  )
   productDiscount: ProductDiscount[];
 
   @OneToOne(() => BulkPurchase, (bulkPurchase) => bulkPurchase.campaign, {
@@ -145,13 +153,11 @@ export class campaign {
   })
   bulkPurchase: BulkPurchase;
 
-    @OneToOne(() => CartCustomTotal, (cartTotal) => cartTotal.campaign, {
+  @OneToOne(() => CartCustomTotal, (cartTotal) => cartTotal.campaign, {
     cascade: true,
     eager: true,
   })
   cartTotalCustom: BulkPurchase;
-
-
 
   @Column({ default: ShippingMethod.NONE })
   shippingMethod: ShippingMethod;

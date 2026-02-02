@@ -49,8 +49,6 @@ export class CartTotalValidation implements ValidatorConstraintInterface {
 }
 
 export class CartCustomTotalDto {
- 
-
   @ApiProperty({
     enum: DiscountMode,
     example: DiscountMode.PERCENT,

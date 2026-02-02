@@ -25,7 +25,7 @@ export class Promotion {
   discountType: DiscountMode;
 
   @Column({ nullable: true })
-discountPercent: number;
+  discountPercent: number;
 
   @Column({ nullable: true })
   discountAmount: number;

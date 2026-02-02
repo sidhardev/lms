@@ -22,16 +22,10 @@ export class CampaignsService {
     private readonly CampaignRepository: Repository<campaign>,
     @InjectRepository(Campaigns)
     private readonly parentCampaignRepository: Repository<Campaigns>,
-
   ) {}
 
   async createDiscountCoupon(CreateCampaignDto: CreateCampaignDto) {
-
-
-  
-
-
-      const parentCampaign = this.parentCampaignRepository.create({
+    const parentCampaign = this.parentCampaignRepository.create({
       name: (CreateCampaignDto as any).name,
       description: (CreateCampaignDto as any).description,
       type: campaignType.DISCOUNT_COUPON,
@@ -39,13 +33,15 @@ export class CampaignsService {
       endAt: CreateCampaignDto.endAt,
       status: CampaignStatus.ACTIVE,
     });
-    
-   if (CreateCampaignDto.notifications) {
-      parentCampaign.notifications = CreateCampaignDto.notifications.map((n) => {
-        const notification = new CampaignNotification();
-        Object.assign(notification, n);
-        return notification;
-      });
+
+    if (CreateCampaignDto.notifications) {
+      parentCampaign.notifications = CreateCampaignDto.notifications.map(
+        (n) => {
+          const notification = new CampaignNotification();
+          Object.assign(notification, n);
+          return notification;
+        },
+      );
     }
     const savedParent =
       await this.parentCampaignRepository.save(parentCampaign);
@@ -69,88 +65,77 @@ export class CampaignsService {
       campaign: savedParent,
     });
 
-
     const dto = CreateCampaignDto;
     if (dto) {
       if (dto.ruleType === RuleType.WHOLE_CART) {
         const wholeCart = new WholeCart();
-         wholeCart.discountMode = dto.wholeCart.discountMode;
+        wholeCart.discountMode = dto.wholeCart.discountMode;
         wholeCart.discountPercent = dto.wholeCart.discoutPercent;
         wholeCart.discountAmount = dto.wholeCart.discountAmount;
         wholeCart.maxDiscount = dto.wholeCart.MaxDiscount;
         campaign.wholeCart = wholeCart;
       } else if (dto.ruleType === RuleType.BULK_PURCHASE) {
         const bulkPurchase = new BulkPurchase();
-         bulkPurchase.discountMode = dto.bulkPurchase.discountMode;
-        bulkPurchase.discountPercent =
-          dto.bulkPurchase.discountPercent;
+        bulkPurchase.discountMode = dto.bulkPurchase.discountMode;
+        bulkPurchase.discountPercent = dto.bulkPurchase.discountPercent;
         bulkPurchase.discountAmount = dto.bulkPurchase.discountAmount;
         bulkPurchase.minOrderValue = dto.bulkPurchase.minOrderValue;
         bulkPurchase.minItems = dto.bulkPurchase.minItems;
         campaign.bulkPurchase = bulkPurchase;
-      } 
-      else if (dto.ruleType === RuleType.CART_TOTAL_CUSTOM) {
+      } else if (dto.ruleType === RuleType.CART_TOTAL_CUSTOM) {
         const cartTotal = new CartCustomTotal();
-         cartTotal.mode = dto.cartTotalCustom.mode;
+        cartTotal.mode = dto.cartTotalCustom.mode;
         cartTotal.minOrderValue = dto.cartTotalCustom.minOrderValue;
         cartTotal.MinPercent = dto.cartTotalCustom.MinPercent;
         cartTotal.MaxPercent = dto.cartTotalCustom.MaxPercent;
         cartTotal.MaxDiscount = dto.cartTotalCustom.MaxDiscount;
         cartTotal.minAmount = dto.cartTotalCustom.minAmount;
         cartTotal.maxAmount = dto.cartTotalCustom.maxAmount;
-        
-
-      }
-      else if (dto.ruleType === RuleType.CATEGORY_DISCOUNT) {
+      } else if (dto.ruleType === RuleType.CATEGORY_DISCOUNT) {
         if (Array.isArray(dto.categoryDiscount)) {
-          campaign.categoryDiscount = dto.categoryDiscount.map(rule => {
+          campaign.categoryDiscount = dto.categoryDiscount.map((rule) => {
             const categoryDiscountRule = new categoryDiscount();
             categoryDiscountRule.name = rule.name;
             categoryDiscountRule.discountPercent = rule.discountPercent;
             categoryDiscountRule.discountAmount = rule.discountAmount;
             categoryDiscountRule.minOrderValue = rule.minOrderValue;
             categoryDiscountRule.maxDiscount = rule.maxDiscount;
-             return categoryDiscountRule;
+            return categoryDiscountRule;
           });
         }
-      }
-
-      else if (dto.ruleType === RuleType.PRODUCT_DISCOUNT) {
+      } else if (dto.ruleType === RuleType.PRODUCT_DISCOUNT) {
         if (Array.isArray(dto.productDiscount)) {
-          campaign.productDiscount = dto.productDiscount.map(rule => {
+          campaign.productDiscount = dto.productDiscount.map((rule) => {
             const productDiscountRule = new ProductDiscount();
             productDiscountRule.name = rule.name;
             productDiscountRule.discountPercent = rule.discountPercent;
             productDiscountRule.discountAmount = rule.discountAmount;
             productDiscountRule.minOrderValue = rule.minOrderValue;
             productDiscountRule.maxDiscount = rule.maxDiscount;
-             return productDiscountRule;
+            return productDiscountRule;
           });
         }
-      }
-
-      else if (dto.ruleType === RuleType.BRAND_DISCOUNT) {
+      } else if (dto.ruleType === RuleType.BRAND_DISCOUNT) {
         if (Array.isArray(dto.brandDiscount)) {
-          campaign.brandDiscount = dto.brandDiscount.map(rule => {
+          campaign.brandDiscount = dto.brandDiscount.map((rule) => {
             const brandDiscountRule = new BrandDiscount();
             brandDiscountRule.name = rule.name;
             brandDiscountRule.discountPercent = rule.discountPercent;
             brandDiscountRule.discountAmount = rule.discountAmount;
             brandDiscountRule.minOrderValue = rule.minOrderValue;
             brandDiscountRule.maxDiscount = rule.maxDiscount;
-             return brandDiscountRule;
+            return brandDiscountRule;
           });
         }
       }
-     
     }
 
     await this.CampaignRepository.save(campaign);
     return {
       status: true,
-      message: "Campaign created Sucessfully",
-      parentCampaign
-    }
+      message: 'Campaign created Sucessfully',
+      parentCampaign,
+    };
   }
 
   async findAll(page: number, limit: number) {
@@ -178,7 +163,7 @@ export class CampaignsService {
     }
 
     campaign.status = updateStatusDto.status;
-return this.parentCampaignRepository.save(campaign);
+    return this.parentCampaignRepository.save(campaign);
   }
   async findActive() {
     return this.parentCampaignRepository.find({

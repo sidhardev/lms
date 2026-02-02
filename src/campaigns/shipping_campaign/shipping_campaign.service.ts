@@ -1,6 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { campaign, CampaignStatus } from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
+import {
+  campaign,
+  CampaignStatus,
+} from 'src/campaigns/order-campaign/entites/discount-campaign.entity';
 import { Repository } from 'typeorm';
 import { CreateCampaignDto } from 'src/campaigns/order-campaign/dtos/create-campaign.dto';
 import { campaignType } from '../enums/campaign-type.enum';
@@ -49,8 +52,10 @@ export class ShippingCampaignService {
       campaign: savedParent,
     });
 
-    if ((CreateCampaignDto as any).notifications && 
-        (CreateCampaignDto as any).notifications.length > 0) {
+    if (
+      (CreateCampaignDto as any).notifications &&
+      (CreateCampaignDto as any).notifications.length > 0
+    ) {
       const notifications = await this.notificationRepository.save(
         (CreateCampaignDto as any).notifications.map((n: any) => ({
           ...n,

@@ -20,14 +20,14 @@ export class PromotionController {
   constructor(private readonly promotionService: PromotionService) {}
 
   @Post('/create')
-   @ApiOperation({ summary: 'Create promotions' })
+  @ApiOperation({ summary: 'Create promotions' })
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() createPromotionDto: CreatePromotionDto) {
     return this.promotionService.create(createPromotionDto);
   }
 
   @Get('/get')
-    @ApiOperation({ summary: 'Get all promotions' })
+  @ApiOperation({ summary: 'Get all promotions' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   findAll(
