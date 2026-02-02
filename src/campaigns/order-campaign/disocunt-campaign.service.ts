@@ -12,6 +12,7 @@ import { campaignType } from '../enums/campaign-type.enum';
 import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 import { CartCustomTotal } from './entites/cart-total-custom.entity';
 import { categoryDiscount } from './entites/category-discount.entity';
+import { ProductDiscount } from './entites/product-discount.entity';
 
 @Injectable()
 export class CampaignsService {
@@ -109,6 +110,20 @@ export class CampaignsService {
             categoryDiscountRule.minOrderValue = rule.minOrderValue;
             categoryDiscountRule.maxDiscount = rule.maxDiscount;
              return categoryDiscountRule;
+          });
+        }
+      }
+
+      else if (dto.ruleType === RuleType.PRODUCT_DISCOUNT) {
+        if (Array.isArray(dto.productDiscount)) {
+          campaign.productDiscount = dto.productDiscount.map(rule => {
+            const productDiscountRule = new ProductDiscount();
+            productDiscountRule.name = rule.name;
+            productDiscountRule.discountPercent = rule.discountPercent;
+            productDiscountRule.discountAmount = rule.discountAmount;
+            productDiscountRule.minOrderValue = rule.minOrderValue;
+            productDiscountRule.maxDiscount = rule.maxDiscount;
+             return productDiscountRule;
           });
         }
       }

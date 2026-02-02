@@ -11,6 +11,7 @@ import { Campaigns } from '../campaign.entity';
 import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 import { CartCustomTotal } from './entites/cart-total-custom.entity';
 import { categoryDiscount } from './entites/category-discount.entity';
+import { ProductDiscount } from './entites/product-discount.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { categoryDiscount } from './entites/category-discount.entity';
       Campaigns,
       CampaignNotification,
       CartCustomTotal,
-      categoryDiscount
+      categoryDiscount,
+      ProductDiscount
     ]),
     ShippingCampaignModule,
     LoyaltyProgramModule,

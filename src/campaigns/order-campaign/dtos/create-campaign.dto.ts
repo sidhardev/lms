@@ -20,9 +20,8 @@ import {
   recurringCycle,
   recurringValidDays,
   userEligiblity,
-  CampaignStatus,
 } from '../entites/discount-campaign.entity';
-import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
 import { wholeCartDto } from '../rules/dtos/whole-cart.dto';
@@ -31,6 +30,7 @@ import { RuleType } from '../rules/rules.enum';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
 import { categoryDiscountDto } from '../rules/dtos/category-discount.dto';
+import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
@@ -56,6 +56,9 @@ export class RulesValidation implements ValidatorConstraintInterface {
         break;
         case RuleType.CATEGORY_DISCOUNT: 
         dtoClass = categoryDiscountDto;
+        break;
+      case RuleType.PRODUCT_DISCOUNT:
+        dtoClass = ProductDiscountDto;
       
       default:
         return false;
@@ -105,6 +108,7 @@ export class IsOnlyOneRuleProvided implements ValidatorConstraintInterface {
       [RuleType.BULK_PURCHASE]: 'bulkPurchase',
       [RuleType.CART_TOTAL_CUSTOM]: 'cartTotalCustom',
       [RuleType.CATEGORY_DISCOUNT]: 'categoryDiscount',
+      [RuleType.PRODUCT_DISCOUNT]: 'productDiscount',
     };
 
     const allRuleProperties = Object.values(ruleMapping);
@@ -130,6 +134,8 @@ export class IsOnlyOneRuleProvided implements ValidatorConstraintInterface {
       [RuleType.BULK_PURCHASE]: 'bulkPurchase',
       [RuleType.CART_TOTAL_CUSTOM]: 'cartTotalCustom',
       [RuleType.CATEGORY_DISCOUNT]: 'categoryDiscount',
+            [RuleType.PRODUCT_DISCOUNT]: 'productDiscount',
+
     };
 
     const expectedProperty = ruleMapping[ruleType];
@@ -240,6 +246,30 @@ export class CreateCampaignDto {
   @ValidateNested({ each: true })
   @Type(() => categoryDiscountDto)
   categoryDiscount: categoryDiscountDto[];
+
+
+  @IsOptional()
+  @IsArray()
+  @ApiProperty({
+    type: [ProductDiscountDto],
+    example: [
+      {
+        name: 'MOST_PURCHASED',
+        discountPercent: 10,
+        minOrderValue: 500,
+        maxDiscount: 100,
+       },
+      {
+        name: 'NOT_SOLD',
+        discountAmount: 50,
+        minOrderValue: 1000,
+        maxDiscount: 50,
+       },
+    ],
+  })
+  @ValidateNested({ each: true })
+  @Type(() => ProductDiscountDto)
+  productDiscount: ProductDiscountDto[];
 
  
 
