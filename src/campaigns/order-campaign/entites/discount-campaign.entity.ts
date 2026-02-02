@@ -19,6 +19,8 @@ import { CartCustomTotal } from './cart-total-custom.entity';
 import { categoryDiscount } from './category-discount.entity';
 import { RuleType } from '../rules/rules.enum';
 import { ProductDiscount } from './product-discount.entity';
+import { BrandDiscount } from './brand-discount.entity';
+import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
 
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
@@ -125,6 +127,12 @@ export class campaign {
     cascade: true,
   })
   categoryDiscount: categoryDiscount[];
+
+    @OneToMany(()=> BrandDiscount, (brandDiscount) => brandDiscount.discountCampaign, {
+    cascade: true,
+  })
+  brandDiscount: BrandDiscountDto[];
+
 
    @OneToMany(()=> ProductDiscount, (ProductDiscount) => ProductDiscount.discountCampaign, {
     cascade: true,

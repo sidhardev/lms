@@ -31,6 +31,7 @@ import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNoti
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
 import { categoryDiscountDto } from '../rules/dtos/category-discount.dto';
 import { ProductDiscountDto } from '../rules/dtos/product-discount.dto';
+import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
@@ -109,6 +110,8 @@ export class IsOnlyOneRuleProvided implements ValidatorConstraintInterface {
       [RuleType.CART_TOTAL_CUSTOM]: 'cartTotalCustom',
       [RuleType.CATEGORY_DISCOUNT]: 'categoryDiscount',
       [RuleType.PRODUCT_DISCOUNT]: 'productDiscount',
+      [RuleType.BRAND_DISCOUNT]: 'brandDiscount',
+
     };
 
     const allRuleProperties = Object.values(ruleMapping);
@@ -134,7 +137,8 @@ export class IsOnlyOneRuleProvided implements ValidatorConstraintInterface {
       [RuleType.BULK_PURCHASE]: 'bulkPurchase',
       [RuleType.CART_TOTAL_CUSTOM]: 'cartTotalCustom',
       [RuleType.CATEGORY_DISCOUNT]: 'categoryDiscount',
-            [RuleType.PRODUCT_DISCOUNT]: 'productDiscount',
+      [RuleType.PRODUCT_DISCOUNT]: 'productDiscount',
+      [RuleType.BRAND_DISCOUNT]: 'brandDiscount',
 
     };
 
@@ -270,6 +274,31 @@ export class CreateCampaignDto {
   @ValidateNested({ each: true })
   @Type(() => ProductDiscountDto)
   productDiscount: ProductDiscountDto[];
+
+
+
+   @IsOptional()
+  @IsArray()
+  @ApiProperty({
+    type: [BrandDiscountDto],
+    example: [
+      {
+        name: 'PUMA',
+        discountPercent: 10,
+        minOrderValue: 500,
+        maxDiscount: 100,
+       },
+      {
+        name: 'ADIDAS',
+        discountAmount: 50,
+        minOrderValue: 1000,
+        maxDiscount: 50,
+       },
+    ],
+  })
+  @ValidateNested({ each: true })
+  @Type(() => BrandDiscountDto)
+  brandDiscount: BrandDiscountDto[];
 
  
 
