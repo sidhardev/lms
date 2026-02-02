@@ -20,8 +20,7 @@ import {
   recurringCycle,
   recurringValidDays,
   userEligiblity,
-  CampaignStatus,
-} from '../entites/discount-campaign.entity';
+ } from '../entites/discount-campaign.entity';
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { BulkPurchaseDto } from '../rules/dtos/bulk-purchase.dto';
 import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
@@ -30,13 +29,14 @@ import { plainToClass, Type } from 'class-transformer';
 import { RuleType } from '../rules/rules.enum';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
-
+import { categoryDiscountDto } from '../rules/dtos/category-discount.dto';
+ 
 @ValidatorConstraint({ name: 'rulesValidation', async: true })
 export class RulesValidation implements ValidatorConstraintInterface {
   async validate(_: any, args: ValidationArguments): Promise<boolean> {
     const obj = args.object as CreateCampaignDto;
-    const rulesData = obj.rules;
-    const ruleType = rulesData?.ruleType;
+    const rulesData = obj.ruleType;
+    const ruleType = rulesData;
 
     if (!rulesData) return false;
     if (!ruleType) return false;
@@ -53,6 +53,10 @@ export class RulesValidation implements ValidatorConstraintInterface {
       case RuleType.BULK_PURCHASE:
         dtoClass = BulkPurchaseDto;
         break;
+
+        case RuleType.CATEGORY_DISCOUNT:
+          dtoClass = categoryDiscountDto;
+
       
       default:
         return false;
@@ -70,8 +74,8 @@ export class RulesValidation implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args: ValidationArguments): string {
-    const rulesData = (args.object as CreateCampaignDto).rules;
-    const ruleType = rulesData?.ruleType;
+    const ruleData = args.object as CreateCampaignDto;
+    const ruleType = ruleData.ruleType;
     const validationErrors = (args as any).validationErrors;
 
     if (!validationErrors || validationErrors.length === 0) {
@@ -132,6 +136,11 @@ export class CreateCampaignDto {
   @IsOptional()
   @IsBoolean()
   useItAsCoupon: boolean;
+@ApiProperty({
+  example: RuleType.CATEGORY_DISCOUNT
+})
+  @IsEnum(RuleType)
+   ruleType: RuleType;
 
   @ApiProperty({
     oneOf: [
@@ -154,6 +163,7 @@ export class CreateCampaignDto {
     | wholeCartDto
     | CartCustomTotalDto
     | BulkPurchaseDto
+    | categoryDiscountDto
 
   @ApiProperty({
     example: 100,
@@ -253,6 +263,8 @@ export class CreateCampaignDto {
   @IsOptional()
   @IsEnum(ShippingMethod)
   shippingMethod: ShippingMethod;
+
+
 
   @IsOptional()
   @IsNumber()

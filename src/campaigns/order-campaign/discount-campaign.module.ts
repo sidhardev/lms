@@ -10,6 +10,7 @@ import { LoyaltyProgramModule } from 'src/campaigns/loyalty-program/loyalty-prog
 import { Campaigns } from '../campaign.entity';
 import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 import { CartCustomTotal } from './entites/cart-total-custom.entity';
+import { categoryDiscount } from './entites/category-discount.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { CartCustomTotal } from './entites/cart-total-custom.entity';
       BulkPurchase,
       Campaigns,
       CampaignNotification,
-      CartCustomTotal
+      CartCustomTotal,
+      categoryDiscount
     ]),
     ShippingCampaignModule,
     LoyaltyProgramModule,

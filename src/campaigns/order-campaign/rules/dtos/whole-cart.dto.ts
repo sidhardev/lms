@@ -24,12 +24,10 @@ export class WholeCartValidation implements ValidatorConstraintInterface {
       obj.discountAmount !== undefined && obj.discountAmount !== null;
     const discountMode = obj.discountMode;
 
-    // If PERCENT mode is selected, only discoutPercent should be provided
     if (discountMode === DiscountMode.PERCENT) {
       return hasPercent && !hasAmount;
     }
 
-    // If AMOUNT mode is selected, only discountAmount should be provided
     if (discountMode === DiscountMode.AMOUNT) {
       return hasAmount && !hasPercent;
     }

@@ -11,6 +11,7 @@ import { Campaigns } from '../campaign.entity';
 import { campaignType } from '../enums/campaign-type.enum';
 import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 import { CartCustomTotal } from './entites/cart-total-custom.entity';
+import { categoryDiscount } from './entites/category-discount.entity';
 
 @Injectable()
 export class CampaignsService {
@@ -61,7 +62,7 @@ export class CampaignsService {
     });
 
 
-    const rules = CreateCampaignDto.rules as any;
+    const rules = CreateCampaignDto as any;
     if (rules) {
       if (rules.ruleType === RuleType.WHOLE_CART) {
         const wholeCart = new WholeCart();
@@ -95,6 +96,7 @@ export class CampaignsService {
         
 
       }
+     
     }
 
     return this.CampaignRepository.save(campaign);

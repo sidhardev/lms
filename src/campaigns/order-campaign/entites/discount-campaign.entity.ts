@@ -9,12 +9,14 @@ import {
   OneToOne,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { WholeCart } from './whole-cart.entity';
 import { BulkPurchase } from './bulk-purchase.entity';
 import { recurringCycle, recurringValidDays } from '../../enums/campaign.enums';
 import { Campaigns } from '../../campaign.entity';
 import { CartCustomTotal } from './cart-total-custom.entity';
+import { categoryDiscount } from './category-discount.entity';
 
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
@@ -113,6 +115,9 @@ export class campaign {
     eager: true,
   })
   wholeCart: WholeCart;
+
+  @OneToMany(()=> categoryDiscount, (categoryDiscount) => categoryDiscount.discountCampaign)
+  categoryDiscount: categoryDiscount[];
 
   @OneToOne(() => BulkPurchase, (bulkPurchase) => bulkPurchase.campaign, {
     cascade: true,
