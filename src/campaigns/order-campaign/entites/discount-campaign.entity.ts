@@ -1,5 +1,4 @@
 import { IsOptional } from 'class-validator';
-import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 import { ShippingMethod } from 'src/campaigns/enums/shipping_method.enum';
 import {
   PrimaryGeneratedColumn,
@@ -7,7 +6,6 @@ import {
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
   OneToOne,
   ManyToOne,
   JoinColumn,
