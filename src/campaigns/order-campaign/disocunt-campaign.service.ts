@@ -70,7 +70,7 @@ export class CampaignsService {
       if (dto.ruleType === RuleType.WHOLE_CART) {
         const wholeCart = new WholeCart();
         wholeCart.discountMode = dto.wholeCart.discountMode;
-        wholeCart.discountPercent = dto.wholeCart.discoutPercent;
+        wholeCart.discountPercent = dto.wholeCart.discountPercent;
         wholeCart.discountAmount = dto.wholeCart.discountAmount;
         wholeCart.maxDiscount = dto.wholeCart.MaxDiscount;
         campaign.wholeCart = wholeCart;

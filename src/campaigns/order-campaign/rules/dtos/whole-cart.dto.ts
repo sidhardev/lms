@@ -19,7 +19,7 @@ export class WholeCartValidation implements ValidatorConstraintInterface {
   ): Promise<boolean> | boolean {
     const obj = validationArguments?.object as wholeCartDto;
     const hasPercent =
-      obj.discoutPercent !== undefined && obj.discoutPercent !== null;
+      obj.discountPercent !== undefined && obj.discountPercent !== null;
     const hasAmount =
       obj.discountAmount !== undefined && obj.discountAmount !== null;
     const discountMode = obj.discountMode;
@@ -37,12 +37,12 @@ export class WholeCartValidation implements ValidatorConstraintInterface {
   defaultMessage(validationArguments?: ValidationArguments): string {
     const obj = validationArguments?.object as wholeCartDto;
     if (obj.discountMode === DiscountMode.PERCENT) {
-      return 'For PERCENT discount mode, provide only discoutPercent, not discountAmount!';
+      return 'For PERCENT discount mode, provide only discountPercent, not discountAmount!';
     }
     if (obj.discountMode === DiscountMode.AMOUNT) {
-      return 'For AMOUNT discount mode, provide only discountAmount, not discoutPercent!';
+      return 'For AMOUNT discount mode, provide only discountAmount, not discountPercent!';
     }
-    return 'Provide either discountAmount or discoutPercent based on the selected discountMode!';
+    return 'Provide either discountAmount or discountPercent based on the selected discountMode!';
   }
 }
 
@@ -59,7 +59,7 @@ export class wholeCartDto {
   @ApiProperty({
     example: 20,
   })
-  discoutPercent: number;
+  discountPercent: number;
 
   @IsNumber()
   @Min(1)

@@ -37,7 +37,7 @@ export class LoyaltyProgram {
   @OneToOne(
     () => CampaignNotification,
     (notification) => notification.loyaltyProgram,
-    { cascade: true, eager: true },
+    { cascade: true,  },
   )
   notification: CampaignNotification;
 

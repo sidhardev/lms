@@ -9,6 +9,7 @@ import { Campaigns } from '../campaign.entity';
 import { campaignType } from '../enums/campaign-type.enum';
 import { CampaignStatus } from '../order-campaign/entites/discount-campaign.entity';
 import { CampaignNotification } from 'src/notifications/entities/notification.entity';
+import { PointsPerRupeeDto } from './dtos/points-per-ruppee.dto';
 
 @Injectable()
 export class LoyaltyProgramService {
@@ -50,7 +51,7 @@ export class LoyaltyProgramService {
     if (dto.rules) {
       switch (dto.rules.ruleType) {
         case AccumulationRuleType.POINTS_PER_RUPEE:
-          loyaltyProgram.pointsPerRupee = dto.rules as any;
+        loyaltyProgram.pointsPerRupee = dto.rules as any;
           break;
         case AccumulationRuleType.FIRST_PURCHASE:
           loyaltyProgram.firstPurchase = dto.rules as any;

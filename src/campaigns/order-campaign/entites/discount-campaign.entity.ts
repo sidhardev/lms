@@ -136,7 +136,7 @@ export class campaign {
       cascade: true,
     },
   )
-  brandDiscount: BrandDiscountDto[];
+  brandDiscount: BrandDiscount[];
 
   @OneToMany(
     () => ProductDiscount,
