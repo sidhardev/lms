@@ -9,7 +9,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { DiscountMode, RuleType } from '../rules.enum';
+import { DiscountMode } from '../rules.enum';
 
 @ValidatorConstraint({ name: 'bulkPurchaseValidation', async: false })
 export class BulkPurchaseValidation implements ValidatorConstraintInterface {

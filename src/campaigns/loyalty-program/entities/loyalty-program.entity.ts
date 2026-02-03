@@ -1,4 +1,3 @@
-import { IsOptional } from 'class-validator';
 import { recurringValidDays } from 'src/campaigns/enums/campaign.enums';
 import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 import {

@@ -3,9 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { scrypt as _scrypt, randomBytes } from 'crypto';
 import { promisify } from 'util';
-import { ResetPasswordDto } from './dtos/reset-passsword.dto';
 import { MailService } from 'src/mail/mail.service';
-import { identity } from 'rxjs';
 import { BadRequestException } from '@nestjs/common';
 
 const scrypt = promisify(_scrypt);

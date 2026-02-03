@@ -4,8 +4,7 @@ import { UserSigninDto } from './dtos/user-signin.dto';
 import { AuthService } from './auth.service';
 import { ResetPasswordDto } from './dtos/reset-passsword.dto';
 import { ForgetPasswordDto } from './dtos/forget-password.dto';
-import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {

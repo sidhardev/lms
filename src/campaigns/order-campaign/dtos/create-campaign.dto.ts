@@ -60,6 +60,7 @@ export class RulesValidation implements ValidatorConstraintInterface {
         break;
       case RuleType.PRODUCT_DISCOUNT:
         dtoClass = ProductDiscountDto;
+        break;
 
       default:
         return false;

@@ -1,12 +1,5 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { campaign } from './discount-campaign.entity';
-import { RuleType } from '../rules/rules.enum';
 
 @Entity('category-discount')
 export class categoryDiscount {

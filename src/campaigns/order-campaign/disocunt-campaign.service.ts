@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { campaign, CampaignStatus } from './entites/discount-campaign.entity';
 import { Repository } from 'typeorm';
@@ -153,16 +153,16 @@ export class CampaignsService {
     });
   }
 
-  async UpdateStatus(id: number, updateStatusDto) {
+  async UpdateStatus(id: number, status) {
     const campaign = await this.parentCampaignRepository.findOne({
       where: { id: id },
     });
-    console.log(id);
+    console.log(id, status);
     if (!campaign) {
       throw new NotFoundException('Campaign Not found!');
     }
 
-    campaign.status = updateStatusDto.status;
+    campaign.status = status;
     return this.parentCampaignRepository.save(campaign);
   }
   async findActive() {
@@ -171,11 +171,20 @@ export class CampaignsService {
     });
   }
 
-  deleteById(id: number) {
-    this.CampaignRepository.delete(id);
+ async deleteById(id: number) {
+  const repo = await this.parentCampaignRepository.find({
+    where: {id: id}
+   });
+
+   if(!repo) {
+throw new BadRequestException(`ampaign not found for id: ${id}`)
+   }
+   else {
+   await this.parentCampaignRepository.delete(id);
+
     return {
-      message: 'Campaign deleted successfully',
+message: `Campaign deleted successfully for id: ${id}`,
       status: true,
     };
-  }
+  }}
 }

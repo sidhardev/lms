@@ -8,10 +8,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import {
-  CampaignStatus,
-  recurringValidDays,
-} from '../../order-campaign/entites/discount-campaign.entity';
+import { recurringValidDays } from '../../order-campaign/entites/discount-campaign.entity';
 import { CategoryBasedDto } from './category-based.dto';
 import { DailyLoginStreakDto } from './daily-streak-login.dto';
 import { FirstPurchasePointsDto } from './first_purchase.dto';

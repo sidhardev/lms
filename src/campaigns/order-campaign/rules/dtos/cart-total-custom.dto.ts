@@ -9,7 +9,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { DiscountMode, RuleType } from '../rules.enum';
+import { DiscountMode } from '../rules.enum';
 
 @ValidatorConstraint({ name: 'cartTotalValidation', async: false })
 export class CartTotalValidation implements ValidatorConstraintInterface {

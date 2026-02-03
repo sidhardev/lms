@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { campaign } from './discount-campaign.entity';
-import { RuleType, DiscountMode } from '../rules/rules.enum';
+import { DiscountMode } from '../rules/rules.enum';
 
 @Entity('whole_cart_discounts')
 export class WholeCart {

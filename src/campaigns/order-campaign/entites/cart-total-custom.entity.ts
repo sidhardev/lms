@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { DiscountMode, RuleType } from '../rules/rules.enum';
+import { DiscountMode } from '../rules/rules.enum';
 import { campaign } from './discount-campaign.entity';
 
 @Entity('cart_custom_total')
