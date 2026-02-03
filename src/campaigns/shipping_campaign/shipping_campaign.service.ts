@@ -78,13 +78,7 @@ export class ShippingCampaignService {
     });
   }
 
-  async UpdateStatus(id: number) {
-    const campaign = await this.findOne(id);
-    console.log(id);
-    if (!campaign) {
-      throw new NotFoundException('Campaign Not found!');
-    }
-  }
+ 
 
   deleteById(id: number) {
     this.CampaignRepository.delete(id);

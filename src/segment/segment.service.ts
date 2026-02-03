@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -137,7 +137,7 @@ export class SegmentService {
       where: { id: id },
     });
     if (repo.length === 0) {
-      throw new BadRequestException('Segment not found for this id.');
+      throw new NotFoundException('Segment not found for this id.');
     }
     await this.parentSegmentRepo.delete(id);
     return {
@@ -153,7 +153,7 @@ export class SegmentService {
       relations: ['basicSegment', 'advanceSegment'],
     });
     if (!repo) {
-      throw new BadRequestException('Segment not found for this id');
+      throw new NotFoundException('Segment not found for this id');
     }
     return repo;
   }

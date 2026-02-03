@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString, IsUrl } from 'class-validator';
 import { NotificationChannel } from '../enums/notification-channel.enum';
 
 export class CreateCampaignNotificationDto {
@@ -45,6 +45,7 @@ export class CreateCampaignNotificationDto {
     example: 'https://loyaltynotification.com',
     description: 'CTA redirect URL',
   })
+  @IsUrl()
   @IsOptional()
   @IsString()
   ctaLink?: string;

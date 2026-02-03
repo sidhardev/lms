@@ -71,8 +71,7 @@ export class CreatePromotionDto {
     example: 1000,
     description: 'Maximum discount cap',
   })
-  @IsOptional()
-  @IsNumber()
+   @IsNumber()
   maxDiscount: number;
 
   @ApiProperty({

@@ -22,15 +22,13 @@ export class CampaignNotification {
     onDelete: 'CASCADE',
     nullable: true,
   })
-  @JoinColumn()
-  campaign?: campaign;
+   campaign?: Campaigns;
 
   @ManyToOne(() => Promotion, (promotion) => promotion.notifications, {
     onDelete: 'CASCADE',
     nullable: true,
   })
-  @JoinColumn()
-  promotion?: Promotion;
+   promotion?: Promotion;
 
   @OneToOne(
     () => LoyaltyProgram,
@@ -40,8 +38,7 @@ export class CampaignNotification {
       nullable: true,
     },
   )
-  @JoinColumn({ name: 'loyaltyProgramId' })
-  loyaltyProgram?: LoyaltyProgram;
+   loyaltyProgram?: LoyaltyProgram;
 
   @Column({ type: 'enum', enum: NotificationChannel })
   channel: NotificationChannel;

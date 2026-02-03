@@ -178,7 +178,7 @@ export class CampaignsService {
    });
 
    if(repo.length === 0) {
-throw new BadRequestException(`Campaign not found for id: ${id}`)
+throw new NotFoundException(`Campaign not found for id: ${id}`)
    }
    else {
    await this.parentCampaignRepository.delete(id);

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Promotion } from './entites/promotion.entity';
@@ -69,7 +69,13 @@ export class PromotionService {
     });
   }
 
-  delete(id: number) {
+  async delete(id: number) {
+    const repo = await this.promotionRepository.find({
+      where: {id: id}
+    });
+    if(repo.length === 0) {
+      throw new NotFoundException(`Promotion not found for the id: ${id}`)
+    }
     this.promotionRepository.delete(id);
     return {
       status: true,
