@@ -91,6 +91,7 @@ export class CampaignsService {
         cartTotal.MaxDiscount = dto.cartTotalCustom.MaxDiscount;
         cartTotal.minAmount = dto.cartTotalCustom.minAmount;
         cartTotal.maxAmount = dto.cartTotalCustom.maxAmount;
+        campaign.cartTotalCustom = cartTotal;
       } else if (dto.ruleType === RuleType.CATEGORY_DISCOUNT) {
         if (Array.isArray(dto.categoryDiscount)) {
           campaign.categoryDiscount = dto.categoryDiscount.map((rule) => {
@@ -176,8 +177,8 @@ export class CampaignsService {
     where: {id: id}
    });
 
-   if(!repo) {
-throw new BadRequestException(`ampaign not found for id: ${id}`)
+   if(repo.length === 0) {
+throw new BadRequestException(`Campaign not found for id: ${id}`)
    }
    else {
    await this.parentCampaignRepository.delete(id);

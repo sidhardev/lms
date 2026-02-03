@@ -17,7 +17,7 @@ import {
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
-import { CampaignsService } from './disocunt-campaign.service';
+import { CampaignsService } from './discount-campaign.service';
 import { CreateCampaignDto } from './dtos/create-campaign.dto';
 import {
   CampaignStatus,
@@ -109,7 +109,7 @@ export class CampaignsController {
     return this.campaignService.UpdateStatus(id, status);
   }
 
-  @Delete('campaigns/coupon/:id')
+  @Delete('campaigns/:id')
   deleteById(@Param('id') id: number) {
     return this.campaignService.deleteById(id);
   }

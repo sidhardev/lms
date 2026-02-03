@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { campaign } from './entites/discount-campaign.entity';
-import { CampaignsService } from './disocunt-campaign.service';
-import { CampaignsController } from './disocunt-campaign.controller';
+import { CampaignsService } from './discount-campaign.service';
+import { CampaignsController } from './discount-campaign.controller';
 import { ShippingCampaignModule } from '../shipping_campaign/shipping_campaign.module';
 import { WholeCart } from './entites/whole-cart.entity';
 import { BulkPurchase } from './entites/bulk-purchase.entity';

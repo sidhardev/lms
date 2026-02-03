@@ -21,6 +21,7 @@ import { RuleType } from '../rules/rules.enum';
 import { ProductDiscount } from './product-discount.entity';
 import { BrandDiscount } from './brand-discount.entity';
 import { BrandDiscountDto } from '../rules/dtos/brand-discount.dto';
+import { CartCustomTotalDto } from '../rules/dtos/cart-total-custom.dto';
 
 export enum DiscountType {
   FREE_SHIPPING = 'FREE_SHIPPING',
@@ -157,7 +158,7 @@ export class campaign {
     cascade: true,
     eager: true,
   })
-  cartTotalCustom: BulkPurchase;
+  cartTotalCustom: CartCustomTotal;
 
   @Column({ default: ShippingMethod.NONE })
   shippingMethod: ShippingMethod;

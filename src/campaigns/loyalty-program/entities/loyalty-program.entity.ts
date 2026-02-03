@@ -1,4 +1,3 @@
-import { recurringValidDays } from 'src/campaigns/enums/campaign.enums';
 import { CampaignNotification } from 'src/notifications/entities/notification.entity';
 import {
   Column,
@@ -16,6 +15,7 @@ import { FirstPurchase } from './first-purchase.entity';
 import { DailyLoginStreak } from './daily-login-streak.entity';
 import { CategoryBased } from './category-based.entity';
 import { Campaigns } from '../../campaign.entity';
+import { recurringValidDays } from 'src/campaigns/enums/campaign.enums';
 
 @Entity('loyalty-program')
 export class LoyaltyProgram {

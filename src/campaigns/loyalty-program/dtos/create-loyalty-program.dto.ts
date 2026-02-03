@@ -8,12 +8,12 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { recurringValidDays } from '../../order-campaign/entites/discount-campaign.entity';
-import { CategoryBasedDto } from './category-based.dto';
+ import { CategoryBasedDto } from './category-based.dto';
 import { DailyLoginStreakDto } from './daily-streak-login.dto';
 import { FirstPurchasePointsDto } from './first_purchase.dto';
 import { PointsPerRupeeDto } from './points-per-ruppee.dto';
 import { CreateCampaignNotificationDto } from 'src/notifications/dtos/createNotificationChannel.dto';
+import { recurringValidDays } from 'src/campaigns/enums/campaign.enums';
 
 @ApiExtraModels(
   PointsPerRupeeDto,
