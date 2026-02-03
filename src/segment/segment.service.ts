@@ -3,28 +3,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Segment } from './entites/basic-segment.enity';
-import { UserSegment } from './entites/user_segment.entity';
-import { ProductSegment } from './entites/product_segment.entity';
-
-import { MembersCriteria } from './entites/members-criteria.entity';
-import { EngagementCriteria } from './entites/engagement-criteria.entity';
-import { discountCriteria } from './entites/discount-criteria.entity';
-import { TransactionCriteria } from './entites/transaction-criteria.entity';
-
-import { ProductInteraction } from './entites/product-interaction.entity';
-import { StockLevel } from './entites/stock-level.entity';
-import { PurchaseFrequency } from './entites/purchase-frequency.entity';
-import { PriceBased } from './entites/price-based.entity';
-
 import { CreateSegmentDto } from './dtos/create-basic-segment.dto';
 import { AdvancedSegment } from './entites/advance-segment.entity';
 import { BasicSegmentType } from './enums/segementType.enum';
 import { ParentSegment } from './entites/segment.entity';
 import { SegmentType } from './enums/segment-type.enum';
+import { ProductsService } from './products.service';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class SegmentService {
   constructor(
+    private readonly productService: ProductsService,
+    private readonly usersService: UsersService,
     @InjectRepository(Segment)
     private readonly segmentRepository: Repository<Segment>,
 
@@ -33,36 +24,7 @@ export class SegmentService {
 
     @InjectRepository(AdvancedSegment)
     private readonly AdvancedSegmentRepo: Repository<AdvancedSegment>,
-
-    @InjectRepository(UserSegment)
-    private readonly userSegmentRepository: Repository<UserSegment>,
-
-    @InjectRepository(ProductSegment)
-    private readonly productSegmentRepository: Repository<ProductSegment>,
-
-    @InjectRepository(MembersCriteria)
-    private readonly membersCriteriaRepository: Repository<MembersCriteria>,
-
-    @InjectRepository(EngagementCriteria)
-    private readonly engagementCriteriaRepository: Repository<EngagementCriteria>,
-
-    @InjectRepository(discountCriteria)
-    private readonly discountCriteriaRepository: Repository<discountCriteria>,
-
-    @InjectRepository(TransactionCriteria)
-    private readonly transactionCriteriaRepository: Repository<TransactionCriteria>,
-
-    @InjectRepository(ProductInteraction)
-    private readonly productInteractionRepository: Repository<ProductInteraction>,
-
-    @InjectRepository(StockLevel)
-    private readonly stockLevelRepository: Repository<StockLevel>,
-
-    @InjectRepository(PurchaseFrequency)
-    private readonly purchaseFrequencyRepository: Repository<PurchaseFrequency>,
-
-    @InjectRepository(PriceBased)
-    private readonly priceBasedRepository: Repository<PriceBased>,
+  
   ) {}
 
   async create(dto: CreateSegmentDto) {
@@ -87,11 +49,11 @@ export class SegmentService {
     const savedSegment = await this.segmentRepository.save(segment);
 
     if (dto.BasicSegmentType === BasicSegmentType.USER_SEGMENT) {
-      await this.createUserSegment(dto, savedSegment);
+      await this.usersService.createUserSegment(dto, savedSegment);
     }
 
     if (dto.BasicSegmentType === BasicSegmentType.PRODUCT_SEGMENT) {
-      await this.createProductSegment(dto, savedSegment);
+      await this.productService.createProductSegment(dto, savedSegment);
     }
 
     return {
@@ -99,106 +61,7 @@ export class SegmentService {
     };
   }
 
-  private async createUserSegment(dto: CreateSegmentDto, segment: Segment) {
-    const userSegment = await this.userSegmentRepository.save(
-      this.userSegmentRepository.create({ segment }),
-    );
 
-    if (dto.membersCriteria?.length) {
-      await this.membersCriteriaRepository.save(
-        dto.membersCriteria.map((c) =>
-          this.membersCriteriaRepository.create({
-            ...c,
-            userSegment,
-          }),
-        ),
-      );
-    }
-
-    if (dto.engagementCriteria?.length) {
-      await this.engagementCriteriaRepository.save(
-        dto.engagementCriteria.map((c) =>
-          this.engagementCriteriaRepository.create({
-            ...c,
-            userSegment,
-          }),
-        ),
-      );
-    }
-
-    if (dto.discountCriteria?.length) {
-      await this.discountCriteriaRepository.save(
-        dto.discountCriteria.map((c) =>
-          this.discountCriteriaRepository.create({
-            ...c,
-            userSegment,
-          }),
-        ),
-      );
-    }
-
-    if (dto.transactionCriteria?.length) {
-      await this.transactionCriteriaRepository.save(
-        dto.transactionCriteria.map((c) =>
-          this.transactionCriteriaRepository.create({
-            ...c,
-            rules: c.rule,
-            userSegment,
-          }),
-        ),
-      );
-    }
-  }
-
-  private async createProductSegment(dto: CreateSegmentDto, segment: Segment) {
-    const productSegment = await this.productSegmentRepository.save(
-      this.productSegmentRepository.create({ segment }),
-    );
-
-    if (dto.productInteraction?.length) {
-      await this.productInteractionRepository.save(
-        dto.productInteraction.map((c) =>
-          this.productInteractionRepository.create({
-            ...c,
-            ProductSegment: productSegment,
-          }),
-        ),
-      );
-    }
-
-    if (dto.stockLevel?.length) {
-      await this.stockLevelRepository.save(
-        dto.stockLevel.map((c) =>
-          this.stockLevelRepository.create({
-            ...c,
-            ProductSegment: productSegment,
-          }),
-        ),
-      );
-    }
-
-    if (dto.purchaseFrequency?.length) {
-      await this.purchaseFrequencyRepository.save(
-        dto.purchaseFrequency.map((c) =>
-          this.purchaseFrequencyRepository.create({
-            ...c,
-            ProductSegment: productSegment,
-          }),
-        ),
-      );
-    }
-
-    if (dto.priceBased?.length) {
-      await this.priceBasedRepository.save(
-        dto.priceBased.map((c) =>
-          this.priceBasedRepository.create({
-            ...c,
-            ProductSegment: productSegment,
-          }),
-        ),
-      );
-    }
-  }
 
   async CreateAdvancedSegment(dto: CreateSegmentDto) {
     const parentSegment = this.parentSegmentRepo.create({

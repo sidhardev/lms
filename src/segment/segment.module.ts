@@ -15,6 +15,8 @@ import { PurchaseFrequency } from './entites/purchase-frequency.entity';
 import { StockLevel } from './entites/stock-level.entity';
 import { ParentSegment } from './entites/segment.entity';
 import { AdvancedSegment } from './entites/advance-segment.entity';
+import { UsersService } from './users.service';
+import { ProductsService } from './products.service';
 
 @Module({
   imports: [
@@ -35,6 +37,6 @@ import { AdvancedSegment } from './entites/advance-segment.entity';
     ]),
   ],
   controllers: [SegmentController],
-  providers: [SegmentService],
+  providers: [SegmentService, ProductsService, UsersService],
 })
 export class SegmentModule {}

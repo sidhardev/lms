@@ -41,14 +41,14 @@ export class CreateSegmentDto {
   description: string;
 
   @ApiProperty({
-    example: SegmentType,
+    example: SegmentType.BASIC_SEGMENT,
   })
   @IsEnum(SegmentType)
   segmentType: SegmentType;
 
   @ApiProperty({
     enum: BasicSegmentType,
-    example: BasicSegmentType,
+    example: BasicSegmentType.USER_SEGMENT,
   })
   @IsEnum(BasicSegmentType)
   @IsOptional()
