@@ -139,5 +139,6 @@ export class CreateSegmentDto {
   inclusion_status: inclusion_status;
 
   @IsOptional()
+  
   selectedSegment: number[];
 }

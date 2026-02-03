@@ -36,7 +36,7 @@ export class SegmentController {
 
   @Get('/:id')
   @ApiOperation({ summary: 'Get segments by ID' })
-  findById(@Param('id') id: number) {
+  findById(@Param('id', ParseIntPipe) id: number) {
     return this.segmentService.findById(id);
   }
 
