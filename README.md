@@ -194,10 +194,10 @@ Segments based on inventory and product characteristics:
 - `GET /campaigns/get?page=1&limit=10` - List all campaigns (paginated)
 - `GET /campaigns/discount-coupon/active` - Get active campaigns
 - `PATCH /campaigns/discount-coupon/:id/status` - Change campaign status
-- `DELETE /campaigns/coupon/:id` - Delete campaign
+- `DELETE /campaigns/:id` - Delete campaign
 
 ### Promotions
-- `POST /promotion` - Create new promotion
+- `POST /promotion/create` - Create new promotion
 - `GET /promotion/get?page=1&limit=10` - List promotions (paginated)
 - `DELETE /promotion/delete/:id` - Delete promotion
 
@@ -267,6 +267,7 @@ MAIL_USER=your_email@domain.com
 MAIL_PASS=your_email_password
 PORT=3000
 ```
+> ⚠️ **Note:** TypeORM is configured with `synchronize: true` for automatic schema sync, which is convenient for development but risky in production. Disable it for production deployments.
 
 ### Installation & Running
 ```bash
@@ -277,10 +278,10 @@ npm install
 npm run dev
 
 # Build for production
-npm build
+npm run build
 
 # Start production server
-npm start:prod
+npm run start:prod
 ```
 
 ### API Documentation
